@@ -5,29 +5,29 @@ include Makefile.git
 Submit_Script = scripts/submit
 
 nemu: 
-	$(call git_commit, "compile nemu testcase kernel")
+	$(call git_commit, "compile nemu testcase kernel", $(TIME_MAKE))
 	cd nemu && make
 	cd testcase && make
 	cd kernel && make
 
 run: nemu
-	$(call git_commit, "run")
+	$(call git_commit, "run", $(TIME_MAKE))
 	./nemu/nemu --testcase add
 
 run-kernel: nemu
-	$(call git_commit, "run-kernel")
+	$(call git_commit, "run-kernel", $(TIME_MAKE))
 	./nemu/nemu --kernel --testcase add
 
 debug: nemu
-	$(call git_commit, "debug")
+	$(call git_commit, "debug", $(TIME_MAKE))
 	gdb -ex=run --args ./nemu/nemu --testcase add
 
 game:
-	$(call git_commit, "compile game")
+	$(call git_commit, "compile game", $(TIME_MAKE))
 	cd game && make
 
 clean: 
-	$(call git_commit, "clean")
+	$(call git_commit, "clean", $(TIME_MAKE))
 	cd nemu && make clean
 	cd game && make clean
 	cd testcase && make clean
@@ -36,7 +36,7 @@ clean:
 # local tests to different stages of PA
 
 test_pa-1: nemu 
-	$(call git_commit, "test_pa-1")
+	$(call git_commit, "test_pa-1", $(TIME_MAKE))
 	./nemu/nemu --test-reg
 	./nemu/nemu --test-alu add
 	./nemu/nemu --test-alu adc
@@ -59,7 +59,7 @@ test_pa-1: nemu
 	./nemu/nemu --test-fpu div
 
 test_pa-2-1: nemu 
-	$(call git_commit, "test_pa-2-1")
+	$(call git_commit, "test_pa-2-1", $(TIME_MAKE))
 	./nemu/nemu --autorun --testcase mov
 	./nemu/nemu --autorun --testcase mov-cmp
 	./nemu/nemu --autorun --testcase mov-c
@@ -93,82 +93,82 @@ test_pa-2-1: nemu
 	./nemu/nemu --autorun --testcase test-float
 
 test_pa-2-2: nemu 
-	$(call git_commit, "test_pa-2-2")
+	$(call git_commit, "test_pa-2-2", $(TIME_MAKE))
 	make test_batch-2-2-mute
 
 test_pa-2-3: nemu 
-	$(call git_commit, "test_pa-2-3")
+	$(call git_commit, "test_pa-2-3", $(TIME_MAKE))
 	echo "\e[0;31mTest expressions yourself\e[0m"
 	./nemu/nemu --testcase add --kernel
 
 test_pa-3-1: nemu
-	$(call git_commit, "test_pa-3-1")
+	$(call git_commit, "test_pa-3-1", $(TIME_MAKE))
 	make test_batch-2-2-mute
 
 test_pa-3-2: nemu
-	$(call git_commit, "test_pa-3-2")
+	$(call git_commit, "test_pa-3-2", $(TIME_MAKE))
 	make test_batch-2-2-mute
 
 test_pa-3-3: nemu 
-	$(call git_commit, "test_pa-3-3")
+	$(call git_commit, "test_pa-3-3", $(TIME_MAKE))
 	make test_batch-3-3-mute
 
 test_pa-4-1: nemu
-	$(call git_commit, "test_pa-4-1")
+	$(call git_commit, "test_pa-4-1", $(TIME_MAKE))
 	make test_batch-3-3-mute
 	./nemu/nemu --autorun --testcase hello-inline --kernel
 
 test_pa-4-2: nemu
-	$(call git_commit, "test_pa-4-2")
+	$(call git_commit, "test_pa-4-2", $(TIME_MAKE))
 	make test_batch-3-3-mute
 	./nemu/nemu --autorun --testcase hello-inline --kernel
 	./nemu/nemu --autorun --testcase echo --kernel
 
 test_pa-4-3: nemu game
-	$(call git_commit, "test_pa-4-3")
+	$(call git_commit, "test_pa-4-3", $(TIME_MAKE))
 	./nemu/nemu --test-game $(STU_ID) --kernel --autorun
 
 
 # submit to different stages of PA
 
 submit_pa-1: 
-	$(call git_commit, "submit_pa-1")
+	$(call git_commit, "submit_pa-1", $(TIME_MAKE))
 	$(Submit_Script) pa-1 $(STU_ID)
 
 submit_pa-2-1: 
-	$(call git_commit, "submit_pa-2-1")
+	$(call git_commit, "submit_pa-2-1", $(TIME_MAKE))
 	$(Submit_Script) pa-2-1 $(STU_ID)
 
 submit_pa-2-2: 
-	$(call git_commit, "submit_pa-2-2")
+	$(call git_commit, "submit_pa-2-2", $(TIME_MAKE))
 	$(Submit_Script) pa-2-2 $(STU_ID)
 
 submit_pa-2-3: 
-	$(call git_commit, "submit_pa-2-3")
+	$(call git_commit, "submit_pa-2-3", $(TIME_MAKE))
 	$(Submit_Script) pa-2-3 $(STU_ID)
 
 submit_pa-3-1:
-	$(call git_commit, "submit_pa-3-1")
+	$(call git_commit, "submit_pa-3-1", $(TIME_MAKE))
 	$(Submit_Script) pa-3-1 $(STU_ID)
 
 submit_pa-3-2: 
-	$(call git_commit, "submit_pa-3-2")
+	$(call git_commit, "submit_pa-3-2", $(TIME_MAKE))
 	$(Submit_Script) pa-3-2 $(STU_ID)
 
 submit_pa-3-3: 
-	$(call git_commit, "submit_pa-3-3")
+	$(call git_commit, "submit_pa-3-3", $(TIME_MAKE))
 	$(Submit_Script) pa-3-3 $(STU_ID)
 
 submit_pa-4-1: 
-	$(call git_commit, "submit_pa-4-1")
+	$(call git_commit, "submit_pa-4-1", $(TIME_MAKE))
 	$(Submit_Script) pa-4-1 $(STU_ID)
 
 submit_pa-4-2: 
-	$(call git_commit, "submit_pa-4-2")
+	$(call git_commit, "submit_pa-4-2", $(TIME_MAKE))
 	$(Submit_Script) pa-4-2 $(STU_ID)
 
 submit_pa-4-3: 
-	$(call git_commit, "submit_pa-4-3")
+	$(call git_commit, "submit_pa-4-3", $(TIME_MAKE))
 	$(Submit_Script) pa-4-3 $(STU_ID)
 
 # DO NOT call the following targets directly
