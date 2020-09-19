@@ -15,12 +15,10 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     if(sub && useCF){
         ++Y;
     }
-    if(sub && useCF) printf("Hi\n");
     if(sub && useCF){
         printb(X, data_size); printf(" ");
         printb(Y, data_size); printf("\n");
     } 
-    if(sub && useCF) printf("Hi\n");
     Y = sub ? ~Y : Y;
     if(sub && useCF){
         printb(X, data_size); printf(" ");
