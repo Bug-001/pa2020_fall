@@ -78,6 +78,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     // OF
     cpu.eflags.OF = C ^ lastC;
     // return
+    printf("%d+%d=%d\n", X, Y, result);
     return result;
 }
 
