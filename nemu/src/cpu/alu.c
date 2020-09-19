@@ -14,7 +14,7 @@ void set_PF(uint32_t ret, size_t data_size)
         pf ^= (ret & 1);
         ret >>= 1;
     }
-    cpu.eflags.PF = ~pf;
+    cpu.eflags.PF = pf;
 }
 
 // void set_AF()
@@ -42,20 +42,58 @@ void set_OF(uint32_t src, uint32_t dest, uint32_t ret, size_t data_size)
     cpu.eflags.OF = (sign(src) == sign(dest)) & (sign(src) ^ sign(ret));
 }
 
+uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
+    uint32_t C = useCF ? cpu.eflags.CF : 0;
+    uint32_t lastC;
+    X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    Y = sub ? ~Y : Y;
+    uint32_t result = 0;
+    for(int i = data_size; i > 0; --i){
+        uint32_t x = X & 1;
+        uint32_t y = Y & 1;
+        result += (x ^ y ^ C) << 31;
+        lastC = C;
+        C = ((x & y) | (x & C) | (y & C)) & 1;
+        X >>= 1;
+        Y >>= 1;
+        result >>= 1;
+    }
+    result >>= (32 - data_size);
+    // CF
+    cpu.eflags.CF = sub ^ C;
+    // PF
+    uint8_t pf = 1;
+    uint32_t result_temp = result;
+    for(uint8_t i = 8; i > 0; --i){
+        pf ^= (result_temp & 1);
+        result_temp >>= 1;
+    }
+    cpu.eflags.PF = pf;
+    // AF
+    // ZF
+    cpu.eflags.ZF = (ret == 0);
+    // SF
+    cpu.eflags.SF = sign(sign_ext(result), data_size));
+    // OF
+    cpu.eflags.OF = C ^ lastC;
+}
+
 uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
 	return __ref_alu_add(src, dest, data_size);
 #else
-	uint32_t ret = src + dest;
-	// CF PF AF ZF SF OF
-	set_CF(src, ret, 0, data_size);
-	set_PF(ret, data_size);
-	// set_AF();
-	set_ZF(ret, data_size);
-	set_SF(ret, data_size);
-	set_OF(src, dest, ret, data_size);
-	return ret & (0xFFFFFFFF >> (32 - data_size));
+// 	uint32_t ret = src + dest;
+// 	// CF PF AF ZF SF OF
+// 	set_CF(src, ret, 0, data_size);
+// 	set_PF(ret, data_size);
+// 	// set_AF();
+// 	set_ZF(ret, data_size);
+// 	set_SF(ret, data_size);
+// 	set_OF(src, dest, ret, data_size);
+// 	return ret & (0xFFFFFFFF >> (32 - data_size));
+    return adder(src, dest, 0, 0, data_size);
 #endif
 }
 
@@ -64,10 +102,15 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_adc(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	// CF PF AF ZF SF OF
+	uint32_t ret = src + dest + cpu.eflags.CF;
+	set_CF(src, ret, 0, data_size); // TODO
+	set_PF(ret, data_size);
+	// set_AF();
+	set_ZF(ret, data_size);
+	set_SF(ret, data_size);
+	set_OF(src, dest, ret, data_size); // TODO
+	return ret & (0xFFFFFFFF >> (32 - data_size));
 #endif
 }
 
