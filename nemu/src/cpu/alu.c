@@ -61,7 +61,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
         result >>= 1;
         printf("%d, %d\n", data_size - i, result);
     }
-    result >>= (32 - data_size);
+    result >>= (31 - data_size);
     // CF
     cpu.eflags.CF = sub ^ C;
     // PF
