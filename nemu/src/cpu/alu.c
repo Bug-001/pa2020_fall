@@ -44,7 +44,7 @@ void set_OF(uint32_t src, uint32_t dest, uint32_t ret, size_t data_size)
 
 uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     uint32_t C = useCF ? cpu.eflags.CF : 0;
-    uint32_t lastC;
+    uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sub ? ~Y : Y;
