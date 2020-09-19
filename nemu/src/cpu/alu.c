@@ -14,7 +14,7 @@ void set_PF(uint32_t ret, size_t data_size)
         pf ^= (ret & 1);
         ret >>= 1;
     }
-    cpu.eflags.PF = pf;
+    cpu.eflags.PF = ~pf;
 }
 
 // void set_AF()
