@@ -1,7 +1,7 @@
 #include "cpu/cpu.h"
 
 void printb(uint32_t n){
-    printb(n/2);
+    printb(n >> 1);
     printf("%d", n%2);
 }
 
