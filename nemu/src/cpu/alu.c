@@ -61,6 +61,10 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     } 
     // if(sub) printf("Hi\n");
     Y = sub ? ~Y : Y;
+    if(sub){
+        printb(X); printf(" ");
+        printb(Y); printf("\n");
+    } 
     uint32_t result = 0;
     for(int i = data_size; i > 0; --i){
         result >>= 1;
