@@ -113,7 +113,7 @@ void alu_test_add() {
 	}
 
 	srand(time(0));
-	for(i = 0 ; i < 1000000 ; i++) {
+	for(i = 0 ; i < 10 ; i++) {
 		a = rand();
 		b = rand();
 		{internel_alu_test_CPSZO(alu_add, 32, "addl %%ecx, %%eax;")}
@@ -150,7 +150,7 @@ void alu_test_adc() {
 	}
 
 	srand(time(0));
-	for(i = 0 ; i < 1000000 ; i++) {
+	for(i = 0 ; i < 10 ; i++) {
 		a = rand();
 		b = rand();
 		{internel_alu_test_CPSZO_clc(alu_adc, 32, "adcl %%ecx, %%eax;")}
@@ -158,7 +158,7 @@ void alu_test_adc() {
 		{internel_alu_test_CPSZO_clc(alu_adc, 8 , "adcb %%cl, %%al;")}
 	}
 
-	for(i = 0 ; i < 1000000 ; i++) {
+	for(i = 0 ; i < 10 ; i++) {
 		a = rand();
 		b = rand();
 		{internel_alu_test_CPSZO_stc(alu_adc, 32, "adcl %%ecx, %%eax;")}
