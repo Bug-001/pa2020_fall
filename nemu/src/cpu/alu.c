@@ -1,10 +1,10 @@
 #include "cpu/cpu.h"
 
 void printb(uint32_t n){
-    if(n > 0){
-        printb(n >> 1);
+    for(int i = 31; i >= 0; --i){
+        printf("%d", n >> i);
+        if(i % 4 == 0) printf(" ");
     }
-    printf("%d", n%2);
 }
 
 void set_CF(uint32_t src, uint32_t ret, bool sub, size_t data_size)
