@@ -22,7 +22,7 @@ void set_ZF(uint32_t result, size_t data_size)
 
 void set_PF(uint32_t result, size_t data_size)
 {
-    uint8_t pf = 1;
+    bool pf = 1;
     for(uint8_t i = 8; i > 0; --i)
     {
         pf ^= (result & 1);
@@ -62,7 +62,8 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
     // PF
     uint8_t pf = 1;
     uint32_t result_temp = result;
-    for(uint8_t i = 8; i > 0; --i){
+    for(uint8_t i = 8; i > 0; --i)
+    {
         pf ^= (result_temp & 1);
         result_temp >>= 1;
     }
