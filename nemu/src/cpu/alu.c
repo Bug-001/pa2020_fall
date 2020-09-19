@@ -48,11 +48,10 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
     // printf("%d, %d\n", X, Y);
-    Y = sub ? ~Y : Y;
-    // if(sub){
-    //     Y = ~Y;
-    //     C = 1;
-    // }
+    if(sub){
+        Y = ~Y;
+        C = 1;
+    }
     uint32_t result = 0;
     for(int i = data_size; i > 0; --i){
         result >>= 1;
@@ -65,6 +64,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
         X >>= 1;
         Y >>= 1;
     }
+    result >>= (32 - data_size);
     // printf("%d\n\n", result);
     // CF
     cpu.eflags.CF = sub ^ C;
