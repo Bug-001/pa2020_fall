@@ -13,7 +13,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
     if(sub && useCF){
-        ++Y;
+        Y += cpu.eflags.CF;
     }
     if(sub && useCF){
         printb(X, data_size); printf(" ");
