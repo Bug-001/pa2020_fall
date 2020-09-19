@@ -15,36 +15,36 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     if(sub && useCF){
         ++Y;
     }
-    // if(sub) printf("Hi\n");
-    // if(sub){
-    //     printb(X, data_size); printf(" ");
-    //     printb(Y, data_size); printf("\n");
-    // } 
-    // if(sub) printf("Hi\n");
+    if(sub && useCF) printf("Hi\n");
+    if(sub && useCF){
+        printb(X, data_size); printf(" ");
+        printb(Y, data_size); printf("\n");
+    } 
+    if(sub && useCF) printf("Hi\n");
     Y = sub ? ~Y : Y;
-    // if(sub){
-    //     printb(X, data_size); printf(" ");
-    //     printb(Y, data_size); printf("\n");
-    // } 
+    if(sub && useCF){
+        printb(X, data_size); printf(" ");
+        printb(Y, data_size); printf("\n");
+    } 
     uint32_t result = 0;
     for(int i = data_size; i > 0; --i){
         result >>= 1;
         uint32_t x = X & 1;
         uint32_t y = Y & 1;
         result += ((x ^ y ^ C) << 31);
-        // if(sub){
-        //     printb(result, data_size);
-        //     printf("\n");
-        // } 
+        if(sub && useCF){
+            printb(result, data_size);
+            printf("\n");
+        } 
         lastC = C;
         C = ((x & y) | (x & C) | (y & C)) & 1;
         X >>= 1;
         Y >>= 1;
     }
     result >>= (32 - data_size);
-    // if(sub){
-    //     printb(result, data_size); printf("\n\n");
-    // } 
+    if(sub && useCF){
+        printb(result, data_size); printf("\n\n");
+    } 
     // CF
     cpu.eflags.CF = sub ^ C;
     // PF
