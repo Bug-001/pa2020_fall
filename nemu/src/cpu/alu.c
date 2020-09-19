@@ -10,7 +10,7 @@ void printb(uint32_t n, size_t data_size){
 
 void set_SF(uint32_t result, size_t data_size)
 {
-    result = sign_ext(result & (0xFFFFFFFF >> (32 - data_size)));
+    result = sign_ext(result & (0xFFFFFFFF >> (32 - data_size)), data_size);
     cpu.eflags.SF = sign(result);
 }
 
@@ -194,7 +194,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 	return __ref_alu_and(src, dest, data_size);
 #else
     src &= (0xFFFFFFFF >> (32 - data_size));
-    dset &= (0xFFFFFFFF >> (32 - data_size));
+    dest &= (0xFFFFFFFF >> (32 - data_size));
     uint32_t result = src & dest;
 	cpu.eflags.CF = 0;
 	cpu.eflags.OF = 0;
