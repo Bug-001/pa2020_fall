@@ -1,7 +1,8 @@
 #include "cpu/cpu.h"
 
 void printb(uint32_t n, size_t data_size){
-    for(int i = data_size - 1; i >= 0; --i){
+    for(int i = data_size - 1; i >= 0; --i)
+    {
         printf("%d", (n >> i) & 1);
         if(i % 4 == 0) printf(" ");
     }
@@ -22,7 +23,8 @@ void set_ZF(uint32_t result, size_t data_size)
 void set_PF(uint32_t result, size_t data_size)
 {
     uint8_t pf = 1;
-    for(uint8_t i = 8; i > 0; --i){
+    for(uint8_t i = 8; i > 0; --i)
+    {
         pf ^= (result & 1);
         result >>= 1;
     }
@@ -43,7 +45,8 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
     Y = sub ? ~Y : Y;
     // FA Core
     uint32_t result = 0;
-    for(int i = data_size; i > 0; --i){
+    for(int i = data_size; i > 0; --i)
+    {
         result >>= 1;
         uint32_t x = X & 1;
         uint32_t y = Y & 1;
