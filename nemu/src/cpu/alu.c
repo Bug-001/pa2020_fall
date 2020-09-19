@@ -9,11 +9,10 @@ void set_CF(uint32_t src, uint32_t ret, bool sub, size_t data_size)
 
 void set_PF(uint32_t ret, size_t data_size)
 {
-    uint8_t temp = ret;
     uint8_t pf = 1;
     for(uint8_t i = 8; i > 0; --i){
         pf ^= (ret & 1);
-        ret >> 1;
+        ret >>= 1;
     }
     cpu.eflags.PF = pf;
 }
@@ -32,7 +31,7 @@ void set_ZF(uint32_t ret, size_t data_size)
 void set_SF(uint32_t ret, size_t data_size)
 {
     ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    cpu.eflags.SF = sign(ret)
+    cpu.eflags.SF = sign(ret);
 }
 
 void set_OF(uint32_t src, uint32_t dest, uint32_t ret, size_t data_size)
@@ -51,10 +50,10 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	uint32_t ret = src + dest;
 	// CF PF AF ZF SF OF
 	set_CF(src, ret, 0, data_size);
-	set_PF(ret);
+	set_PF(ret, data_size);
 	// set_AF();
-	set_ZF(ret);
-	set_SF(ret);
+	set_ZF(ret, data_size);
+	set_SF(ret, data_size);
 	set_OF(src, dest, ret, data_size);
 	return ret & (0xFFFFFFFF >> (32 - data_size));
 #endif
