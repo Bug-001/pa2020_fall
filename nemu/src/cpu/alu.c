@@ -54,17 +54,17 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    if(sub) printf("Hi\n");
-    if(sub){
-        printb(X, data_size); printf(" ");
-        printb(Y, data_size); printf("\n");
-    } 
+    // if(sub) printf("Hi\n");
+    // if(sub){
+    //     printb(X, data_size); printf(" ");
+    //     printb(Y, data_size); printf("\n");
+    // } 
     // if(sub) printf("Hi\n");
     Y = sub ? ~Y : Y;
-    if(sub){
-        printb(X, data_size); printf(" ");
-        printb(Y, data_size); printf("\n");
-    } 
+    // if(sub){
+    //     printb(X, data_size); printf(" ");
+    //     printb(Y, data_size); printf("\n");
+    // } 
     uint32_t result = 0;
     for(int i = data_size; i > 0; --i){
         result >>= 1;
@@ -81,9 +81,9 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
         Y >>= 1;
     }
     result >>= (32 - data_size);
-    if(sub){
-        printb(result, data_size); printf("\n\n");
-    } 
+    // if(sub){
+    //     printb(result, data_size); printf("\n\n");
+    // } 
     // CF
     cpu.eflags.CF = sub ^ C;
     // PF
@@ -102,9 +102,6 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     // OF
     cpu.eflags.OF = C ^ lastC;
     // return
-    if(sub){
-        printb(result, data_size); printf("\n\n");
-    } 
     return result;
 }
 
