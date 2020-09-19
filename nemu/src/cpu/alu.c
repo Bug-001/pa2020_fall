@@ -1,7 +1,9 @@
 #include "cpu/cpu.h"
 
 void printb(uint32_t n){
-    printb(n >> 1);
+    if(n > 0){
+        printb(n >> 1);
+    }
     printf("%d", n%2);
 }
 
@@ -52,11 +54,11 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    // if(sub) printf("Hi\n");
-    // if(sub){
-    //     printb(X); printf(" ");
-    //     printb(Y); printf("\n");
-    // } 
+    if(sub) printf("Hi\n");
+    if(sub){
+        printb(X); printf(" ");
+        printb(Y); printf("\n");
+    } 
     // if(sub) printf("Hi\n");
     Y = sub ? ~Y : Y;
     uint32_t result = 0;
