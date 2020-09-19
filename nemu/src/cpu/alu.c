@@ -86,15 +86,6 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_add(src, dest, data_size);
 #else
-// 	uint32_t ret = src + dest;
-// 	// CF PF AF ZF SF OF
-// 	set_CF(src, ret, 0, data_size);
-// 	set_PF(ret, data_size);
-// 	// set_AF();
-// 	set_ZF(ret, data_size);
-// 	set_SF(ret, data_size);
-// 	set_OF(src, dest, ret, data_size);
-// 	return ret & (0xFFFFFFFF >> (32 - data_size));
     return adder(src, dest, 0, 0, data_size);
 #endif
 }
@@ -104,15 +95,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_adc(src, dest, data_size);
 #else
-	// CF PF AF ZF SF OF
-	uint32_t ret = src + dest + cpu.eflags.CF;
-	set_CF(src, ret, 0, data_size); // TODO
-	set_PF(ret, data_size);
-	// set_AF();
-	set_ZF(ret, data_size);
-	set_SF(ret, data_size);
-	set_OF(src, dest, ret, data_size); // TODO
-	return ret & (0xFFFFFFFF >> (32 - data_size));
+    return adder(src, dest, 0, 1, data_size);
 #endif
 }
 
