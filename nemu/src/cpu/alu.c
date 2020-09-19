@@ -1,14 +1,62 @@
 #include "cpu/cpu.h"
 
+void set_CF(uint32_t src, uint32_t ret, bool sub, size_t data_size)
+{
+    src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    cpu.eflags.CF = ((ret < src) ^ sub);
+}
+
+void set_PF(uint32_t ret, size_t data_size)
+{
+    uint8_t temp = ret;
+    uint8_t pf = 1;
+    for(uint8_t i = 8; i > 0; --i){
+        pf ^= (ret & 1);
+        ret >> 1;
+    }
+    cpu.eflags.PF = pf;
+}
+
+// void set_AF()
+// {
+    
+// }
+
+void set_ZF(uint32_t ret, size_t data_size)
+{
+    ret = ret & (0xFFFFFFFF >> (32 - data_size));
+    cpu.eflags.ZF = (ret == 0);
+}
+
+void set_SF(uint32_t ret, size_t data_size)
+{
+    ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    cpu.eflags.SF = sign(ret)
+}
+
+void set_OF(uint32_t src, uint32_t dest, uint32_t ret, size_t data_size)
+{
+    src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    cpu.eflags.OF = (sign(src) == sign(dest)) & (sign(src) ^ sign(ret));
+}
+
 uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
 	return __ref_alu_add(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	uint32_t ret = src + dest;
+	// CF PF AF ZF SF OF
+	set_CF(src, ret, 0, data_size);
+	set_PF(ret);
+	// set_AF();
+	set_ZF(ret);
+	set_SF(ret);
+	set_OF(src, dest, ret, data_size);
+	return ret & (0xFFFFFFFF >> (32 - data_size));
 #endif
 }
 
