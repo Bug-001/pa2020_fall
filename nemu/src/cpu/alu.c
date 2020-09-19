@@ -1,5 +1,10 @@
 #include "cpu/cpu.h"
 
+void printb(uint32_t n){
+    printb(n/2);
+    printf("%d", n%2);
+}
+
 void set_CF(uint32_t src, uint32_t ret, bool sub, size_t data_size)
 {
     src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
@@ -47,24 +52,29 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    if(sub) printf("%d, %d\n", X, Y);
     if(sub){
-        Y = ~Y;
-    }
+        printb(X); printf(" ");
+        printb(Y); printf("\n");
+    } 
+    Y = sub ? ~Y : Y;
     uint32_t result = 0;
     for(int i = data_size; i > 0; --i){
         result >>= 1;
         uint32_t x = X & 1;
         uint32_t y = Y & 1;
         result += ((x ^ y ^ C) << 31);
-        if(sub) printf("%d\n", result);
+        if(sub){
+            printb(result); printf("\n");
+        } 
         lastC = C;
         C = ((x & y) | (x & C) | (y & C)) & 1;
         X >>= 1;
         Y >>= 1;
     }
     result >>= (32 - data_size);
-    if(sub) printf("%d\n\n", result);
+    if(sub){
+        printb(result); printf("\n");
+    } 
     // CF
     cpu.eflags.CF = sub ^ C;
     // PF
