@@ -7,53 +7,14 @@ void printb(uint32_t n, size_t data_size){
     }
 }
 
-void set_CF(uint32_t src, uint32_t ret, bool sub, size_t data_size)
-{
-    src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    cpu.eflags.CF = ((ret < src) ^ sub);
-}
-
-void set_PF(uint32_t ret, size_t data_size)
-{
-    uint8_t pf = 1;
-    for(uint8_t i = 8; i > 0; --i){
-        pf ^= (ret & 1);
-        ret >>= 1;
-    }
-    cpu.eflags.PF = pf;
-}
-
-// void set_AF()
-// {
-    
-// }
-
-void set_ZF(uint32_t ret, size_t data_size)
-{
-    ret = ret & (0xFFFFFFFF >> (32 - data_size));
-    cpu.eflags.ZF = (ret == 0);
-}
-
-void set_SF(uint32_t ret, size_t data_size)
-{
-    ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    cpu.eflags.SF = sign(ret);
-}
-
-void set_OF(uint32_t src, uint32_t dest, uint32_t ret, size_t data_size)
-{
-    src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    ret = sign_ext(ret & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    cpu.eflags.OF = (sign(src) == sign(dest)) & (sign(src) ^ sign(ret));
-}
-
 uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     uint32_t C = useCF ? cpu.eflags.CF : sub;
     uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
+    if(sub && useCF){
+        ++Y;
+    }
     // if(sub) printf("Hi\n");
     // if(sub){
     //     printb(X, data_size); printf(" ");
