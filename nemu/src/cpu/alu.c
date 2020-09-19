@@ -7,40 +7,53 @@ void printb(uint32_t n, size_t data_size){
     }
 }
 
-uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
+void set_SF(uint32_t result, size_t data_size)
+{
+    result = sign_ext(result & (0xFFFFFFFF >> (32 - data_size)));
+    cpu.eflags.SF = sign(result);
+}
+
+void set_ZF(uint32_t result, size_t data_size)
+{
+    result &= (0xFFFFFFFF >> (32 - data_size));
+    cpu.eflags.ZF = (result == 0);
+}
+
+void set_PF(uint32_t result, size_t data_size)
+{
+    uint8_t pf = 1;
+    for(uint8_t i = 8; i > 0; --i){
+        pf ^= (result & 1);
+        result >>= 1;
+    }
+    cpu.eflags.PF = pf;
+}
+
+uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
+{
+    // sub == 0, useCF == 0 -> C == 0      == sub == sub + 0
+    // sub == 0, useCF == 1 -> C ==     CF ==        sub + CF
+    // sub == 1, useCF == 0 -> C == 1      == sub == sub + 0
+    // sub == 1, useCF == 1 -> C == 1 - CF ==        sub - CF
     cpu.eflags.CF = useCF ? cpu.eflags.CF : 0;
     uint32_t C = sub ? sub - cpu.eflags.CF : sub + cpu.eflags.CF;
     uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
-    // if(sub && useCF){
-    //     printb(X, data_size); printf(" ");
-    //     printb(Y, data_size); printf("\n");
-    // } 
     Y = sub ? ~Y : Y;
-    // if(sub && useCF){
-    //     printb(X, data_size); printf(" ");
-    //     printb(Y, data_size); printf("\n");
-    // } 
+    // FA Core
     uint32_t result = 0;
     for(int i = data_size; i > 0; --i){
         result >>= 1;
         uint32_t x = X & 1;
         uint32_t y = Y & 1;
         result += ((x ^ y ^ C) << 31);
-        // if(sub && useCF){
-        //     printb(result, data_size);
-        //     printf("\n");
-        // } 
         lastC = C;
         C = ((x & y) | (x & C) | (y & C)) & 1;
         X >>= 1;
         Y >>= 1;
     }
     result >>= (32 - data_size);
-    // if(sub && useCF){
-    //     printb(result, data_size); printf("\n\n");
-    // } 
     // CF
     cpu.eflags.CF = sub ^ C;
     // PF
@@ -177,10 +190,15 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_and(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+    src &= (0xFFFFFFFF >> (32 - data_size));
+    dset &= (0xFFFFFFFF >> (32 - data_size));
+    uint32_t result = src & dest;
+	cpu.eflags.CF = 0;
+	cpu.eflags.OF = 0;
+	set_SF(result, data_size);
+	set_ZF(result, data_size);
+	set_PF(result, data_size);
+	return result;
 #endif
 }
 
