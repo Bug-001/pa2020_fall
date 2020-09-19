@@ -53,7 +53,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
         uint32_t x = X & 1;
         uint32_t y = Y & 1;
         result += ((x ^ y ^ C) << 31);
-        printf("%d, %d\n", 32 - data_size, result);
+        printf("%d, %d\n", 32 - i, result);
         lastC = C;
         C = ((x & y) | (x & C) | (y & C)) & 1;
         X >>= 1;
