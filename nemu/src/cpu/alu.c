@@ -77,6 +77,8 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
     cpu.eflags.SF = sign(sign_ext(result, data_size));
     // OF
     cpu.eflags.OF = C ^ lastC;
+    // return
+    return result;
 }
 
 uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
