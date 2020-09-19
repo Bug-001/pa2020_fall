@@ -8,7 +8,12 @@ void printb(uint32_t n, size_t data_size){
 }
 
 uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size){
-    uint32_t C = useCF ? cpu.eflags.CF : sub;
+    uint32_t C;
+    if(useCF){
+        C = sub;
+    }else{
+        C = sub ? sub - cpu.eflags.CF : sub + cpu.eflags.CF;
+    }
     uint32_t lastC = C;
     X = sign_ext(X & (0xFFFFFFFF >> (32 - data_size)), data_size);
     Y = sign_ext(Y & (0xFFFFFFFF >> (32 - data_size)), data_size);
