@@ -2,7 +2,7 @@
 
 void printb(uint32_t n){
     for(int i = 31; i >= 0; --i){
-        printf("%d", n >> i);
+        printf("%d", (n >> i) & 1);
         if(i % 4 == 0) printf(" ");
     }
 }
