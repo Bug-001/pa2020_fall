@@ -85,7 +85,7 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
         default:
             result = X ^ Y; // xor
     }
-    // result &= (0xFFFFFFFF >> (32 - data_size));
+    result &= (0xFFFFFFFF >> (32 - data_size));
 	cpu.eflags.CF = 0;
 	cpu.eflags.OF = 0;
 	set_SF(result, data_size);
@@ -237,7 +237,8 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_and(src, dest, data_size);
 #else
-    return gate(dest, src, 0, data_size);
+    return src & dest;
+    // return gate(dest, src, 0, data_size);
 #endif
 }
 
