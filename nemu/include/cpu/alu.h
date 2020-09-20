@@ -4,7 +4,20 @@
 #include <cpu-ref/alu_ref.h>
 
 // enable NEMU_REF_ALU to use reference implementation
-// #define NEMU_REF_ALU
+#define NEMU_REF_ALU
+
+// flag-setting functions
+void set_SF(uint32_t result, size_t data_size);
+void set_ZF(uint32_t result, size_t data_size);
+void set_PF(uint32_t result, size_t data_size);
+
+// Core functions
+// add, adc, sub, sbb
+uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size);
+// and, or, xor
+uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size);
+// shl, sal, shr, sar
+uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_size);
 
 // dest + src
 uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size);
