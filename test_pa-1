@@ -977,3 +977,47 @@ Sun Sep 20 11:59:44 CST 2020
 make-[1]: Entering directory '/home/pa191850169/pa2020_fall/kernel'
 make-[1]: 'kernel' is up to date.
 make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/kernel'
+./nemu/nemu --test-reg
+NEMU execute built-in tests
+reg_test()      [0;32mpass[0m
+./nemu/nemu --test-alu add
+NEMU execute built-in tests
+alu_test_add()  [0;32mpass[0m
+./nemu/nemu --test-alu adc
+NEMU execute built-in tests
+alu_test_adc()  [0;32mpass[0m
+./nemu/nemu --test-alu sub
+NEMU execute built-in tests
+alu_test_sub()  [0;32mpass[0m
+./nemu/nemu --test-alu sbb
+NEMU execute built-in tests
+alu_test_sbb()  [0;32mpass[0m
+./nemu/nemu --test-alu and
+NEMU execute built-in tests
+alu_test_and()  [0;32mpass[0m
+./nemu/nemu --test-alu or
+NEMU execute built-in tests
+alu_test_or()   [0;32mpass[0m
+./nemu/nemu --test-alu xor
+NEMU execute built-in tests
+alu_test_xor()  [0;32mpass[0m
+./nemu/nemu --test-alu shl
+NEMU execute built-in tests
+alu_test_shl()  [0;32mpass[0m
+./nemu/nemu --test-alu shr
+NEMU execute built-in tests
+alu_test_shr()  [0;32mpass[0m
+./nemu/nemu --test-alu sal
+NEMU execute built-in tests
+alu_test_sal()  [0;32mpass[0m
+./nemu/nemu --test-alu sar
+NEMU execute built-in tests
+alu_test_sar()  [0;32mpass[0m
+./nemu/nemu --test-alu mul
+NEMU execute built-in tests
+alu_test_mul()  [0;32mpass[0m
+./nemu/nemu --test-alu div
+NEMU execute built-in tests
+alu_test_div()  [0;32mpass[0m
+./nemu/nemu --test-alu imul
+NEMU execute built-in tests
