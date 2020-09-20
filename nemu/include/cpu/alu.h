@@ -4,7 +4,7 @@
 #include <cpu-ref/alu_ref.h>
 
 // enable NEMU_REF_ALU to use reference implementation
-#define NEMU_REF_ALU
+// #define NEMU_REF_ALU
 
 // flag-setting functions
 void set_SF(uint32_t result, size_t data_size);
