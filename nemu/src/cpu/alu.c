@@ -106,11 +106,11 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
     uint32_t result = operand;
     count &= 0x1F;
     shift_mode &= 3;
-    if(shift_mode == 1){
-        printf("operand = ");
-        printb(operand, data_size); printf("\n");
-        printf("count = %d\n", count);
-    }
+    // if(shift_mode == 1){
+    //     printf("operand = ");
+    //     printb(operand, data_size); printf("\n");
+    //     printf("count = %d\n", count);
+    // }
     if(shift_mode & 1)  // Right shift: SAR SHR
     {
         if(shift_mode >> 1) // SHR
@@ -122,15 +122,15 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         else                // SAR
         {
             int32_t temp = sign_ext(result, data_size);
-            printf("temp = ");
-            printb(temp, data_size); printf("\n");
-            printf("temp == %d\n", temp);
+            // printf("temp = ");
+            // printb(temp, data_size); printf("\n");
+            // printf("temp == %d\n", temp);
             temp = temp >> (count - 1);
             cpu.eflags.CF = temp & 1;
             temp = temp >> 1;
             result = temp;
-            printf("result = ");
-            printb(result, data_size); printf("\n");
+            // printf("result = ");
+            // printb(result, data_size); printf("\n");
         }
     }
     else                //  Left shift: SAL SHL
