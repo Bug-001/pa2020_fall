@@ -124,6 +124,7 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
             int32_t temp = result;
             printf("temp = ");
             printb(temp, data_size); printf("\n");
+            printf("temp == %d\n", temp);
             temp = temp >> (count - 1);
             cpu.eflags.CF = temp & 1;
             temp = temp >> 1;
