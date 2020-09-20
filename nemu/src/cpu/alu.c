@@ -119,11 +119,15 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         }
         else                // SAR
         {
-            int32_t temp = (int32_t)result;
+            int32_t temp = result;
+            printf("temp = ");
+            printb(temp, data_size); printf("\n");
             temp >>= (count - 1);
             cpu.eflags.CF = temp & 1;
             temp >>= 1;
-            result = (uint32_t)temp;
+            result = temp;
+            printf("result = ");
+            printb(result, data_size); printf("\n");
         }
     }
     else                //  Left shift: SAL SHL
