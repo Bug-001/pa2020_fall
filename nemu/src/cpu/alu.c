@@ -103,12 +103,12 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
     // SHL = 10
     // SHR = 11
     operand &= (0xFFFFFFFF >> (32 - data_size));
-    printf("operand = ");
-    printb(operand, data_size); printf("\n");
+    // printf("operand = ");
+    // printb(operand, data_size); printf("\n");
     uint32_t result = operand;
     count &= 0x1F;
     shift_mode &= 3;
-    printf("count = %d\n", count);
+    // printf("count = %d\n", count);
     if(shift_mode & 1)  // Right shift: SAR SHR
     {
         if(shift_mode >> 1) // SHR
@@ -133,8 +133,8 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         result <<= 1;
     }
     result &= (0xFFFFFFFF >> (32 - data_size));
-    printf("result = ");
-    printb(result, data_size); printf("\n");
+    // printf("result = ");
+    // printb(result, data_size); printf("\n");
     set_ZF(result, data_size);
     set_SF(result, data_size);
     set_PF(result, data_size);
@@ -283,10 +283,10 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shl(src, dest, data_size);
 #else
-    printb(src, data_size); printf(" ");
-    printb(dest, data_size); printf("\n");
-    printb((uint8_t)(0xFF) << 1, data_size); printf("\n");
-    printb(shift(dest, src, 2, data_size), data_size); printf("\n");
+    // printb(src, data_size); printf(" ");
+    // printb(dest, data_size); printf("\n");
+    // printb((uint8_t)(0xFF) << 1, data_size); printf("\n");
+    // printb(shift(dest, src, 2, data_size), data_size); printf("\n");
 	return shift(dest, src, 2, data_size);
 #endif
 }
