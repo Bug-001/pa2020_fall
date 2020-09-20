@@ -126,7 +126,7 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
     }
     else                //  Left shift: SAL SHL
     {
-        return 0xFE;
+        printf("result = ");
         result <<= (count - 1);
         cpu.eflags.CF = sign(sign_ext(result, data_size));
         result <<= 1;
