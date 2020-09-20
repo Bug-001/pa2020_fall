@@ -127,3 +127,25 @@ alu_test_mul()  [0;32mpass[0m
 ./nemu/nemu --test-alu div
 NEMU execute built-in tests
 [0;31mPlease implement me at alu.c[0m
+cd nemu && make
+------make------
+1600573338246
+Sun Sep 20 11:42:18 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/nemu'
+gcc -ggdb3 -MMD -MP -Wall -Werror -O2 -I./include -I../include -I../libs -I../libs/nemu-ref/include   -c -o src/cpu/test/alu_test.o src/cpu/test/alu_test.c
+gcc -ggdb3 -MMD -MP -Wall -Werror -O2 -I./include -I../include -I../libs -I../libs/nemu-ref/include   -c -o src/cpu/alu.o src/cpu/alu.c
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/nemu'
+cd testcase && make
+------make------
+1600573339364
+Sun Sep 20 11:42:19 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/testcase'
+gcc -ggdb3 -MMD -MP -Wall -m32 -march=i386 -fno-builtin -fno-stack-protector -I../include -I../libs/newlib/include -c -o src/start.o start.S	
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/testcase'
+cd kernel && make
+------make------
+1600573339403
+Sun Sep 20 11:42:19 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/kernel'
+make-[1]: 'kernel' is up to date.
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/kernel'
