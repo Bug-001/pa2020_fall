@@ -121,12 +121,12 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         }
         else                // SAR
         {
-            int temp = result;
+            int32_t temp = result;
             printf("temp = ");
             printb(temp, data_size); printf("\n");
-            temp >>= (count - 1);
+            temp = temp >> (count - 1);
             cpu.eflags.CF = temp & 1;
-            temp >>= 1;
+            temp = temp >> 1;
             result = temp;
             printf("result = ");
             printb(result, data_size); printf("\n");
