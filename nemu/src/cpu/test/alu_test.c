@@ -93,8 +93,8 @@ typedef union {
 	uint32_t res, res_asm, res_eflags;\
 	TEST_EFLAGS test_eflags;\
 	res = alu_func(b, a, dataSize);\
-	asm (	asm_instr \
 	printf("asm = %d", res_asm);\
+	asm (	asm_instr \
 	assert_res_CPSZ(dataSize)
 
 void alu_test_add() {
