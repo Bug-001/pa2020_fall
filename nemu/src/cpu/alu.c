@@ -234,10 +234,10 @@ int32_t alu_imod(int64_t src, int64_t dest)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_imod(src, dest);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+    src &= (0xFFFFFFFF >> (32 - data_size));
+    dest &= (0xFFFFFFFF >> (32 - data_size));
+    int32_t res = dest % src;
+    return res;
 #endif
 }
 
