@@ -76,17 +76,16 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
 uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 {
     uint32_t result;
-    X &= (0xFFFFFFFF >> (32 - data_size));
-    Y &= (0xFFFFFFFF >> (32 - data_size));
     switch(logic)
     {
         case 0:
-            result = X & Y;
+            result = X & Y; // and
         case 1:
-            result = X | Y;
+            result = X | Y; // or
         default:
-            result = X ^ Y;
+            result = X ^ Y; // xor
     }
+    result &= (0xFFFFFFFF >> (32 - data_size));
 	cpu.eflags.CF = 0;
 	cpu.eflags.OF = 0;
 	set_SF(result, data_size);
