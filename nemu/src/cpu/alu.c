@@ -76,6 +76,8 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
 uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 {
     uint32_t result;
+    X &= (0xFFFFFFFF >> (32 - data_size));
+    Y &= (0xFFFFFFFF >> (32 - data_size));
     switch(logic)
     {
         case 0:
@@ -85,8 +87,6 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
         case 2:
             result = X ^ Y;
     }
-    src &= (0xFFFFFFFF >> (32 - data_size));
-    dest &= (0xFFFFFFFF >> (32 - data_size));
 	cpu.eflags.CF = 0;
 	cpu.eflags.OF = 0;
 	set_SF(result, data_size);
@@ -115,7 +115,7 @@ uint32_t shift(uint32_t src, uint32_t count, int shift_mode, size_t data_size)
         result <<= (count - 1);
         cpu.eflags.CF = sign(sign_ext(result, data_size));
         result <<= 1;
-        cpu.eflags.OF = shift_mode == 1 ? 0 : sign(sign_ext(src, data_size))
+        cpu.eflags.OF = shift_mode == 1 ? 0 : sign(sign_ext(src, data_size));
     }
     set_ZF(result, data_size);
     set_SF(result, data_size);
