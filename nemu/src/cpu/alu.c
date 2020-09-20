@@ -75,7 +75,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
 
 uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 {
-    uint32_t result;
+    uint32_t result = 0;
     X &= (0xFFFFFFFF >> (32 - data_size));
     Y &= (0xFFFFFFFF >> (32 - data_size));
     switch(logic)
