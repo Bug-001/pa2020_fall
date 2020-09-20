@@ -296,7 +296,7 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shr(src, dest, data_size);
 #else
-	return shift(src, dest, 3, data_size);
+	return shift(dest, src, 3, data_size);
 #endif
 }
 
@@ -305,7 +305,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sar(src, dest, data_size);
 #else
-	return shift(src, dest, 1, data_size);
+	return shift(dest, src, 1, data_size);
 #endif
 }
 
@@ -314,6 +314,6 @@ uint32_t alu_sal(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sal(src, dest, data_size);
 #else
-	return shift(src, dest, 0, data_size);
+	return shift(dest, src, 0, data_size);
 #endif
 }
