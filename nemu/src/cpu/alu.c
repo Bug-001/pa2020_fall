@@ -266,10 +266,10 @@ uint32_t alu_or(uint32_t src, uint32_t dest, size_t data_size)
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
-    printb(src, data_size); printf(" ");
-    printb(dest, data_size); printf("\n");
 	return __ref_alu_shl(src, dest, data_size);
 #else
+    printb(src, data_size); printf(" ");
+    printb(dest, data_size); printf("\n");
     return dest << src;
 	// return shift(src, dest, 2, data_size);
 #endif
