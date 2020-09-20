@@ -80,8 +80,10 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
     {
         case 0:
             result = X & Y; // and
+            break;
         case 1:
             result = X | Y; // or
+            break;
         default:
             result = X ^ Y; // xor
     }
@@ -237,8 +239,7 @@ uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_and(src, dest, data_size);
 #else
-    return src & dest;
-    // return gate(dest, src, 0, data_size);
+    return gate(dest, src, 0, data_size);
 #endif
 }
 
