@@ -110,7 +110,6 @@ uint32_t shift(uint32_t src, uint32_t count, int shift_mode, size_t data_size)
         result >>= (count - 1);
         cpu.eflags.CF = result & 1;
         result >>= 1;
-        cpu.eflags.OF = count == 1 ? sign(sign_ext(result, data_size)) ^ cpu.eflags.CF : cpu.eflags.OF;
     }
     else                //  Left shift: SAL SHL
     {
@@ -118,7 +117,6 @@ uint32_t shift(uint32_t src, uint32_t count, int shift_mode, size_t data_size)
         result <<= (count - 1);
         cpu.eflags.CF = sign(sign_ext(result, data_size));
         result <<= 1;
-        cpu.eflags.OF = shift_mode == 1 ? 0 : sign(sign_ext(src, data_size));
     }
     set_ZF(result, data_size);
     set_SF(result, data_size);
@@ -271,8 +269,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
     printb(src, data_size); printf(" ");
     printb(dest, data_size); printf("\n");
     printb(src << dest, data_size); printf("\n");
-    return 0x80;
-	// return shift(src, dest, 2, data_size);
+	return shift(dest, src, 2, data_size);
 #endif
 }
 
