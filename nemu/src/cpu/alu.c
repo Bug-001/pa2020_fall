@@ -110,9 +110,9 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         else                // SAR
         {
             int32_t temp = sign_ext(result, data_size);
-            temp = temp >> (count - 1);
+            temp >>= (count - 1);
             cpu.eflags.CF = temp & 1;
-            temp = temp >> 1;
+            temp >>= 1;
             result = temp;
         }
     }
@@ -188,8 +188,8 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	int64_t src64 = sign_ext_64(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
 	int64_t dest64 = sign_ext_64(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
 	int64_t res = src64 * dest64;
-	return res;
-	// return res & (0xFFFFFFFFFFFFFFFF >> (64 - 2 * data_size));
+	// return res;
+	return res & (0xFFFFFFFFFFFFFFFF >> (64 - 2 * data_size));
 #endif
 }
 
