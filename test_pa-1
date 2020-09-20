@@ -890,3 +890,24 @@ NEMU execute built-in tests
 alu_test_div()  [0;32mpass[0m
 ./nemu/nemu --test-alu imul
 NEMU execute built-in tests
+cd nemu && make
+------make------
+1600574374552
+Sun Sep 20 11:59:34 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/nemu'
+gcc -ggdb3 -MMD -MP -Wall -Werror -O2 -I./include -I../include -I../libs -I../libs/nemu-ref/include   -c -o src/cpu/alu.o src/cpu/alu.c
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/nemu'
+cd testcase && make
+------make------
+1600574374601
+Sun Sep 20 11:59:34 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/testcase'
+gcc -ggdb3 -MMD -MP -Wall -m32 -march=i386 -fno-builtin -fno-stack-protector -I../include -I../libs/newlib/include -c -o src/start.o start.S	
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/testcase'
+cd kernel && make
+------make------
+1600574374641
+Sun Sep 20 11:59:34 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/kernel'
+make-[1]: 'kernel' is up to date.
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/kernel'
