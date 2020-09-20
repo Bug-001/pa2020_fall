@@ -85,7 +85,7 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
         default:
             result = X ^ Y; // xor
     }
-    result &= (0xFFFFFFFF >> (32 - data_size));
+    // result &= (0xFFFFFFFF >> (32 - data_size));
 	cpu.eflags.CF = 0;
 	cpu.eflags.OF = 0;
 	set_SF(result, data_size);
