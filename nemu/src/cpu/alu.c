@@ -279,7 +279,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
     printb(src, data_size); printf(" ");
     printb(dest, data_size); printf("\n");
     printb(dest >> src, data_size); printf("\n");
-    return dest >> src;
+    return dest << src;
 	return shift(dest, src, 2, data_size);
 #endif
 }
