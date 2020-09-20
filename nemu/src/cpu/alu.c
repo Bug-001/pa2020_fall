@@ -106,6 +106,7 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
     uint32_t result = operand;
     count &= 0x1F;
     shift_mode &= 3;
+    printf("count = %d\n", count);
     if(shift_mode & 1)  // Right shift: SAR SHR
     {
         if(shift_mode >> 1) // SHR
