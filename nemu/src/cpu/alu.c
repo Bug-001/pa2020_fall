@@ -131,8 +131,12 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         printf("result = ");
         printb(result, data_size); printf("\n");
         result <<= (count - 1);
+        printf("result = ");
+        printb(result, data_size); printf("\n");
         cpu.eflags.CF = sign(sign_ext(result, data_size));
         result <<= 1;
+        printf("result = ");
+        printb(result, data_size); printf("\n");
     }
     result &= (0xFFFFFFFF & (32 - data_size));
     set_ZF(result, data_size);
