@@ -106,6 +106,7 @@ uint32_t shift(uint32_t src, uint32_t count, int shift_mode, size_t data_size)
     count &= 0x1F;
     if(shift_mode % 2)  // Right shift: SAR SHR
     {
+        return result >> count;
         result >>= (count - 1);
         cpu.eflags.CF = result & 1;
         result >>= 1;
