@@ -187,7 +187,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
 	dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
 	int64_t res = src * dest;
-	return res & (0xFFFFFFFF >> (64 - 2 * data_size));
+	return res & (0xFFFFFFFFFFFFFFFF >> (64 - 2 * data_size));
 #endif
 }
 
