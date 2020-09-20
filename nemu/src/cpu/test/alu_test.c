@@ -64,6 +64,21 @@ typedef union {
 	assert(cpu.eflags.SF == test_eflags.SF); \
 	assert(cpu.eflags.ZF == test_eflags.ZF); \
 
+#define assert_res_CPSZ_for_shift(dataSize) \
+		"pushf;" \
+		"popl %%edx;" \
+		: "=a" (res_asm), "=d" (res_eflags) \
+		: "a" (a), "c" (b)); \
+	test_eflags.val = res_eflags; \
+	res_asm = res_asm & (0xFFFFFFFF >> (32 - dataSize)); \
+	fflush(stdout); \
+	printf("res_asm = %d", res_asm); \
+	assert(res == res_asm); \
+	assert(cpu.eflags.CF == test_eflags.CF); \
+	assert(cpu.eflags.PF == test_eflags.PF); \
+	assert(cpu.eflags.SF == test_eflags.SF); \
+	assert(cpu.eflags.ZF == test_eflags.ZF); \
+
 #define internel_alu_test_CPSZO(alu_func, dataSize, asm_instr) \
 	uint32_t res, res_asm, res_eflags;\
 	TEST_EFLAGS test_eflags;\
@@ -95,6 +110,13 @@ typedef union {
 	res = alu_func(b, a, dataSize);\
 	asm (	asm_instr \
 	assert_res_CPSZ(dataSize)
+	
+#define internel_alu_test_CPSZ_for_shift(alu_func, dataSize, asm_instr) \
+	uint32_t res, res_asm, res_eflags;\
+	TEST_EFLAGS test_eflags;\
+	res = alu_func(b, a, dataSize);\
+	asm (	asm_instr \
+	assert_res_CPSZ_for_shift(dataSize)
 
 void alu_test_add() {
 	uint32_t a, b;
@@ -342,9 +364,10 @@ void alu_test_shl() {
 			a = inputa[i];
 			b = inputb[j];
 			printf("%d %d\n", a, b);
-			{internel_alu_test_CPSZ(alu_shl,  8, "shlb %%cl, %%al;")}
-			{internel_alu_test_CPSZ(alu_shl, 16, "shlw %%cl, %%ax;")}
-			{internel_alu_test_CPSZ(alu_shl, 32, "shll %%cl, %%eax;")}
+			// Modified
+			{internel_alu_test_CPSZ_for_shift(alu_shl,  8, "shlb %%cl, %%al;")}
+			{internel_alu_test_CPSZ_for_shift(alu_shl, 16, "shlw %%cl, %%ax;")}
+			{internel_alu_test_CPSZ_for_shift(alu_shl, 32, "shll %%cl, %%eax;")}
 		}
 	}
 
