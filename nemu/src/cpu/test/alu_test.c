@@ -94,6 +94,7 @@ typedef union {
 	TEST_EFLAGS test_eflags;\
 	res = alu_func(b, a, dataSize);\
 	asm (	asm_instr \
+	printf("asm = %d", res_asm);\
 	assert_res_CPSZ(dataSize)
 
 void alu_test_add() {
