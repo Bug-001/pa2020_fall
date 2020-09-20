@@ -103,6 +103,8 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
     // SHL = 10
     // SHR = 11
     operand &= (0xFFFFFFFF >> (32 - data_size));
+    printf("operand = ");
+    printb(operand, data_size); printf("\n");
     uint32_t result = operand;
     count &= 0x1F;
     shift_mode &= 3;
@@ -127,6 +129,7 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
     else                //  Left shift: SAL SHL
     {
         printf("result = ");
+        printb(result, data_size); printf("\n");
         result <<= (count - 1);
         cpu.eflags.CF = sign(sign_ext(result, data_size));
         result <<= 1;
