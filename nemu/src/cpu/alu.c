@@ -139,9 +139,13 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         printb(result, data_size); printf("\n");
     }
     result &= (0xFFFFFFFF & (32 - data_size));
+    printf("result = ");
+    printb(result, data_size); printf("\n");
     set_ZF(result, data_size);
     set_SF(result, data_size);
     set_PF(result, data_size);
+    printf("result = ");
+    printb(result, data_size); printf("\n");
     return result;
 }
 
