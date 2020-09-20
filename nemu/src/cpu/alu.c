@@ -1,6 +1,7 @@
 #include "cpu/cpu.h"
 
-void printb(uint32_t n, size_t data_size){
+void printb(uint32_t n, size_t data_size)
+{
     for(int i = data_size - 1; i >= 0; --i)
     {
         printf("%d", (n >> i) & 1);
@@ -60,14 +61,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
     // CF
     cpu.eflags.CF = sub ^ C;
     // PF
-    uint8_t pf = 1;
-    uint32_t result_temp = result;
-    for(uint8_t i = 8; i > 0; --i)
-    {
-        pf ^= (result_temp & 1);
-        result_temp >>= 1;
-    }
-    cpu.eflags.PF = pf;
+    set_PF(result, data_size);
     // AF
     // ZF
     cpu.eflags.ZF = (result == 0);
@@ -99,6 +93,34 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 	set_ZF(result, data_size);
 	set_PF(result, data_size);
 	return result;
+}
+
+uint32_t shift(uint32_t src, uint32_t count, int shift_mode, size_t data_size)
+{
+    // SAL = 0
+    // SAR = 1
+    // SHL = 2
+    // SHR = 3
+    uint32_t result = src;
+    count &= 0x1F;
+    if(shift_mode % 2)  // Right shift: SAR SHR
+    {
+        result >>= (count - 1);
+        cpu.eflags.CF = result & 1;
+        result >>= 1;
+        cpu.eflags.OF = count == 1 ? sign(sign_ext(result, data_size)) ^ cpu.eflags.CF : cpu.eflags.OF;
+    }
+    else                //  Left shift: SAL SHL
+    {
+        result <<= (count - 1);
+        cpu.eflags.CF = sign(sign_ext(result, data_size));
+        result <<= 1;
+        cpu.eflags.OF = shift_mode == 1 ? 0 : sign(sign_ext(src, data_size))
+    }
+    set_ZF(result, data_size);
+    set_SF(result, data_size);
+    set_PF(result, data_size);
+    return result;
 }
 
 uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
@@ -243,10 +265,7 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shl(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	return shift(src, dest, 2, data_size);
 #endif
 }
 
@@ -255,10 +274,7 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shr(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	return shift(src, dest, 3, data_size);
 #endif
 }
 
@@ -267,10 +283,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sar(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	return shift(src, dest, 1, data_size);
 #endif
 }
 
@@ -279,9 +292,6 @@ uint32_t alu_sal(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_sal(src, dest, data_size);
 #else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	return 0;
+	return shift(src, dest, 0, data_size);
 #endif
 }
