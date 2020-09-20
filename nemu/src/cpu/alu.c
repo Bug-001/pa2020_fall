@@ -96,24 +96,33 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 	return result;
 }
 
-uint32_t shift(uint32_t src, uint32_t count, int shift_mode, size_t data_size)
+uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_size)
 {
-    // SAL = 0
-    // SAR = 1
-    // SHL = 2
-    // SHR = 3
-    uint32_t result = src;
+    // SAL = 00
+    // SAR = 01
+    // SHL = 10
+    // SHR = 11
+    uint32_t result = operand;
     count &= 0x1F;
-    if(shift_mode % 2)  // Right shift: SAR SHR
+    shift_mode &= 3;
+    if(shift_mode & 1)  // Right shift: SAR SHR
     {
-        return result >> count;
-        result >>= (count - 1);
-        cpu.eflags.CF = result & 1;
-        result >>= 1;
+        if(shift_mode >> 1) // SHR
+        {
+            result >>= (count - 1);
+            cpu.eflags.CF = result & 1;
+            result >>= 1;
+        }
+        else                // SAR
+        {
+            int32_t temp = result;
+            temp >>= (count - 1);
+            cpu.eflags.CF = temp & 1;
+            temp >>= 1;
+        }
     }
     else                //  Left shift: SAL SHL
     {
-        return result << count;
         result <<= (count - 1);
         cpu.eflags.CF = sign(sign_ext(result, data_size));
         result <<= 1;
