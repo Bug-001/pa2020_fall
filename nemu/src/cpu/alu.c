@@ -185,9 +185,9 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_imul(src, dest, data_size);
 #else
-	src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
-	dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
-	int64_t res = (int64_t)src * (int64_t)dest;
+	int64_t src64 = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)), data_size);
+	int64_t dest64 = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
+	int64_t res = src64 * dest64;
 	return res & (0xFFFFFFFFFFFFFFFF >> (64 - 2 * data_size));
 #endif
 }
@@ -272,10 +272,6 @@ uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_shl(src, dest, data_size);
 #else
-    // printb(src, data_size); printf(" ");
-    // printb(dest, data_size); printf("\n");
-    // printb((uint8_t)(0xFF) << 1, data_size); printf("\n");
-    // printb(shift(dest, src, 2, data_size), data_size); printf("\n");
 	return shift(dest, src, 2, data_size);
 #endif
 }
