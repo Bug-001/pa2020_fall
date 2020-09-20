@@ -373,6 +373,7 @@ void alu_test_shr() {
 		for(j = 0 ; j < nb ; j++) {
 			a = inputa[i];
 			b = inputb[j];
+			printf("%d %d\n", a, b);
 			{internel_alu_test_CPSZ(alu_shr,  8, "shrb %%cl, %%al;")}
 			{internel_alu_test_CPSZ(alu_shr, 16, "shrw %%cl, %%ax;")}
 			{internel_alu_test_CPSZ(alu_shr, 32, "shrl %%cl, %%eax;")}
