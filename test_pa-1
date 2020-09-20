@@ -1091,3 +1091,25 @@ alu_test_imul() [0;32mpass[0m
 ./nemu/nemu --test-alu idiv
 NEMU execute built-in tests
 [0;31mPlease implement me at alu.c[0m
+cd nemu && make
+------make------
+1600577596023
+Sun Sep 20 12:53:16 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/nemu'
+gcc -ggdb3 -MMD -MP -Wall -Werror -O2 -I./include -I../include -I../libs -I../libs/nemu-ref/include   -c -o src/cpu/alu.o src/cpu/alu.c
+gcc -o nemu src/main.o src/monitor/ui.o src/monitor/elf.o src/monitor/breakpoint.o src/monitor/expr.o src/parse_args.o src/cpu/fpu.o src/cpu/test/alu_test.o src/cpu/test/fpu_test.o src/cpu/reg.o src/cpu/intr.o src/cpu/alu.o src/cpu/cpu.o src/cpu/decode/opcode_ref.o src/cpu/decode/operand.o src/cpu/decode/opcode.o src/cpu/decode/debug.o src/cpu/decode/sib.o src/cpu/decode/modrm.o src/cpu/instr/xor.o src/cpu/instr/group.o src/cpu/instr/leave.o src/cpu/instr/jcc.o src/cpu/instr/lea.o src/cpu/instr/push.o src/cpu/instr/lgdt.o src/cpu/instr/and.o src/cpu/instr/data_size.o src/cpu/instr/cli.o src/cpu/instr/out.o src/cpu/instr/opcode_2_byte.o src/cpu/instr/add.o src/cpu/instr/inv.o src/cpu/instr/bt.o src/cpu/instr/rep_repe.o src/cpu/instr/ret.o src/cpu/instr/sti.o src/cpu/instr/call.o src/cpu/instr/setcc.o src/cpu/instr/shr.o src/cpu/instr/cltd.o src/cpu/instr/idiv.o src/cpu/instr/int_.o src/cpu/instr/or.o src/cpu/instr/cmov.o src/cpu/instr/test.o src/cpu/instr/jmp.o src/cpu/instr/in.o src/cpu/instr/adc.o src/cpu/instr/dec.o src/cpu/instr/div.o src/cpu/instr/stos.o src/cpu/instr/lidt.o src/cpu/instr/inc.o src/cpu/instr/movs.o src/cpu/instr/not.o src/cpu/instr/nemu_trap.o src/cpu/instr/flags.o src/cpu/instr/sbb.o src/cpu/instr/mov.o src/cpu/instr/sar.o src/cpu/instr/x87.o src/cpu/instr/cmps.o src/cpu/instr/sub.o src/cpu/instr/nop.o src/cpu/instr/cmp.o src/cpu/instr/cbw.o src/cpu/instr/hlt.o src/cpu/instr/imul.o src/cpu/instr/mul.o src/cpu/instr/neg.o src/cpu/instr/iret.o src/cpu/instr/pop.o src/cpu/instr/shl.o src/device/dev/ide.o src/device/dev/audio.o src/device/dev/serial.o src/device/dev/vga.o src/device/dev/audio-web.o src/device/dev/vga-palette.o src/device/dev/timer.o src/device/dev/keyboard.o src/device/sdl.o src/device/i8259_pic.o src/device/io/mm_io.o src/device/io/port_io.o src/memory/memory.o src/memory/mmu/tlb.o src/memory/mmu/segment.o src/memory/mmu/page.o src/memory/mmu/cache.o ../libs/nemu-ref/lib-nemu-ref.a -lreadline -lSDL
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/nemu'
+cd testcase && make
+------make------
+1600577596430
+Sun Sep 20 12:53:16 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/testcase'
+gcc -ggdb3 -MMD -MP -Wall -m32 -march=i386 -fno-builtin -fno-stack-protector -I../include -I../libs/newlib/include -c -o src/start.o start.S	
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/testcase'
+cd kernel && make
+------make------
+1600577596472
+Sun Sep 20 12:53:16 CST 2020
+make-[1]: Entering directory '/home/pa191850169/pa2020_fall/kernel'
+make-[1]: 'kernel' is up to date.
+make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/kernel'
