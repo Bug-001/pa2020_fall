@@ -175,7 +175,7 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 	uint64_t res = src * dest;
 	cpu.eflags.CF = res >> data_size ? 1 : 0;
 	cpu.eflags.OF = res >> data_size ? 1 : 0;
-	return res;
+	return res & (0xFFFFFFFF >> (64 - 2 * data_size));
 #endif
 }
 
@@ -187,7 +187,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	src = sign_ext(src & (0xFFFFFFFF >> (32 - data_size)));
 	dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)));
 	int64_t res = src * dest;
-	return res;
+	return res & (0xFFFFFFFF >> (64 - 2 * data_size));
 #endif
 }
 
