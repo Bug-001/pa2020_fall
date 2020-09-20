@@ -75,7 +75,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
 
 uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 {
-    uint32_t result = 0;
+    uint32_t result;
     X &= (0xFFFFFFFF >> (32 - data_size));
     Y &= (0xFFFFFFFF >> (32 - data_size));
     switch(logic)
@@ -84,7 +84,7 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
             result = X & Y;
         case 1:
             result = X | Y;
-        case 2:
+        default:
             result = X ^ Y;
     }
 	cpu.eflags.CF = 0;
