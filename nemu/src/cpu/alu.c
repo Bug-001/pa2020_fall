@@ -121,7 +121,7 @@ uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_siz
         }
         else                // SAR
         {
-            int32_t temp = result;
+            int temp = result;
             printf("temp = ");
             printb(temp, data_size); printf("\n");
             temp >>= (count - 1);
