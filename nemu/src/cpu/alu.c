@@ -192,6 +192,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	int64_t res = src64 * dest64;
 	count++;
 	if(count > 10) exit(-1);
+	printf("src=%d, dest=%d\n", src, dest);
 	printb(res,64); printf("\n");
 	printb(res & (0xFFFFFFFFFFFFFFFF >> (64 - 2 * data_size)),64); printf("\n\n");
 	// return res;
