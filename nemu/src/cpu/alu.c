@@ -5,7 +5,7 @@ void printb(uint64_t n, size_t data_size)
 {
     for(int i = data_size - 1; i >= 0; --i)
     {
-        printf("%d", (n >> i) & 1);
+        printf("%lld", (n >> i) & 1);
         if(i % 4 == 0) printf(" ");
     }
 }
