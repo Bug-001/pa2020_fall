@@ -1,4 +1,5 @@
 #include "cpu/cpu.h"
+#include <stdlib.h>
 
 void printb(uint32_t n, size_t data_size)
 {
