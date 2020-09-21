@@ -1,7 +1,7 @@
 #include "cpu/cpu.h"
 #include <stdlib.h>
 
-void printb(uint64_t n, size_t data_size)
+void printb(int64_t n, size_t data_size)
 {
     for(int i = data_size - 1; i >= 0; --i)
     {
