@@ -8,7 +8,9 @@ FLOAT p_zero, n_zero, p_inf, n_inf, p_nan, n_nan;
 // the last three bits of the significand are reserved for the GRS bits
 inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 {
-
+    
+    // for add and sub, exp >= 0
+    
 	// normalization
 	bool overflow = false; // true if the result is INFINITY or 0 during normalize
 
@@ -20,19 +22,18 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			   (sig_grs > 0x04 && exp < 0)				   // condition 2
 			   )
 		{
-
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			uint64_t sticky = (sig_grs & 0x01) | ((sig_grs & 0x10) >> 1);
+			sig_grs >>= 1;
+			sig_grs |= sticky;
+			++exp;
 		}
 
 		if (exp >= 0xff)
 		{
 			/* TODO: assign the number to infinity */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sig_grs = 0;
+			exp = 0xff;
 			overflow = true;
 		}
 		if (exp == 0)
@@ -40,16 +41,15 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			// we have a denormal here, the exponent is 0, but means 2^-126,
 			// as a result, the significand should shift right once more
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			uint64_t sticky = (sig_grs & 0x01) | ((sig_grs & 0x10) >> 1);
+			sig_grs >>= 1;
+			sig_grs |= sticky;
 		}
 		if (exp < 0)
 		{
 			/* TODO: assign the number to zero */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sig_grs = 0;
+			exp = 0;
 			overflow = true;
 		}
 	}
@@ -59,17 +59,16 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		while (((sig_grs >> (23 + 3)) == 0) && exp > 0)
 		{
 			/* TODO: shift left */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			sig_grs <<= 1;
+			--exp;
 		}
 		if (exp == 0)
 		{
 			// denormal
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			fflush(stdout);
-			assert(0);
+			uint64_t sticky = (sig_grs & 0x01) | ((sig_grs & 0x10) >> 1);
+			sig_grs >>= 1;
+			sig_grs |= sticky;
 		}
 	}
 	else if (exp == 0 && sig_grs >> (23 + 3) == 1)
@@ -81,9 +80,31 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 	if (!overflow)
 	{
 		/* TODO: round up and remove the GRS bits */
-		printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-		fflush(stdout);
-		assert(0);
+		do{
+		    if((sig_grs & 0x7) < 4){
+		        // remove the GRS bits directly
+            }else if((sig_grs & 0x7) > 4){
+		        sig_grs += 0x8;
+		    }else{ // round to even
+		        if((sig_grs & 0x8) == 0x8){
+		            sig_grs += 0x8;
+		        }
+		    }
+		    if(sig_grs >> (23 + 3) > 1){
+		        ++exp;
+		        sig_grs >>= 1;
+		        if(exp >= 0xff){
+		            exp = 0xff;
+		            sig_grs = 0;
+		        }
+		    }else if(exp == 0 && sig_grs >> (23 + 3) == 1){
+                ++exp;
+                break;
+		    }else{
+		        break;
+		    }
+		}while(true);
+		sig_grs >>= 3;
 	}
 
 	FLOAT f;
@@ -149,19 +170,17 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 	uint32_t sig_a, sig_b, sig_res;
 	sig_a = fa.fraction;
 	if (fa.exponent != 0)
-		sig_a |= 0x800000; // the hidden 1
+		sig_a |= 0x800000; // the implied 1
 	sig_b = fb.fraction;
 	if (fb.exponent != 0)
-		sig_b |= 0x800000; // the hidden 1
+		sig_b |= 0x800000; // the implied 1
 
 	// alignment shift for fa
 	uint32_t shift = 0;
 
 	/* TODO: shift = ? */
-	printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-	fflush(stdout);
-	assert(0);
-	assert(shift >= 0);
+    shift = (fb.exponent ? fb.exponent : 1) - 
+            (fa.exponent ? fa.exponent : 1);
 
 	sig_a = (sig_a << 3); // guard, round, sticky
 	sig_b = (sig_b << 3);
@@ -172,7 +191,7 @@ uint32_t internal_float_add(uint32_t b, uint32_t a)
 		sticky = sticky | (sig_a & 0x1);
 		sig_a = sig_a >> 1;
 		sig_a |= sticky;
-		shift--;
+		--shift;
 	}
 
 	// fraction add
