@@ -19,7 +19,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		// normalize toward right
 		while ((((sig_grs >> (23 + 3)) > 1) && exp < 0xff) // condition 1
 			   ||										   // or
-			   (sig_grs > 0x04 && exp < 0)				   // condition 2
+			   (sig_grs >= 0x04 && exp < 0)				   // condition 2
 			   )
 		{
 			/* TODO: shift right, pay attention to sticky bit*/
@@ -306,7 +306,7 @@ uint32_t internal_float_mul(uint32_t b, uint32_t a)
 	uint32_t exp_res = 0;
 
 	/* TODO: exp_res = ? leave space for GRS bits. */
-	exp_res = fa.exponent + fb.exponent;
+	exp_res = fa.exponent + fb.exponent - 127;
 	return internal_normalize(f.sign, exp_res, sig_res);
 }
 
