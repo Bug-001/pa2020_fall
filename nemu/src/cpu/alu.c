@@ -229,7 +229,7 @@ uint32_t alu_mod(uint64_t src, uint64_t dest)
 #ifdef NEMU_REF_ALU
 	return __ref_alu_mod(src, dest);
 #else
-    uint32_t res = dest % src;
+    uint32_t res = dest / src; // MODIFIED
     return res;
 #endif
 }
