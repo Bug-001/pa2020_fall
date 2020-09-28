@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-static FLOAT p_zero, n_zero, p_inf, n_inf, p_nan, n_nan, denorm_1, denorm_2, denorm_3, big_1, big_2, small_1, small_2;
+static FLOAT p_zero, n_zero, p_inf, n_inf, p_nan, n_nan, denorm_1, denorm_2, denorm_3, denorm_4, denorm_5, big_1, big_2, big_3, small_1, small_2;
 
 void fpu_test_add()
 {
 	float input[] = {
-		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval,
-		p_nan.fval, n_nan.fval, denorm_3.fval, small_1.fval, small_2.fval,
+		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval, big_3.fval, 
+		p_nan.fval, n_nan.fval, denorm_3.fval, denorm_4.fval, denorm_5.fval, small_1.fval, small_2.fval,
 		10000000, 1.2, 1.1, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1, -10000000};
 	FLOAT a, b, res, res_fpu;
 	int i, j;
@@ -47,8 +47,8 @@ void fpu_test_add()
 void fpu_test_sub()
 {
 	float input[] = {
-		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval,
-		p_nan.fval, n_nan.fval, denorm_3.fval, small_1.fval, small_2.fval,
+		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval, big_3.fval, 
+		p_nan.fval, n_nan.fval, denorm_3.fval, denorm_4.fval, denorm_5.fval, small_1.fval, small_2.fval,
 		10000000, 1.2, 1.1, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1, -10000000};
 	FLOAT a, b, res, res_fpu;
 	int i, j;
@@ -86,8 +86,8 @@ void fpu_test_sub()
 void fpu_test_div()
 {
 	float input[] = {
-		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval,
-		p_nan.fval, n_nan.fval, denorm_3.fval, small_1.fval, small_2.fval,
+		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval, big_3.fval,
+		p_nan.fval, n_nan.fval, denorm_3.fval, denorm_4.fval, denorm_5.fval, small_1.fval, small_2.fval,
 		10000000, 1.2, 1.1, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1, -10000000};
 
 	FLOAT a, b, res, res_fpu;
@@ -133,8 +133,8 @@ void fpu_test_div()
 void fpu_test_mul()
 {
 	float input[] = {
-		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval,
-		p_nan.fval, n_nan.fval, denorm_3.fval, small_1.fval, small_2.fval,
+		p_zero.fval, n_zero.fval, p_inf.fval, n_inf.fval, denorm_1.fval, denorm_2.fval, big_1.fval, big_2.fval, big_3.fval,
+		p_nan.fval, n_nan.fval, denorm_3.fval, denorm_4.fval, denorm_5.fval, small_1.fval, small_2.fval,
 		10000000, 1.2, 1.1, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, -0.1, -0.2, -0.3, -0.4, -0.5, -0.6, -0.7, -0.8, -0.9, -1, -10000000};
 	FLOAT a, b, res, res_fpu;
 	int i, j;
@@ -202,6 +202,12 @@ void init_fpu_test()
 	denorm_3.sign = 1;
 	denorm_3.exponent = 0;
 	denorm_3.fraction = 0x400000;
+	denorm_4.sign = 1;
+	denorm_4.exponent = 0;
+	denorm_4.fraction = 0x000004;
+	denorm_5.sign = 1;
+	denorm_5.exponent = 0;
+	denorm_5.fraction = 0x000003;
 	small_1.sign = 0;
 	small_1.exponent = 1;
 	small_1.fraction = 0;
@@ -214,4 +220,7 @@ void init_fpu_test()
 	big_2.sign = 1;
 	big_2.exponent = 254;
 	big_2.fraction = 1;
+	big_3.sign = 1;
+	big_3.exponent = 254;
+	big_3.fraction = 0x7FFFFF;
 }

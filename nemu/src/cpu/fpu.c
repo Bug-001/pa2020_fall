@@ -91,6 +91,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		        }
 		    }
 		    if(sig_grs >> (23 + 3) > 1){
+		        // need to be normalized towards right again
 		        ++exp;
 		        sig_grs >>= 1;
 		        if(exp >= 0xff){
@@ -98,13 +99,14 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		            sig_grs = 0;
 		        }
 		    }else if(exp == 0 && sig_grs >> (23 + 3) == 1){
+		        // two denormals result in a normal
                 ++exp;
                 break;
 		    }else{
 		        break;
 		    }
 		}while(true);
-		sig_grs >>= 3;
+		sig_grs >>= 3; // remove the GRS bits
 	}
 
 	FLOAT f;
