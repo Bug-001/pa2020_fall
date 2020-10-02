@@ -68,12 +68,8 @@ cmd_handler(cmd_si)
 
 cmd_handler(cmd_info)
 {
+    /* TODO: repair the BUG */
 	char *arg = strtok(NULL, " ");
-	if(arg == NULL)
-	{
-	    printf("args needed (\"w\" or \"r\")\n");
-	    return 0;
-	}
 	if (strcmp(arg, "r") == 0)
 	{
 		print_reg();
