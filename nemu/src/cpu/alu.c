@@ -10,19 +10,19 @@ void printb(int64_t n, size_t data_size)
     }
 }
 
-void set_SF(uint32_t result, size_t data_size)
+static void set_SF(uint32_t result, size_t data_size)
 {
     result = sign_ext(result & (0xFFFFFFFF >> (32 - data_size)), data_size);
     cpu.eflags.SF = sign(result);
 }
 
-void set_ZF(uint32_t result, size_t data_size)
+static void set_ZF(uint32_t result, size_t data_size)
 {
     result &= (0xFFFFFFFF >> (32 - data_size));
     cpu.eflags.ZF = (result == 0);
 }
 
-void set_PF(uint32_t result, size_t data_size)
+static void set_PF(uint32_t result, size_t data_size)
 {
     bool pf = 1;
     for(uint8_t i = 8; i > 0; --i)
@@ -33,7 +33,7 @@ void set_PF(uint32_t result, size_t data_size)
     cpu.eflags.PF = pf;
 }
 
-uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
+static uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
 {
     // sub == 0, useCF == 0 -> C == 0      == sub == sub + 0
     // sub == 0, useCF == 1 -> C ==     CF ==        sub + CF
@@ -67,7 +67,7 @@ uint32_t adder(uint32_t X, uint32_t Y, bool sub, bool useCF, size_t data_size)
     return result;
 }
 
-uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
+static uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 {
     uint32_t result;
     switch(logic)
@@ -90,7 +90,7 @@ uint32_t gate(uint32_t X, uint32_t Y, int logic, size_t data_size)
 	return result;
 }
 
-uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_size)
+static uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t data_size)
 {
     // SAL = 00
     // SAR = 01
