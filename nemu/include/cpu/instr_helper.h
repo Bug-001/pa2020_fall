@@ -1,6 +1,8 @@
 #ifndef __INSTR_HELPER_H__
 #define __INSTR_HELPER_H__
 
+#define NEMU_REF_INSTR
+
 // the type of an instruction entry
 typedef int (*instr_func)(uint32_t eip, uint8_t opcode);
 
