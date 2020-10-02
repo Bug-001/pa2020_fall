@@ -301,3 +301,42 @@ ld -Ttext=0x30000 -m elf_i386  -e start -o kernel start/start.o ./src/irq/do_irq
 objcopy --remove-section .note.gnu.property kernel
 objcopy -S -O binary kernel kernel.img
 make-[1]: Leaving directory '/home/pa191850169/pa2020_fall/kernel'
+./nemu/nemu --testcase add
+NEMU load and execute img: [1m[32m./testcase/bin/add.img[0m  elf: [1m[36m./testcase/bin/add[0m
+(nemu) adadadadadadadda                int
+Unknown user command [0;31mint[0m
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) 
+(nemu) help
+help	-	Display informations about all supported commands
+c	-	Continue the execution of the program
+q	-	Exit NEMU
+p	-	Evaluate an expression
+b	-	Set breakpoint
+w	-	Set watchpoint
+d	-	Delete breakpoint(s).
+exit	-	Exit NEMU
+si	-	Single Step Execution
+info	-	Print register and watch point info
+(nemu) hep lp o
+Unknown command [0;31mo[0m
+(nemu) help help
+help	-	Display informations about all supported commands
+(nemu) help c
+c	-	Continue the execution of the program
+(nemu) help f
+Unknown command [0;31mf[0m
+(nemu) help si
+si	-	Single Step Execution
+(nemu) help      
