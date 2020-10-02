@@ -68,6 +68,7 @@ cmd_handler(cmd_si)
 
 cmd_handler(cmd_info)
 {
+    /* TODO: repair the BUG */
 	char *arg = strtok(NULL, " ");
 	if (strcmp(arg, "r") == 0)
 	{
