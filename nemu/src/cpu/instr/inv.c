@@ -44,8 +44,8 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     while(ch != '\n')
     {
         printf("%d\n", ch);
-        fseek(fp, -2, SEEK_SET);
-        fscanf(fp, "%c", &ch);
+        assert(fseek(fp, -2, SEEK_SET) != EOF);
+        assert(fscanf(fp, "%c", &ch) != EOF);
     }
     int count;
     fscanf(fp, "%d", &count);
@@ -58,6 +58,7 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
          1900 + temp_p->tm_year, 1 + temp_p->tm_mon, temp_p->tm_mday, temp_p->tm_hour, temp_p->tm_min, temp_p->tm_sec, 
          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
     fprintf(fp, "%d", count + 1);
+    fclose(fp);
 }
 
 // this is a dummy instruction
