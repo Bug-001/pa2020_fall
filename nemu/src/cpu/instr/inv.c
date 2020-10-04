@@ -37,7 +37,7 @@ static char logo[] = {
 // this is a dummy instruction
 make_instr_func(inv)
 {
-  uint32_t temp[8];
+  uint32_t temp[2];
   temp[0] = instr_fetch(eip, 4);
   temp[1] = instr_fetch(eip + 4, 4);
 
