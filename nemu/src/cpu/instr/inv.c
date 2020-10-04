@@ -38,7 +38,7 @@ static char logo[] = {
 
 static void add_inv_log(uint32_t eip, uint8_t *p)
 {
-    FILE* fp = fopen("cpu/instr/inv_log.txt", "a+");
+    FILE* fp = fopen("inv_log.txt", "a+");
     assert(fp != NULL);
     char ch = 0;
     while(ch != '\n')
@@ -82,7 +82,7 @@ make_instr_func(inv)
 * Every line of untested code is always wrong!\33[0m\n\n",
          logo);
 
-  // fflush(stdout);
+  fflush(stdout);
   assert(0);
   return 1;
 }
