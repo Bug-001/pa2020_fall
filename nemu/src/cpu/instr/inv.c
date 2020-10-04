@@ -43,6 +43,7 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     char ch = 0;
     while(ch != '\n')
     {
+        printf("%d\n", ch);
         fseek(fp, -2, SEEK_SET);
         fscanf(fp, "%c", &ch);
     }
