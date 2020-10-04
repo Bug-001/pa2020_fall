@@ -2,6 +2,8 @@
 #include "cpu/instr.h"
 #include "cpu/reg.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 static char logo[] = {
     0x20, 0x5f, 0x20, 0x5f, 0x5f, 0x5f, 0x5f, 0x20, 0x20, 0x20, 0x5f, 0x5f,
@@ -34,6 +36,28 @@ static char logo[] = {
     0x7c, 0x5f, 0x7c, 0x5c, 0x5f, 0x5f, 0x2c, 0x5f, 0x7c, 0x5c, 0x5f, 0x5f,
     0x2c, 0x5f, 0x7c, 0x5f, 0x7c, 0x0a, 0x00};
 
+static void add_inv_log(uint32_t eip, uint8_t *p)
+{
+    FILE* fp = fopen("cpu/instr/inv_log.txt", "a+");
+    assert(fp != NULL);
+    char ch = 0;
+    while(ch != '\n')
+    {
+        fseek(fp, -2, SEEK_SET);
+        fscanf(fp, "%c", &ch);
+    }
+    int count;
+    fscanf(fp, "%d", &count);
+    time_t tmpcal_ptr;
+	struct tm *tmp_ptr = NULL;
+	time(&tmpcal_ptr);
+	tmp_ptr = localtime(&tmpcal_ptr);
+    fprintf(fp, " %d:%d:%d %d:%d:%d  invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n",
+         (1900+tmp_ptr->tm_year), (1+tmp_ptr->tm_mon), tmp_ptr->tm_mday), tmp_ptr->tm_hour, tmp_ptr->tm_min, tmp_ptr->tm_sec, 
+         eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
+    fprintf(fp, "%d", count + 1);
+}
+
 // this is a dummy instruction
 make_instr_func(inv)
 {
@@ -56,6 +80,7 @@ make_instr_func(inv)
 * Every line of untested code is always wrong!\33[0m\n\n",
          logo);
 
+  add_inv_log(eip, p);
   fflush(stdout);
   assert(0);
   return 1;
