@@ -48,12 +48,12 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     }
     int count;
     fscanf(fp, "%d", &count);
-    time_t tmpcal_ptr;
-	struct tm *tmp_ptr = NULL;
-	time(&tmpcal_ptr);
-	tmp_ptr = localtime(&tmpcal_ptr);
-    fprintf(fp, " %u:%u:%u %u:%u:%u  invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n",
-         (1900+tmp_ptr->tm_year), (1+tmp_ptr->tm_mon), tmp_ptr->tm_mday), tmp_ptr->tm_hour, tmp_ptr->tm_min, tmp_ptr->tm_sec, 
+    time_t timep;
+    struct tm *p;
+    time (&timep);
+    p=gmtime(&timep);
+    fprintf(fp, " %d-%d-%d %d:%d:%d  invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n",
+         1900+p->tm_year, 1+p->tm_mon, p->tm_mday, 8+p->tm_hour, p->tm_min, p->tm_sec, 
          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
     fprintf(fp, "%d", count + 1);
 }
