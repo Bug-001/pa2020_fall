@@ -38,7 +38,7 @@ static char logo[] = {
 
 static void add_inv_log(uint32_t eip, uint8_t *p)
 {
-    FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "r+");
+    FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "w+");
     assert(fp != NULL);
     char ch = 0;
     assert(fseek(fp, 1, SEEK_SET) != EOF);
