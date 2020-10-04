@@ -45,8 +45,8 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     while(ch != '\n')
     {
         printf("%d\n", ch);
-        assert(fseek(fp, 1, SEEK_SET) != EOF);
-        assert(fscanf(fp, "%c", &ch) != EOF);
+        assert(fseek(fp, 1, SEEK_SET) != -1);
+        assert(fscanf(fp, "%c", &ch) != -1);
     }
     int count;
     fscanf(fp, "%d", &count);
