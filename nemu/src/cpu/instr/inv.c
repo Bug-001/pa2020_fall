@@ -38,9 +38,10 @@ static char logo[] = {
 
 static void add_inv_log(uint32_t eip, uint8_t *p)
 {
-    FILE* fp = fopen("inv_log.txt", "a+");
+    FILE* fp = fopen("inv_log.txt", "r+");
     assert(fp != NULL);
     char ch = 0;
+    assert(fseek(fp, 0, SEEK_END) != EOF);
     while(ch != '\n')
     {
         printf("%d\n", ch);
