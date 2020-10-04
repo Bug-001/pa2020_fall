@@ -68,6 +68,7 @@ make_instr_func(inv)
   uint8_t *p = (void *)temp;
   printf("invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n\n",
          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
+  add_inv_log(eip, p);
 
   extern char logo[];
   printf("There are two cases which will trigger this unexpected exception:\n\
@@ -80,7 +81,6 @@ make_instr_func(inv)
 * Every line of untested code is always wrong!\33[0m\n\n",
          logo);
 
-  add_inv_log(eip, p);
   fflush(stdout);
   assert(0);
   return 1;
