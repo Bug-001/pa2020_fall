@@ -48,6 +48,7 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     }
     int count;
     fscanf(fp, "%d", &count);
+    printf("count = %d\n", count);
     time_t timep;
     struct tm *temp_p;
     time(&timep);
