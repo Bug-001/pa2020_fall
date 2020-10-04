@@ -82,7 +82,7 @@ make_instr_func(inv)
 * Every line of untested code is always wrong!\33[0m\n\n",
          logo);
 
-  fflush(stdout);
+  // fflush(stdout);
   assert(0);
   return 1;
 }
