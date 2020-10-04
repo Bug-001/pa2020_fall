@@ -49,11 +49,11 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     int count;
     fscanf(fp, "%d", &count);
     time_t timep;
-    struct tm *p;
-    time (&timep);
-    p=gmtime(&timep);
+    struct tm *temp_p;
+    time(&timep);
+    temp_p = localtime(&timep);
     fprintf(fp, " %d-%d-%d %d:%d:%d  invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n",
-         1900+p->tm_year, 1+p->tm_mon, p->tm_mday, 8+p->tm_hour, p->tm_min, p->tm_sec, 
+         1900 + p->tm_year, 1 + p->tm_mon, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec, 
          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
     fprintf(fp, "%d", count + 1);
 }
