@@ -41,11 +41,11 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     FILE* fp = fopen("inv_log.txt", "r+");
     assert(fp != NULL);
     char ch = 0;
-    assert(fseek(fp, 0, SEEK_END) != EOF);
+    assert(fseek(fp, 1, SEEK_SET) != EOF);
     while(ch != '\n')
     {
         printf("%d\n", ch);
-        assert(fseek(fp, 0, SEEK_SET) != EOF);
+        assert(fseek(fp, 1, SEEK_SET) != EOF);
         assert(fscanf(fp, "%c", &ch) != EOF);
     }
     int count;
