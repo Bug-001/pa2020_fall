@@ -38,7 +38,7 @@ static char logo[] = {
 
 static void add_inv_log(uint32_t eip, uint8_t *p)
 {
-    FILE* fp = fopen("inv_log.txt", "w+");
+    FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "w+");
     assert(fp != NULL);
     char ch = 0;
     assert(fseek(fp, 1, SEEK_SET) != EOF);
@@ -70,7 +70,7 @@ make_instr_func(inv)
   temp[1] = instr_fetch(eip + 4, 4);
 
   uint8_t *p = (void *)temp;
-  // add_inv_log(eip, p);
+  add_inv_log(eip, p);
   printf("invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n\n",
          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
 
