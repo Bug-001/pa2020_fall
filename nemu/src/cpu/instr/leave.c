@@ -2,21 +2,22 @@
 
 make_instr_func(leave_v)
 {
-    OPERAND eBP, s;
+    OPERAND eBP;
     eBP.type = OPR_REG;
     eBP.data_size = data_size;
     eBP.addr = 5;
-    
-    s.type = OPR_MEM;
-    s.addr = cpu.esp;
-    s.data_size = data_size;
-    s.sreg = SREG_CS;
     
     // eSP <- eBP
     // operand_read(&eBP);
     // eSP.val = eBP.val;
     // operand_write(&eSP);
     cpu.esp = cpu.ebp;
+    
+    OPERAND s;
+    s.type = OPR_MEM;
+    s.addr = cpu.esp;
+    s.data_size = data_size;
+    s.sreg = SREG_CS;
     
     // eBP <- Pop()
     operand_read(&s);
