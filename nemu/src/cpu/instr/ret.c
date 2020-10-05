@@ -6,8 +6,8 @@ static int ret_near_(bool imm16)
     s.type = OPR_MEM;
     s.sreg = SREG_CS;
     s.addr = cpu.esp;
-    // s.data_size = data_size;
-    s.data_size = 32;
+    s.data_size = data_size;
+    // s.data_size = 32;
     
     operand_read(&s);
     cpu.esp += data_size / 8;
