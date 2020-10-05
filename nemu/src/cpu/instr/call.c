@@ -1,5 +1,5 @@
 #include "cpu/instr.h"
-#include "cpu/cpu.h"
+#include "cpu/reg.h"
 
 static int call_near_(bool indirect)
 {
