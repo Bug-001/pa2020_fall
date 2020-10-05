@@ -24,6 +24,8 @@ extern uint8_t data_size;
 
 /* TODO: add more instructions here */
 
+#include "cpu/instr/fundamental_cal.h"
+
 #include "cpu/instr/adc.h"
 #include "cpu/instr/add.h"
 #include "cpu/instr/and.h"
