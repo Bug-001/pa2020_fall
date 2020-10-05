@@ -241,7 +241,7 @@ cmd_handler(cmd_x)
 		printf("Command format: \"x N EXPR\"\n");
 		return 0;
 	}
-	uint32_t expr;
+// 	uint32_t expr;
 	printf("expr = %s\n", expr_str);
 	// sscanf(expr_str, "%x", &expr);
 // 	printf("%x\n", expr);
