@@ -245,7 +245,7 @@ cmd_handler(cmd_x)
 	sscanf(expr_str, "%x", &expr);
 	while(N-- > 0)
 	{
-	    printf("0x%08%x, ", paddr_read(expr, 4));
+	    printf("0x%08x, ", paddr_read(expr, 4));
 	    expr += 4;
 	}
 	printf("\n");
