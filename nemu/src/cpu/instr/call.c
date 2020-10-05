@@ -1,5 +1,4 @@
 #include "cpu/instr.h"
-#include "cpu/reg.h"
 
 static int call_near_(bool indirect)
 {
@@ -12,14 +11,14 @@ static int call_near_(bool indirect)
         // eIP = (eIP + rel) & (0xFFFFFFFF >> (32 - data_size))
         decode_operand_i
         operand_read(&opr_src);
-        eip = (eip + opr_src.val) & (0xFFFFFFFF >> (32 - data_size));
+        cpu.eip = (cpu.eip + opr_src.val) & (0xFFFFFFFF >> (32 - data_size));
     }
     else
     {
         // eIP = r/m & (0xFFFFFFFF >> (32 - data_size))
         decode_operand_rm
         operand_read(&opr_src);
-        eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
+        cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
     }
     assert(len == 1 + data_size / 8);
     return 0;
