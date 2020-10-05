@@ -1,7 +1,6 @@
 #ifndef __INSTR_ADC_H__
 #define __INSTR_ADC_H__
-/*
-Put the declarations of `adc' instructions here.
-*/
+
+fc_make_instr_funcs(adc)
 
 #endif

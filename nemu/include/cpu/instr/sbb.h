@@ -1,7 +1,6 @@
 #ifndef __INSTR_SBB_H__
 #define __INSTR_SBB_H__
-/*
-Put the declarations of `sbb' instructions here.
-*/
+
+fc_make_instr_funcs(sbb)
 
 #endif

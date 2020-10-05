@@ -12,7 +12,6 @@
     make_instr_impl_2op(inst_name, i, rm, bv)
 
 
-    
 #define fc_make_instr_funcs(inst_name) \
     make_instr_func(concat(inst_name, _r2rm_b)); \
     make_instr_func(concat(inst_name, _r2rm_v)); \
