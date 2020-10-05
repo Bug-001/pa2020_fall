@@ -36,31 +36,31 @@ static char logo[] = {
     0x7c, 0x5f, 0x7c, 0x5c, 0x5f, 0x5f, 0x2c, 0x5f, 0x7c, 0x5c, 0x5f, 0x5f,
     0x2c, 0x5f, 0x7c, 0x5f, 0x7c, 0x0a, 0x00};
 
-// static void add_inv_log(uint32_t eip, uint8_t *p)
-// {
-//     FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "w+");
-//     assert(fp != NULL);
-//     char ch = 0;
-//     assert(fseek(fp, 1, SEEK_SET) != EOF);
-//     while(ch != '\n')
-//     {
-//         printf("%d\n", ch);
-//         assert(fseek(fp, 0, SEEK_SET) != -1);
-//         assert(fscanf(fp, "%c", &ch) != -1);
-//     }
-//     int count;
-//     fscanf(fp, "%d", &count);
-//     printf("count = %d\n", count);
-//     time_t timep;
-//     struct tm *temp_p;
-//     time(&timep);
-//     temp_p = localtime(&timep);
-//     fprintf(fp, " %d-%d-%d %d:%d:%d  invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n",
-//          1900 + temp_p->tm_year, 1 + temp_p->tm_mon, temp_p->tm_mday, temp_p->tm_hour, temp_p->tm_min, temp_p->tm_sec, 
-//          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
-//     fprintf(fp, "%d", count + 1);
-//     fclose(fp);
-// }
+static void add_inv_log(uint32_t eip, uint8_t *p)
+{
+    FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "wt+");
+    assert(fp != NULL);
+    char ch = 0;
+    assert(fseek(fp, 1, SEEK_SET) != EOF);
+    while(ch != '\n')
+    {
+        printf("%d\n", ch);
+        assert(fseek(fp, 0, SEEK_SET) != -1);
+        assert(fscanf(fp, "%c", &ch) != -1);
+    }
+    int count;
+    fscanf(fp, "%d", &count);
+    printf("count = %d\n", count);
+    time_t timep;
+    struct tm *temp_p;
+    time(&timep);
+    temp_p = localtime(&timep);
+    fprintf(fp, " %d-%d-%d %d:%d:%d  invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n",
+         1900 + temp_p->tm_year, 1 + temp_p->tm_mon, temp_p->tm_mday, temp_p->tm_hour, temp_p->tm_min, temp_p->tm_sec, 
+         eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
+    fprintf(fp, "%d", count + 1);
+    fclose(fp);
+}
 
 // this is a dummy instruction
 make_instr_func(inv)
@@ -70,7 +70,7 @@ make_instr_func(inv)
   temp[1] = instr_fetch(eip + 4, 4);
 
   uint8_t *p = (void *)temp;
-  // add_inv_log(eip, p);
+  add_inv_log(eip, p);
   printf("invalid opcode(eip = 0x%08x): %02x %02x %02x %02x %02x %02x %02x %02x ...\n\n",
          eip, p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]);
 
