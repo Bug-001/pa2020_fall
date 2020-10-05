@@ -4,7 +4,7 @@
 static int call_near_(bool indirect)
 {
     // push(eIP);
-    int len = 0;
+    int len = 1;
     cpu.esp -= data_size / 8;
     decode_data_size_v
     if(!indirect)
