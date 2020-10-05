@@ -1,7 +1,7 @@
 #include "cpu/instr.h"
 #include "cpu/modrm.h"
 
-static int call_near_(bool indirect)
+static int call_near_(bool indirect, uint_32 eip)
 {
     // push(eIP);
     int len = 1;
@@ -44,10 +44,10 @@ static int call_near_(bool indirect)
 
 make_instr_func(call_near)
 {
-    return call_near_(0);
+    return call_near_(0, eip);
 }
 
 make_instr_func(call_near_indirect)
 {
-    return call_near_(1);
+    return call_near_(1, eip);
 }
