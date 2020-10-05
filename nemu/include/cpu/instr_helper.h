@@ -196,7 +196,7 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 	cpu.eflags.ZF == 0
 
 #define condition_na \
-	cpu.eflags.CF == 1 || cpu.eflags.ZF == 1
+	cpu.eflags.CF == 1 && cpu.eflags.ZF == 1 // Modified
 
 #define condition_no \
 	cpu.eflags.OF == 0
@@ -214,7 +214,7 @@ void print_asm_3(char *instr, char *suffix, uint8_t len, OPERAND *opr_1, OPERAND
 	cpu.eflags.SF == cpu.eflags.OF
 
 #define condition_l \
-	cpu.eflags.SF == cpu.eflags.OF
+	cpu.eflags.SF != cpu.eflags.OF
 
 #define condition_le \
 	cpu.eflags.ZF == 1 || cpu.eflags.SF != cpu.eflags.OF
