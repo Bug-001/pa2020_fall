@@ -26,6 +26,10 @@ static int call_near_(bool indirect)
     }
     assert(len == 1 + data_size / 8);
     cpu.eip += len;
+    opr_dest.type = OPR_MEM;
+    opr_dest.addr = cpu.esp;
+    opr_dest.val = cpu.eip;
+    operand_write(&opr_dest);
     return 0;
 }
 
