@@ -25,6 +25,7 @@ static int call_near_(bool indirect)
         cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
     }
     assert(len == 1 + data_size / 8);
+    cpu.eip += len;
     return 0;
 }
 
