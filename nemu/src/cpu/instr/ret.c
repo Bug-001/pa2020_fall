@@ -26,7 +26,7 @@ static int ret_near_(bool imm16)
 
 make_instr_func(ret_near)
 {
-    return ret_near(0);
+    return ret_near_(0);
 }
 
 make_instr_func(ret_near_imm16)
