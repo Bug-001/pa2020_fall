@@ -7,19 +7,19 @@ static int ret_near_(bool imm16)
     s.sreg = SREG_CS;
     s.addr = cpu.esp;
     s.data_size = data_size;
-    // s.data_size = 32;
     
     operand_read(&s);
     cpu.esp += data_size / 8;
     
     if(imm16)
     {
-        opr_dest.type = OPR_IMM;
-        opr_dest.sreg = SREG_CS;
-        opr_dest.addr = cpu.eip + 1;
-        opr_dest.data_size = 16;
-        operand_read(&opr_dest);
-        cpu.esp += opr_dest.val;
+        OPERAND i;
+        i.type = OPR_IMM;
+        i.sreg = SREG_CS;
+        i.addr = cpu.eip + 1;
+        i.data_size = 16;
+        operand_read(&i);
+        cpu.esp += i.val;
     }
     
     cpu.eip = s.val & (0xFFFFFFFF >> (32 - data_size));
