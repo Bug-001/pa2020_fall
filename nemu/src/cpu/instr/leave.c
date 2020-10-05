@@ -21,4 +21,6 @@ make_instr_func(leave_v)
     eBP.val = s.val;
     operand_write(&eBP);
     cpu.esp += data_size / 8;
+    
+    return 1;
 }
