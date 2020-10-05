@@ -7,6 +7,12 @@ static int call_near_(bool indirect)
     int len = 1;
     cpu.esp -= data_size / 8;
     decode_data_size_v
+    
+    opr_dest.type = OPR_MEM;
+    opr_dest.addr = cpu.esp;
+    opr_dest.val = cpu.eip + 1 + data_size / 8;
+    operand_write(&opr_dest);
+    
     if(!indirect)
     {
         // eIP = (eIP + rel) & (0xFFFFFFFF >> (32 - data_size))
@@ -24,12 +30,10 @@ static int call_near_(bool indirect)
         operand_read(&opr_src);
         cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
     }
+    
     assert(len == 1 + data_size / 8);
     cpu.eip += len;
-    opr_dest.type = OPR_MEM;
-    opr_dest.addr = cpu.esp;
-    opr_dest.val = cpu.eip;
-    operand_write(&opr_dest);
+
     return 0;
 }
 
