@@ -11,8 +11,8 @@ instr_func opcode_entry[256] = {
     /* 0x1c - 0x1f*/ inv, inv, inv, inv,
     /* 0x20 - 0x23*/ inv, inv, inv, inv,
     /* 0x24 - 0x27*/ inv, inv, inv, inv,
-    /* 0x28 - 0x2b*/ inv, inv, inv, inv,
-    /* 0x2c - 0x2f*/ inv, inv, inv, inv,
+    /* 0x28 - 0x2b*/ sub_r2rm_b, sub_r2rm_v, sub_rm2r_b, sub_rm2r_v,
+    /* 0x2c - 0x2f*/ sub_i2a_b, sub_i2a_v, inv, inv,
     /* 0x30 - 0x33*/ inv, inv, inv, inv,
     /* 0x34 - 0x37*/ inv, inv, inv, inv,
     /* 0x38 - 0x3b*/ cmp_r2rm_b, cmp_r2rm_v, cmp_rm2r_b, cmp_rm2r_v,
@@ -69,15 +69,15 @@ instr_func opcode_entry[256] = {
 
 /* 0x80 */
 instr_func group_1_b_entry[8] =
-    {add_i2rm_b, inv, inv, inv, inv, inv, inv, cmp_i2rm_b};
+    {add_i2rm_b, inv, inv, inv, inv, sub_i2rm_b, inv, cmp_i2rm_b};
 
 /* 0x81 */
 instr_func group_1_v_entry[8] =
-    {add_i2rm_v, inv, inv, inv, inv, inv, inv, cmp_i2rm_v};
+    {add_i2rm_v, inv, inv, inv, inv, sub_i2rm_v, inv, cmp_i2rm_v};
 
 /* 0x83 */
 instr_func group_1_bv_entry[8] =
-    {add_i2rm_bv, inv, inv, inv, inv, inv, inv, cmp_i2rm_bv};
+    {add_i2rm_bv, inv, inv, inv, inv, sub_i2rm_bv, inv, cmp_i2rm_bv};
 
 /* 0xc0 */
 instr_func group_2_b_entry[8] =
