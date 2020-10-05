@@ -39,7 +39,7 @@ static char logo[] = {
 static void add_inv_log(uint32_t eip, uint8_t *p)
 {
     // FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "wt+");
-    FILE* fp = fopen("/home/pa191850169/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "r+");
+    FILE* fp = fopen("/home/pa191850169/pa2020_fall/nemu/src/cpu/instr/inv_count.txt", "r+");
     assert(fp != NULL);
     
     int count;
