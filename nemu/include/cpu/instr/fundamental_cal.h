@@ -1,6 +1,6 @@
 #include "cpu/instr.h"
 
-#define fc_make_instr_impls(name)               \
+#define fc_make_instr_impls(name)               
     make_instr_impl_2op(name, r, rm, b)         \
     make_instr_impl_2op(name, r, rm, v)         \
     make_instr_impl_2op(name, rm, r, b)         \
@@ -11,7 +11,7 @@
     make_instr_impl_2op(name, i, rm, v)         \
     make_instr_impl_2op(name, i, rm, bv)
     
-#define fc_make_instr_funcs(name)               \
+#define fc_make_instr_funcs(name)               
     make_instr_func(concat(name, _r2rm_b));     \
     make_instr_func(concat(name, _r2rm_v));     \
     make_instr_func(concat(name, _rm2r_b));     \
