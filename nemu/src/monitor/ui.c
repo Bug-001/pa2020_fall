@@ -244,12 +244,12 @@ cmd_handler(cmd_x)
 	uint32_t expr;
 	sscanf(expr_str, "%x", &expr);
 	printf("%x\n", expr);
-// 	while(N--)
-// 	{
-// 	    printf("%x, ", paddr_read(expr, 32));
-// 	    expr += 4;
-// 	}
-// 	printf("\n");
+	while(N-- > 0)
+	{
+	    printf("%x, ", paddr_read(expr, 4));
+	    expr += 4;
+	}
+	printf("\n");
 	return 0;
 }
 
