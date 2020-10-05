@@ -45,6 +45,7 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     int count;
     fscanf(fp, "%d", &count);
     printf("count = %d\n", count);
+    fseek(fp, 0, SEEK_SET);
     fprintf(fp, "%d\n", count + 1);
     fclose(fp);
     
