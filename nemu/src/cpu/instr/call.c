@@ -31,14 +31,12 @@ static int call_near_(bool indirect, uint32_t eip)
         len += modrm_rm(cpu.eip + 1, &opr_src);
         operand_read(&opr_src);
         cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
-        print_asm_0("call", "", len);
+        print_asm_1("call", "", len, &opr_src);
     }
     
     assert(len == 1 + data_size / 8);
     cpu.eip += len;
     
-    
-
     return 0;
 }
 
