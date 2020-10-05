@@ -242,7 +242,7 @@ cmd_handler(cmd_x)
 		return 0;
 	}
 	uint32_t expr;
-	sscanf(expr_str, "%x", &expr);
+	sscanf(expr_str, "0x%08x", &expr);
 	while(N-- > 0)
 	{
 	    printf("%x, ", paddr_read(expr, 4));
