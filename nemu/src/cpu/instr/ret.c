@@ -2,11 +2,14 @@
 
 static int ret_near_(bool imm16)
 {
-    opr_src.type = OPR_MEM;
-    opr_src.sreg = SREG_CS;
-    opr_src.addr = cpu.esp;
+    OPERAND s;
+    s.type = OPR_MEM;
+    s.sreg = SREG_CS;
+    s.addr = cpu.esp;
+    // s.data_size = data_size;
+    s.data_size = 32;
     
-    operand_read(&opr_src);
+    operand_read(&s);
     cpu.esp += data_size / 8;
     
     if(imm16)
@@ -19,7 +22,7 @@ static int ret_near_(bool imm16)
         cpu.esp += opr_dest.val;
     }
     
-    cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
+    cpu.eip = s.val & (0xFFFFFFFF >> (32 - data_size));
     
     print_asm_0("ret", " ", 1);
     
