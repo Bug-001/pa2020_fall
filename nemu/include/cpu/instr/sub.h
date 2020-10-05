@@ -12,6 +12,6 @@
 // make_instr_func(sub_i2rm_v);    // 0x81
 // make_instr_func(sub_i2rm_bv);   // 0x83
 
-make_instr_funcs(sub)
+fc_make_instr_funcs(sub)
 
 #endif
