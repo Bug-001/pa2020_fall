@@ -39,7 +39,7 @@ static char logo[] = {
 static void add_inv_log(uint32_t eip, uint8_t *p)
 {
     // FILE* fp = fopen("~/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "wt+");
-    FILE* fp = fopen("/home/pa191850169/pa2020_fall/nemu/src/cpu/instr/inv_count.txt", "r+");
+    FILE* fp = fopen("inv_count.txt", "r+");
     assert(fp != NULL);
     
     int count;
@@ -49,7 +49,7 @@ static void add_inv_log(uint32_t eip, uint8_t *p)
     fprintf(fp, "%d\n", count + 1);
     fclose(fp);
     
-    fp = fopen("/home/pa191850169/pa2020_fall/nemu/src/cpu/instr/inv_log.txt", "a");
+    fp = fopen("inv_log.txt", "a");
     assert(fp != NULL);
     
     time_t timep;
