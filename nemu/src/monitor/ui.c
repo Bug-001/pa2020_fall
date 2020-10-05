@@ -243,7 +243,7 @@ cmd_handler(cmd_x)
 	}
 	uint32_t expr;
 	printf("expr = %s\n", expr_str);
-	sscanf(expr_str, "%x", &expr);
+	// sscanf(expr_str, "%x", &expr);
 	printf("%x\n", expr);
 	while(N--)
 	{
