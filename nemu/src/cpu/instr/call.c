@@ -1,7 +1,7 @@
 #include "cpu/instr.h"
 #include "cpu/modrm.h"
 
-static int call_near_(bool indirect, uint_32 eip)
+static int call_near_(bool indirect, uint32_t eip)
 {
     // push(eIP);
     int len = 1;
