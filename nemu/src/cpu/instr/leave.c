@@ -22,5 +22,7 @@ make_instr_func(leave_v)
     operand_write(&eBP);
     cpu.esp += data_size / 8;
     
+    print_asm_0("leave", " ", 1);
+    
     return 1;
 }

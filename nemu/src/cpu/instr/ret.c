@@ -21,6 +21,8 @@ static int ret_near_(bool imm16)
     
     cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
     
+    print_asm_0("ret", " ", 1);
+    
     return 0;
 }
 
