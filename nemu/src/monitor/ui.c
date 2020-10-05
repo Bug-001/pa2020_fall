@@ -230,11 +230,6 @@ cmd_handler(cmd_x)
 	char* num = strtok(NULL, " ");
 	int N = 0;
 	sscanf(num, "%d", &N);
-// 	for(num; *num; ++num)
-// 	{
-// 	    N *= 10;
-// 	    N += *num - '0';
-// 	}
 	char* expr_str = strtok(NULL, " ");
 	if(expr_str == NULL)
 	{
@@ -243,7 +238,7 @@ cmd_handler(cmd_x)
 	}
 	uint32_t expr;
 	sscanf(expr_str, "%x", &expr);
-	while(N-- > 0)
+	while(N--)
 	{
 	    printf("0x%08x, ", paddr_read(expr, 4));
 	    expr += 4;

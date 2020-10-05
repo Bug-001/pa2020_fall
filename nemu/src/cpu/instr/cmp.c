@@ -15,6 +15,7 @@ static void instr_execute_2op()
 // make_instr_func(cmp_rm2r_v);    // 0x3B
 // make_instr_func(cmp_i2a_b);     // 0x3C
 // make_instr_func(cmp_i2a_v);     // 0x3D
+
 // make_instr_func(cmp_i2rm_b);    // 0x80
 // make_instr_func(cmp_i2rm_v);     // 0x81
 // make_instr_func(cmp_i2rm_bv);    // 0x83
