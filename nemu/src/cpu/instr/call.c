@@ -12,7 +12,7 @@ static int call_near_(bool indirect)
         // eIP = (eIP + rel) & (0xFFFFFFFF >> (32 - data_size))
         opr_src.type = OPR_IMM;
     	opr_src.sreg = SREG_CS;
-    	opr_src.addr = eip + 1;
+    	opr_src.addr = cpu.eip + 1;
     	len += opr_src.data_size / 8;
         operand_read(&opr_src);
         cpu.eip = (cpu.eip + opr_src.val) & (0xFFFFFFFF >> (32 - data_size));
