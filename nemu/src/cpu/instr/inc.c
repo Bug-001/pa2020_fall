@@ -7,6 +7,6 @@ static void instr_execute_1op()
     operand_write(&opr_src);
 }
 
-make_instr_impl_2op(inc_rm_b)
-make_instr_impl_2op(inc_rm_v)
-make_instr_impl_2op(inc_r_v)
+make_instr_impl_1op(inc, rm, b)
+make_instr_impl_1op(inc, rm, v)
+make_instr_impl_1op(inc, r, v)
