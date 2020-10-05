@@ -236,7 +236,7 @@ cmd_handler(cmd_x)
 // 	    N += *num - '0';
 // 	}
 	char* expr_str = strtok(NULL, " ");
-	if(expr == NULL)
+	if(expr_str == NULL)
 	{
 		printf("Command format: \"x N EXPR\"\n");
 		return 0;
