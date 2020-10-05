@@ -1,4 +1,5 @@
 #include "cpu/instr.h"
+#include "cpu/modrm.h"
 
 static int call_near_(bool indirect)
 {
@@ -9,14 +10,17 @@ static int call_near_(bool indirect)
     if(!indirect)
     {
         // eIP = (eIP + rel) & (0xFFFFFFFF >> (32 - data_size))
-        decode_operand_i
+        opr_src.type = OPR_IMM;
+    	opr_src.sreg = SREG_CS;
+    	opr_src.addr = eip + 1;
+    	len += opr_src.data_size / 8;
         operand_read(&opr_src);
         cpu.eip = (cpu.eip + opr_src.val) & (0xFFFFFFFF >> (32 - data_size));
     }
     else
     {
         // eIP = r/m & (0xFFFFFFFF >> (32 - data_size))
-        decode_operand_rm
+        len += modrm_rm(cpu.eip + 1, &opr_src);
         operand_read(&opr_src);
         cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
     }
