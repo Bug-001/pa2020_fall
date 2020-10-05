@@ -245,7 +245,7 @@ cmd_handler(cmd_x)
 	sscanf(expr_str, "%x", &expr);
 	while(N--)
 	{
-	    printf("%x ", hw_mem_read(expr, 32));
+	    printf("%x ", paddr_read(expr, 32));
 	    expr += 4;
 	}
 	printf("\n");
