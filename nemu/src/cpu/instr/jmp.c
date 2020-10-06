@@ -47,8 +47,8 @@ make_instr_func(jmp_near_indirect)
     
     ind.type = OPR_IMM;
     ind.sreg = SREG_CS;
-    ind.data_size = 16;
-    ind.addr = eip + 3;
+    ind.data_size = 32;
+    ind.addr = eip;
     operand_read(&ind);
     print_asm_1("jmp", "", 1 + len, &ind);
     
