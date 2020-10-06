@@ -23,3 +23,15 @@
     make_instr_func(concat(inst_name, _i2rm_v)); \
     make_instr_func(concat(inst_name, _i2rm_bv));
 
+#define fc_instr_execute(inst_name) \
+    static void instr_execute_2op() \
+    { \
+        operand_read(&opr_src); \
+        operand_read(&opr_dest); \
+        uint32_t opr_src_temp = sign_ext(opr_src.val, opr_src.data_size); \
+        opr_dest.val = concat(alu_, inst_name)(opr_src_temp, opr_dest.val, opr_dest.data_size); \
+        if(strcmp(str(inst_name), "cmp")) \
+        { \
+            operand_write(&opr_dest); \
+        } \
+    }
