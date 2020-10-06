@@ -4,7 +4,7 @@ static void instr_execute_2op()
 {
     operand_read(&opr_src);
     operand_read(&opr_dest);
-    printf("opr_src.val == %u\n", opr_src.val);
+    printf("opr_src.val == %x\n", opr_src.val);
     fflush(stdout);
     uint32_t opr_src_temp = sign_ext(opr_src.val, 32);
     // uint32_t opr_src_temp = sign_ext(opr_src.val, opr_dest.data_size);
