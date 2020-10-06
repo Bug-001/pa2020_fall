@@ -1,4 +1,5 @@
 #include "cpu/instr.h"
+#include "cpu/alu.h"
 
 static void instr_execute_2op()
 {
