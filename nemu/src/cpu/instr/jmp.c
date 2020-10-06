@@ -41,8 +41,8 @@ make_instr_func(jmp_near_indirect)
 {
     OPERAND ind;
     
-    modrm_rm(eip + 1, &ind);
-    print_asm_1("jmp", "", 1 + ind.data_size / 8, &ind);
+    int len = modrm_rm(eip + 1, &ind);
+    print_asm_1("jmp", "", 1 + len, &ind);
     printf("ind.val == %x\n", ind.val);
     
     cpu.eip = ind.val;
