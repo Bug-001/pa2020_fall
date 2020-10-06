@@ -41,7 +41,7 @@ make_instr_func(jmp_near_indirect)
 {
     OPERAND ind;
     
-    // ind.data_size = 32;
+    ind.data_size = 32;
     int len = modrm_rm(eip + 1, &ind);
     operand_read(&ind);
     print_asm_1("jmp", "", 1 + len, &ind);
