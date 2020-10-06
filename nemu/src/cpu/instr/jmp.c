@@ -45,11 +45,12 @@ make_instr_func(jmp_near_indirect)
     ind.data_size = data_size;
     ind.addr = eip + 1;
     
-    operand_read(&ind);
+    int len = 1;
+    len += modrm_rm(eip + 1, &opr_src);
     
     print_asm_1("jmp", "", 1 + ind.data_size / 8, &ind);
     
     cpu.eip = ind.val;
     
-    return 1 + ind.data_size / 8;
+    return len;
 }
