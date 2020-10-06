@@ -1,6 +1,6 @@
 #include "cpu/instr.h"
 
-stativ void instr_execute_1op()
+static void instr_execute_1op()
 {
     operand_read(&opr_src);
     opr_src.val = ~opr_src.val;
