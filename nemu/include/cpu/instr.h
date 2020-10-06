@@ -4,6 +4,7 @@
 #include "nemu.h"
 #include "cpu/cpu.h"
 #include "cpu/fpu.h"
+#include "cpu/alu.h"
 #include "cpu/modrm.h"
 #include "cpu/operand.h"
 #include "cpu/instr_helper.h"
