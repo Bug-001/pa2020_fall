@@ -45,7 +45,7 @@ int main()
 	setbit(buf, 13, 0);
 	setbit(buf, 14, 1);
 	setbit(buf, 15, 0);
-	nemu_assert(buf[1] == 0x54);
+	nemu_assert(buf[1] == 0x55);
 
 	HIT_GOOD_TRAP;
 	return 0;
