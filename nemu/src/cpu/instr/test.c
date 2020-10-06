@@ -5,7 +5,7 @@ static void instr_execute_2op()
     operand_read(&opr_src);
     operand_read(&opr_dest);
     assert(opr_src.data_size == opr_dest.data_size);
-    alu_and(opr_src.val, opr_dest.val, data_size);
+    alu_and(opr_src.val, opr_dest.val, opr_src.data_size);
 }
 
 // make_instr_func(test_i2a_b);    // 0xA8
