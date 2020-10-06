@@ -34,8 +34,8 @@
             opr_dest.val = concat(alu_, inst_name)(opr_src_temp, opr_dest.val, opr_dest.data_size); \
             operand_write(&opr_dest); \
         } \
-        else
-        {
+        else \
+        { \
             alu_sub(opr_src_temp, opr_dest.val, opr_dest.data_size); \
-        }
+        } \
     }
