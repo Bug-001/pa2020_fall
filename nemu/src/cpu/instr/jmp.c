@@ -40,10 +40,6 @@ make_instr_func(jmp_short_)
 make_instr_func(jmp_near_indirect)
 {
     OPERAND ind;
-    ind.type = OPR_IMM;
-    ind.sreg = SREG_CS;
-    ind.data_size = data_size;
-    ind.addr = eip + 1;
     
     modrm_rm(eip + 1, &ind);
     print_asm_1("jmp", "", 1 + ind.data_size / 8, &ind);
