@@ -96,8 +96,6 @@ static uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t d
     // SAR = 01
     // SHL = 10
     // SHR = 11
-    // printf("SHL SHL SHL SHL\n \n");
-    // assert(0);
     operand &= (0xFFFFFFFF >> (32 - data_size));
     uint32_t result = operand;
     count &= 0x1F;
@@ -105,7 +103,6 @@ static uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t d
     {
         return result;
     }
-    // printf("nonono\n");
     shift_mode &= 3;
     if(shift_mode & 1)  // Right shift: SAR SHR
     {
