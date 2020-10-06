@@ -33,4 +33,4 @@
         operand_write(&opr_dest); \
     }
     
-// uint32_t opr_src_temp = sign_ext(opr_src.val, opr_src.data_size); \
+// uint32_t opr_src_temp = sign_ext(opr_src.val, opr_src.data_size);
