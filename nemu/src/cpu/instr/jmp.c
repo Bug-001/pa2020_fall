@@ -29,10 +29,26 @@ make_instr_func(jmp_short_)
 
     operand_read(&rel);
 
-    int offset = sign_ext(rel.val, rel.data_size);
     print_asm_1("jmp", "", 1 + rel.data_size / 8, &rel);
 
     cpu.eip += offset;
 
     return 1 + rel.data_size / 8;
+}
+
+make_instr_func(jum_near_indirect)
+{
+    OPERAND ind;
+    ind.type = OPR_IMM;
+    ind.sreg = SREG_CS;
+    ind.data_size = data_size;
+    ind.addr = eip + 1;
+    
+    operand_read(&ind);
+    
+    print_asm_1("jmp", "", 1 + ind.data_size / 8, &ind);
+    
+    cpu.eip = ind.val;
+    
+    return 1 + ind.data_size / 8;
 }
