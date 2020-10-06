@@ -1,12 +1,11 @@
 #include "cpu/instr.h"
-#include "cpu/alu.h"
 
 static void instr_execute_2op()
 {
     operand_read(&opr_src);
     operand_read(&opr_dest);
-    // uint32_t opr_src_temp = sign_ext(opr_src.val, 32);
-    uint32_t opr_src_temp = 0x7fffff0;
+    uint32_t opr_src_temp = sign_ext(opr_src.val, 32);
+    // uint32_t opr_src_temp = 0x7fffff0;
     printf("opr_src.val == %x\n", opr_src.val);
     printf("opr_src_temp == %x\n", opr_src_temp);
     fflush(stdout);
