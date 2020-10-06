@@ -50,6 +50,7 @@ make_instr_func(jmp_near_indirect)
     ind.data_size = 32;
     ind.addr = eip;
     operand_read(&ind);
+    printf("ind.val == %x\n", ind.val);
     print_asm_1("jmp", "", 7, &ind);
     
     cpu.eip = ind.val;
