@@ -23,6 +23,7 @@
     make_instr_func(concat(inst_name, _i2rm_v)); \
     make_instr_func(concat(inst_name, _i2rm_bv));
 
+// can't be used by cmp
 #define fc_instr_execute(inst_name) \
     static void instr_execute_2op() \
     { \
