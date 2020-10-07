@@ -22,10 +22,9 @@ static int ret_near_(bool imm16)
         cpu.esp += i.val;
     }
     
-    cpu.eip = s.val & (0xFFFFFFFF >> (32 - data_size));
-    
     print_asm_0("ret", " ", 1);
-    
+    cpu.eip = s.val & (0xFFFFFFFF >> (32 - data_size));
+
     return 0;
 }
 
