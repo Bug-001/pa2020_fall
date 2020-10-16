@@ -59,5 +59,6 @@ int main(){
 		}
 		nemu_assert(total == ans[i]);
 	}
+	HIT_GOOD_TRAP;
 	return 0;
 }
