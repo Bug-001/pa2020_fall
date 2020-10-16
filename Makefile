@@ -82,6 +82,7 @@ test_pa-2-1: nemu
 	./nemu/nemu --autorun --testcase leap-year
 	./nemu/nemu --autorun --testcase matrix-mul-small
 	./nemu/nemu --autorun --testcase matrix-mul
+	./nemu/nemu --autorun --testcase moon_cake
 	./nemu/nemu --autorun --testcase mul-longlong 
 	./nemu/nemu --autorun --testcase prime
 	./nemu/nemu --autorun --testcase shuixianhua
