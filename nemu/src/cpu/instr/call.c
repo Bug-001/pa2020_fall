@@ -27,7 +27,7 @@ static int call_near_(bool indirect, uint32_t eip)
     	// opr_call.sreg = SREG_CS;
     	// opr_call.addr = cpu.eip + 1;
     	// len += opr_call.data_size / 8;
-        cpu.eip = (cpu.eip + len + opr_call.val) & (0xFFFFFFFF >> (32 - data_size));
+        cpu.eip = (cpu.eip + opr_call.val) & (0xFFFFFFFF >> (32 - data_size));
     }
     else
     {
