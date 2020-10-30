@@ -105,7 +105,8 @@ void init_cond()
 				 : "i"(KOFFSET));
 #endif
 
-	asm volatile(".byte 0x82" : : "a"(2));
+	// asm volatile(".byte 0x82" : : "a"(2));
 	/* Here we go! */
+	BREAK_POINT;
 	((void (*)(void))eip)();
 }
