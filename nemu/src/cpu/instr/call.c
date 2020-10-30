@@ -34,7 +34,7 @@ static int call_near_(bool indirect, uint32_t eip)
         cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
     }
     
-    assert(len == 1 + data_size / 8);
+    // assert(len == 1 + data_size / 8);
     cpu.eip += len;
     
     return 0;
