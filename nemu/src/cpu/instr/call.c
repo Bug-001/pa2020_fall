@@ -3,39 +3,41 @@
 
 static int call_near_(bool indirect, uint32_t eip)
 {
+    OPERAND opr_push, opr_call;
     // push(eIP);
     int len = 1;
-    cpu.esp -= data_size / 8;
-    decode_data_size_v
+    opr_push.data_size = opr_call.data_size = data_size;
+    // opr_src.data_size = opr_dest.data_size = data_size;
     
-    opr_dest.type = OPR_MEM;
-    opr_dest.addr = cpu.esp;
-    opr_dest.val = eip + 1 + data_size / 8;
-    // opr_dest.val = eip;
-    operand_write(&opr_dest);
+    len += modrm_rm(eip + 1, &opr_call);
+    
+    cpu.esp -= data_size / 8;
+    opr_push.type = OPR_MEM;
+    opr_push.addr = cpu.esp;
+    opr_push.val = eip + len;
+    operand_write(&opr_push);
+    
+    print_asm_1("call", "", len, &opr_call);
+    operand_read(&opr_call);
     
     if(!indirect)
     {
         // eIP = (eIP + rel) & (0xFFFFFFFF >> (32 - data_size))
-        opr_src.type = OPR_IMM;
-    	opr_src.sreg = SREG_CS;
-    	opr_src.addr = cpu.eip + 1;
-    	len += opr_src.data_size / 8;
-        operand_read(&opr_src);
-        print_asm_1("call", "", len, &opr_src);
-        cpu.eip = (cpu.eip + opr_src.val) & (0xFFFFFFFF >> (32 - data_size));
+        // opr_call.type = OPR_IMM;
+    	// opr_call.sreg = SREG_CS;
+    	// opr_call.addr = cpu.eip + 1;
+    	// len += opr_call.data_size / 8;
+        cpu.eip = (cpu.eip + len + opr_call.val) & (0xFFFFFFFF >> (32 - data_size));
     }
     else
     {
         // eIP = r/m & (0xFFFFFFFF >> (32 - data_size))
-        len += modrm_rm(cpu.eip + 1, &opr_src);
-        operand_read(&opr_src);
-        print_asm_1("call", "", len, &opr_src);
-        cpu.eip = opr_src.val & (0xFFFFFFFF >> (32 - data_size));
+        // len += modrm_rm(eip + 1, &opr_call);
+        cpu.eip = opr_call.val & (0xFFFFFFFF >> (32 - data_size));
     }
     
     // assert(len == 1 + data_size / 8);
-    cpu.eip += len;
+    // cpu.eip += len;
     
     return 0;
 }
