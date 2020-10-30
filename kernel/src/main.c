@@ -107,6 +107,6 @@ void init_cond()
 
 	// asm volatile(".byte 0x82" : : "a"(2));
 	/* Here we go! */
-	BREAK_POINT;
+	// BREAK_POINT;
 	((void (*)(void))eip)();
 }
