@@ -101,7 +101,8 @@ static uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t d
     count &= 0x1F;
     if(count == 0)
     {
-        return result;
+        // return result;
+        return 0;
     }
     shift_mode &= 3;
     if(shift_mode & 1)  // Right shift: SAR SHR
