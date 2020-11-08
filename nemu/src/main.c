@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 	{
 		// use the built-in testcases
 		printf("NEMU execute built-in tests\n");
-		if (flag_score)
+		if (!flag_score)
 		{
 			builtin_score_func();
 		}
