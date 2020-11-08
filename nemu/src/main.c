@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		// either testcase or game, the img and elf paths should be properly set
-		if (!flag_score)
+		if (flag_score)
 		{
 			single_run(image_path_score, elf_path_score);
 		}
