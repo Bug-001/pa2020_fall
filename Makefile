@@ -197,6 +197,7 @@ test_batch-2-2-mute:
 	./nemu/nemu --autorun --testcase leap-year --kernel
 	./nemu/nemu --autorun --testcase matrix-mul-small --kernel
 	./nemu/nemu --autorun --testcase matrix-mul --kernel
+	./nemu/nemu --autorun --testcase moon_cake  --kernel
 	./nemu/nemu --autorun --testcase mul-longlong  --kernel
 	./nemu/nemu --autorun --testcase prime --kernel
 	./nemu/nemu --autorun --testcase shuixianhua --kernel
