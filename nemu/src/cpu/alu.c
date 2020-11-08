@@ -117,8 +117,8 @@ static uint32_t shift(uint32_t operand, uint32_t count, int shift_mode, size_t d
             int32_t temp = sign_ext(result, data_size);
             temp >>= (count - 1);
             cpu.eflags.CF = temp & 1;
-            temp >>= 2;
-            // temp >>= 1;
+            // temp >>= 2;
+            temp >>= 1;
             result = temp;
         }
     }
