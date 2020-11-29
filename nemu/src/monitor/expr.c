@@ -162,7 +162,7 @@ static bool make_token(char *e)
             {
                 tokens[i].type = DEREF;
             }
-            else if(tokens[i - 1].type != NUM)
+            else if(tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
             {
                 tokens[i].type = DEREF;
             }
@@ -172,7 +172,7 @@ static bool make_token(char *e)
             {
                 tokens[i].type = NEG;
             }
-            else if(tokens[i - 1].type != NUM)
+            else if(tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
             {
                 tokens[i].type = NEG;
             }
