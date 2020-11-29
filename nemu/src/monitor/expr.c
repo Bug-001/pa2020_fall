@@ -280,7 +280,11 @@ static int dominant_operator(int p, int q, bool *success)
             int temp = pri(tokens[i].type);
             if(temp == 2) // 
             {
-                return i;
+                if(temp > res_pri)
+                {
+                    res = i;
+                    res_pri = temp;
+                }
             }
             else
             {
