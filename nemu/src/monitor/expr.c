@@ -172,21 +172,13 @@ static bool make_token(char *e)
 	    switch(tokens[i].type)
 	    {
         case MUL:
-            if(i == 0)
-            {
-                tokens[i].type = DEREF;
-            }
-            else if(tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
+            if(i == 0 || tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
             {
                 tokens[i].type = DEREF;
             }
             break;
         case SUB:
-        	if(i == 0)
-            {
-                tokens[i].type = NEG;
-            }
-            else if(tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
+            if(i == 0 || tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
             {
                 tokens[i].type = NEG;
             }
@@ -286,11 +278,19 @@ static int dominant_operator(int p, int q, bool *success)
         else if(in_par == 0)
         {
             int temp = pri(tokens[i].type);
-            if(temp >= res_pri)
+            if(temp == 2) // 
             {
-                res = i;
-                res_pri = temp;
+                return i;
             }
+            else
+            {
+                if(temp >= res_pri)
+                {
+                    res = i;
+                    res_pri = temp;
+                }
+            }
+
         }
     }
     return res;
