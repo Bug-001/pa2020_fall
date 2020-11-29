@@ -313,7 +313,14 @@ static uint32_t eval(int p, int q, bool *success)
     {
         switch(tokens[p].type)
         {
-            case NUM: return atoi(tokens[p].str);
+            case NUM: 
+                char* format;
+                if(tokens[p].str[1] == 'x') format = "%x";
+                else if(tokens[p].str[1] == 'X') format = "%X";
+                else format = "%d";
+                int num;
+                sscanf(tokens[p].str, format, &num);
+                return num;
             case REG: return get_reg_val(tokens[p].str + 1, success);
             default: *success = false; return 0;
         }
