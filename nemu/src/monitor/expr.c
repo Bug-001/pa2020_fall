@@ -263,7 +263,7 @@ static int dominant_operator(int p, int q, bool *success)
     {
         if(tokens[i].type == LPAR) ++in_par;
         else if(tokens[i].type == RPAR) --in_par;
-        else if(inpar == 0)
+        else if(in_par == 0)
         {
             temp = pri(tokens[i].type);
             if(temp > res_pri)
@@ -272,8 +272,8 @@ static int dominant_operator(int p, int q, bool *success)
                 res_pri = temp;
             }
         }
-
     }
+    assert(in_par == 0);
     return res;
 }
 
