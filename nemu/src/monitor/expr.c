@@ -57,7 +57,7 @@ static struct rule
     {"&&", AND},
     {"\\|\\|", OR},
     {"\\!={0}", NOT},
-
+    {"\\$[a-z]{1,3}", REG},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -111,7 +111,7 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				printf("match regex[%d] at position %d with len %d: %s\n", i, position, substr_len, substr_len, substr_start);
+				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
 				/* TODO: Now a new token is recognized with rules[i]. 
@@ -123,7 +123,7 @@ static bool make_token(char *e)
 				case NOTYPE:
 				    break;
 				default:
-				    //strcpy()
+				    strcat(tokens[nr_token].str, substr_start, substr_len);
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
 				}
@@ -150,9 +150,8 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-	printf("\nPlease implement expr at expr.c\n");
-	fflush(stdout);
-	// assert(0);
+    
 
+    *success = true;
 	return 0;
 }
