@@ -13,7 +13,21 @@
 enum
 {
 	NOTYPE = 256,
+	ADD,
+	SUB,
+	MUL,
+	DIV,
+	NEG,
+	
 	EQ,
+	NEQ,
+	
+	AND,
+	OR,
+	NOT,
+	
+	DEREF,
+	
 	NUM,
 	REG,
 	SYMB
@@ -34,11 +48,16 @@ static struct rule
 
 	{" +", NOTYPE}, // white space
 	{"[0-9]{1,10}", NUM},
-	{"\\+", '+'},
-	{"\\-", '-'},
-	{"\\*", '*'},
-	{"/", '/'},
-    
+	{"\\+", ADD},
+	{"\\-", SUB},
+	{"\\*", MUL},
+	{"/", DIV},
+    {"==", EQ},
+    {"\\!=", NEQ},
+    {"&&", AND},
+    {"\\|\\|", OR},
+    {"\\![^=]", NOT},
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
