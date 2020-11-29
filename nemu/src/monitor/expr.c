@@ -299,6 +299,7 @@ static uint32_t calculate_1op(int op, uint32_t val, bool *success)
     {
         case NEG: return -val;
         case DEREF: return vaddr_read(val, 0, 4); // DEBUG: sreg
+        case NOT: return !val;
         default: *success = false; return 1919;
     }
 }
@@ -322,6 +323,10 @@ static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2, bool *succes
         case OR: return val1 || val2;
         case EQ: return val1 == val2;
         case NEQ: return val1 != val2;
+        case GTR: return val1 > val2;
+        case GEQ: return val1 >= val2;
+        case LTR: return val1 < val2;
+        case LEQ: return val1 <= val2;
         default: *success = false; return 1919810;
     }
 }
