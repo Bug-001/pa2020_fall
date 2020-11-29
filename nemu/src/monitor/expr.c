@@ -361,8 +361,10 @@ static uint32_t eval(int p, int q, bool *success)
                 {
                     printf("Symbol \"%s\" not found", tokens[p].str);
                     temp = false;
+                    return 1145141;
                 }
                 *success = temp;
+                return symbol_val;
             default: *success = false; return 114;
         }
     }
