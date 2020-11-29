@@ -236,8 +236,13 @@ cmd_handler(cmd_x)
 		printf("Command format: \"x N EXPR\"\n");
 		return 0;
 	}
-	uint32_t expr;
-	sscanf(expr_str, "%x", &expr);
+	bool success = true;
+	uint32_t expr = expr(expr_str, success);
+	if(!success)
+	{
+	    printf("invalid expression: '%s'\n", expr_str);
+	    return 0;
+	}
 	while(N--)
 	{
 	    printf("0x%08x, ", paddr_read(expr, 4));
