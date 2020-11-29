@@ -72,7 +72,7 @@ cmd_handler(cmd_info)
     /* MODIFIED HERE*/
     if (args == NULL)
 	{
-		printf("args needed ('w' or 'r')\n");
+		printf("args needed ('b' or 'r')\n");
 		return 0;
 	}
 	char *arg = strtok(NULL, " ");
@@ -80,7 +80,7 @@ cmd_handler(cmd_info)
 	{
 		print_reg();
 	}
-	else if (strcmp(arg, "w") == 0)
+	else if (strcmp(arg, "b") == 0)
 	{
 		list_breakpoint();
 	}
