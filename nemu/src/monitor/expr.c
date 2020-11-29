@@ -78,7 +78,7 @@ static struct rule
     
     {"\\$[a-z]{1,31}", REG},
     
-    {"[a-zA-Z_]{1,}[a-zA-Z0-9_]*", SYMB},
+    {"[a-zA-Z_]{1}[a-zA-Z0-9_]*", SYMB},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -351,7 +351,7 @@ static uint32_t eval(int p, int q, bool *success)
                 sscanf(tokens[p].str, format, &num);
                 return num;
             case REG: return get_reg_val(tokens[p].str + 1, success);
-            case SYMB: 
+            case SYMB: return look_up_symtab(tokens[p].str, success);
             default: *success = false; return 114;
         }
     }
