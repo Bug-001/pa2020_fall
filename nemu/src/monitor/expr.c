@@ -93,10 +93,11 @@ static bool make_token(char *e)
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-				
 
 				switch (rules[i].token_type)
 				{
+				case NOTYPE:
+				    break;
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
@@ -126,7 +127,7 @@ uint32_t expr(char *e, bool *success)
 
 	printf("\nPlease implement expr at expr.c\n");
 	fflush(stdout);
-	assert(0);
+	// assert(0);
 
 	return 0;
 }
