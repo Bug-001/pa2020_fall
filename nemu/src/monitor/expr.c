@@ -188,6 +188,7 @@ static bool check_parentheses(int p, int q, bool* success)
 
 static int eval(int p, int q, bool *success)
 {
+    return 0;
     if(p > q)
     {
         
