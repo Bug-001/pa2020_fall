@@ -135,6 +135,7 @@ static bool make_token(char *e)
 				    break;
 				case NUM:
 				case REG:
+				    *tokens[nr_token].str = 0;
 				    strncat(tokens[nr_token].str, substr_start, substr_len);
 				default:
 					tokens[nr_token].type = rules[i].token_type;
@@ -354,8 +355,5 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 	printf("nr_token == %d\n", nr_token);
-	fflush(stdout);
-    uint32_t val = eval(0, nr_token - 1, success);
-    printf("val == %d\n", val);
-    return val;
+    return eval(0, nr_token - 1, success);
 }
