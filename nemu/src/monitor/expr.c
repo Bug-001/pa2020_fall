@@ -64,9 +64,9 @@ static struct rule
 	
     {"==", EQ},
     {"\\!=", NEQ},
-    {">", GTR},
+    {">={0}", GTR},
     {">=", GEQ},
-    {"<", LTR},
+    {"<={0}", LTR},
     {"<=", LEQ},
     
     {"\\(", LPAR},
