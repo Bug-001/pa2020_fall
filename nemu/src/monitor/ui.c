@@ -237,7 +237,7 @@ cmd_handler(cmd_x)
 		return 0;
 	}
 	bool success = true;
-	uint32_t expr = expr(expr_str, success);
+	uint32_t val = expr(expr_str, success);
 	if(!success)
 	{
 	    printf("invalid expression: '%s'\n", expr_str);
@@ -245,8 +245,8 @@ cmd_handler(cmd_x)
 	}
 	while(N--)
 	{
-	    printf("0x%08x, ", paddr_read(expr, 4));
-	    expr += 4;
+	    printf("0x%08x, ", paddr_read(val, 4));
+	    val += 4;
 	}
 	printf("\n");
 	return 0;
