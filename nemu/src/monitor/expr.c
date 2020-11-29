@@ -344,7 +344,7 @@ static uint32_t eval(int p, int q, bool *success)
         {
             uint32_t val1 = eval(p, op - 1);
             uint32_t val2 = eval(op + 1, q);
-            return calculate(val1, tokens[op].type, val2);
+            return calculate_2op(val1, tokens[op].type, val2);
         }
     }
 }
