@@ -315,7 +315,7 @@ static uint32_t eval(int p, int q, bool *success)
         {
             case NUM: return atoi(tokens[p].str);
             case REG: return get_reg_val(tokens[p].str + 1, success);
-            default: assert(0);
+            default: *success = false; return 0;
         }
     }
     else if(check_parentheses(p, q, success) == true)
