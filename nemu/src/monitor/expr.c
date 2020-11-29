@@ -282,7 +282,7 @@ static uint32_t calculate_1op(int op, uint32_t val)
     {
         case NEG: return -val;
         case DEREF: return vaddr_read(val, 0, 4); // DEBUG: sreg
-        default: assert(0);
+        default: *success = false; return 0;
     }
 }
 
@@ -298,7 +298,7 @@ static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2)
         case OR: return val1 || val2;
         case EQ: return val1 == val2;
         case NEQ: return val1 != val2;
-        default: assert(0);
+        default: *success = false; return 0;
     }
 }
 
