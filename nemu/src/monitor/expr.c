@@ -332,6 +332,7 @@ static uint32_t eval(int p, int q, bool *success)
     else
     {
         int op = dominant_operator(p, q, success);
+        printf("op == %d\n", op);
         if(tokens[op].type == NEG || tokens[op].type == DEREF)
         {
             uint32_t val = eval(op + 1, q, success);
