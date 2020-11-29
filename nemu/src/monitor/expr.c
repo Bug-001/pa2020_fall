@@ -311,10 +311,10 @@ static uint32_t eval(int p, int q, bool *success)
     }
     else if(p == q)
     {
+        char* format;
         switch(tokens[p].type)
         {
             case NUM: 
-                char* format;
                 if(tokens[p].str[1] == 'x') format = "%x";
                 else if(tokens[p].str[1] == 'X') format = "%X";
                 else format = "%d";
