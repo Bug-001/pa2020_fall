@@ -343,6 +343,7 @@ static uint32_t eval(int p, int q, bool *success)
     else if(p == q)
     {
         char* format;
+        bool temp;
         switch(tokens[p].type)
         {
             case NUM: 
@@ -354,7 +355,7 @@ static uint32_t eval(int p, int q, bool *success)
                 return num;
             case REG: return get_reg_val(tokens[p].str + 1, success);
             case SYMB: 
-                bool temp = *success;
+                temp = *success;
                 uint32_t symbol_val = look_up_symtab(tokens[p].str, success);
                 if(!*success)
                 {
