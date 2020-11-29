@@ -148,6 +148,7 @@ static bool make_token(char *e)
 				    break;
 				case NUM:
 				case REG:
+				case SYMB:
 				    *tokens[nr_token].str = 0;
 				    strncat(tokens[nr_token].str, substr_start, substr_len);
 				default:
@@ -359,7 +360,7 @@ static uint32_t eval(int p, int q, bool *success)
                 uint32_t symbol_val = look_up_symtab(tokens[p].str, success);
                 if(!*success)
                 {
-                    printf("Symbol \"%s\" not found", tokens[p].str);
+                    printf("Symbol \"%s\" not found\n", tokens[p].str);
                     temp = false;
                     return 1145141;
                 }
