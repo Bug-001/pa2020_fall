@@ -355,5 +355,7 @@ uint32_t expr(char *e, bool *success)
 	}
 	printf("nr_token == %d\n", nr_token);
 	fflush(stdout);
-    return eval(0, nr_token - 1, success);
+    uint32_t val = eval(0, nr_token - 1, success);
+    printf("val == %d\n", val);
+    return val;
 }

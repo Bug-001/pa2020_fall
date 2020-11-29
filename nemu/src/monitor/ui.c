@@ -109,7 +109,6 @@ cmd_handler(cmd_p)
 	else
 	{
 		printf("%d\n", val);
-		fflush(stdout);
 	}
 	return 0;
 
