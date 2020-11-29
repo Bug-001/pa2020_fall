@@ -351,6 +351,7 @@ static uint32_t eval(int p, int q, bool *success)
                 sscanf(tokens[p].str, format, &num);
                 return num;
             case REG: return get_reg_val(tokens[p].str + 1, success);
+            case SYMB: 
             default: *success = false; return 114;
         }
     }
