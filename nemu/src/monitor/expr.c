@@ -51,9 +51,9 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space
-	{"[0-9]{1,10}", NUM},
+	{"[0-9]{1,10}|0[xX][0-9a-fA-F]{1,8}", NUM},
 	{"\\+", ADD},
-	{"\\-", SUB},
+	{"-", SUB},
 	{"\\*", MUL},
 	{"/", DIV},
 	
@@ -266,7 +266,7 @@ static int dominant_operator(int p, int q, bool *success)
         else if(in_par == 0)
         {
             int temp = pri(tokens[i].type);
-            if(temp > res_pri)
+            if(temp >= res_pri)
             {
                 res = i;
                 res_pri = temp;
