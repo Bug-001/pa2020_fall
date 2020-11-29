@@ -276,7 +276,7 @@ static int dominant_operator(int p, int q, bool *success)
     return res;
 }
 
-static uint32_t calculate_1op(int op, uint32_t val)
+static uint32_t calculate_1op(int op, uint32_t val, bool *success)
 {
     switch(op)
     {
@@ -286,7 +286,7 @@ static uint32_t calculate_1op(int op, uint32_t val)
     }
 }
 
-static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2)
+static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2, bool *success)
 {
     switch(op)
     {
@@ -330,7 +330,7 @@ static uint32_t eval(int p, int q, bool *success)
         if(tokens[op].type == NEG || tokens[op].type == DEREF)
         {
             uint32_t val = eval(op + 1, q, success);
-            return calculate_1op(tokens[op].type, val);
+            return calculate_1op(tokens[op].type, val, success);
         }
         else if(tokens[op].type == NUM || tokens[op].type == REG)
         {
@@ -341,7 +341,7 @@ static uint32_t eval(int p, int q, bool *success)
         {
             uint32_t val1 = eval(p, op - 1, success);
             uint32_t val2 = eval(op + 1, q, success);
-            return calculate_2op(val1, tokens[op].type, val2);
+            return calculate_2op(val1, tokens[op].type, val2, success);
         }
     }
 }
