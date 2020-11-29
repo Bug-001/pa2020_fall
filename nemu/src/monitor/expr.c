@@ -353,7 +353,15 @@ static uint32_t eval(int p, int q, bool *success)
                 sscanf(tokens[p].str, format, &num);
                 return num;
             case REG: return get_reg_val(tokens[p].str + 1, success);
-            case SYMB: return look_up_symtab(tokens[p].str, success);
+            case SYMB: 
+                bool temp = *success;
+                uint32_t symbol_val = look_up_symtab(tokens[p].str, success);
+                if(!*success)
+                {
+                    printf("Symbol \"%s\" not found", tokens[p].str);
+                    temp = false;
+                }
+                *success = temp;
             default: *success = false; return 114;
         }
     }
