@@ -181,7 +181,9 @@ static bool make_token(char *e)
 	return true;
 }
 
-static bool check_parentheses
+static bool check_parentheses(int p, int q, bool* success){
+    return false;
+}
 
 static int eval(int p, int q, bool *success)
 {
@@ -210,5 +212,6 @@ uint32_t expr(char *e, bool *success)
 		*success = false;
 		return 0;
 	}
-    return eval(0, nr_token - 1, success);
+	return 0;
+    //return eval(0, nr_token - 1, success);
 }
