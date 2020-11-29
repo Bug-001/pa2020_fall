@@ -352,7 +352,6 @@ static uint32_t eval(int p, int q, bool *success)
 
 uint32_t expr(char *e, bool *success)
 {
-    nr_token = 0;
 	if (!make_token(e))
 	{
 		*success = false;
