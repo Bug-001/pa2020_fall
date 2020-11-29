@@ -258,14 +258,21 @@ static int dominant_operator(int p, int q, bool *success)
     int res = p;
     int res_pri = pri(tokens[res].type);
     int temp;
+    int in_par = 0;
     for(int i = p + 1; i <= q; ++i)
     {
-        temp = pri(tokens[i].type);
-        if(temp > res_pri)
+        if(tokens[i].type == LPAR) ++in_par;
+        else if(tokens[i].type == RPAR) --in_par;
+        else if(inpar == 0)
         {
-            res = i;
-            res_pri = temp;
+            temp = pri(tokens[i].type);
+            if(temp > res_pri)
+            {
+                res = i;
+                res_pri = temp;
+            }
         }
+
     }
     return res;
 }
