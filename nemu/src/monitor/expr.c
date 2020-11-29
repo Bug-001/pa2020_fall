@@ -22,6 +22,10 @@ enum
 	
 	EQ,
 	NEQ,
+	GTR,
+	GEQ,
+	LTR,
+	LEQ,
 	
 	LPAR,
 	RPAR,
@@ -52,6 +56,7 @@ static struct rule
 
 	{" +", NOTYPE}, // white space
 	{"[0-9]{1,10}|0[xX][0-9a-fA-F]{1,8}", NUM},
+	
 	{"\\+", ADD},
 	{"-", SUB},
 	{"\\*", MUL},
@@ -59,6 +64,10 @@ static struct rule
 	
     {"==", EQ},
     {"\\!=", NEQ},
+    {">", GTR},
+    {">=", GEQ},
+    {"<", LTR},
+    {"<=", LEQ},
     
     {"\\(", LPAR},
     {"\\)", RPAR},
@@ -68,6 +77,8 @@ static struct rule
     {"\\!={0}", NOT},
     
     {"\\$[a-z]{1,31}", REG},
+    
+    {"[a-zA-Z_]{1,}[a-zA-Z0-9_]", SYMB},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -239,6 +250,12 @@ static int pri(int type)
         case SUB:
             return 4;
             
+        case GTR:
+        case GEQ:
+        case LTR:
+        case LEQ:
+            return 6;
+            
         case EQ:
         case NEQ:
             return 7;
@@ -296,7 +313,7 @@ static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2, bool *succes
         case DIV: 
             if(val2 == 0)
             {
-                printf("div-zero expression\n");
+                printf("div-zero, ");
                 fflush(stdout);
                 *success = false;
                 return 114514;
