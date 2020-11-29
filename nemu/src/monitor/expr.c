@@ -281,13 +281,9 @@ static uint32_t calculate_1op(int op, uint32_t val)
 {
     switch(op)
     {
-        case NEG:
-            return -val;
-        case DEREF:
-            // DEBUG: sreg
-            return vaddr_read(val, 0, 4);
-        default:
-            assert(0);
+        case NEG: return -val;
+        case DEREF: return vaddr_read(val, 0, 4); // DEBUG: sreg
+        default: assert(0);
     }
 }
 
@@ -295,24 +291,15 @@ static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2)
 {
     switch(op)
     {
-        case ADD:
-            return val1 + val2;
-        case SUB:
-            return val1 - val2;
-        case MUL:
-            return val1 * val2;
-        case DIV:
-            return val1 / val2;
-        case AND:
-            return val1 && val2;
-        case OR:
-            return val1 || val2;
-        case EQ:
-            return val1 == val2;
-        case NEQ:
-            return val1 != val2;
-        default:
-            assert(0);
+        case ADD: return val1 + val2;
+        case SUB: return val1 - val2;
+        case MUL: return val1 * val2;
+        case DIV: return val1 / val2;
+        case AND: return val1 && val2;
+        case OR: return val1 || val2;
+        case EQ: return val1 == val2;
+        case NEQ: return val1 != val2;
+        default: assert(0);
     }
 }
 
