@@ -363,12 +363,12 @@ static uint32_t eval(int p, int q, bool *success)
         int op = dominant_operator(p, q, success);
         printf("op == %d\n", op);
         fflush(stdout);
-        if(tokens[op].type == NEG || tokens[op].type == DEREF)
+        if(tokens[op].type == NEG || tokens[op].type == DEREF || tokens[op].type == NOT)
         {
             uint32_t val = eval(op + 1, q, success);
             return calculate_1op(tokens[op].type, val, success);
         }
-        else if(tokens[op].type == NUM || tokens[op].type == REG)
+        else if(tokens[op].type == NUM || tokens[op].type == REG || tokens[op].type == SYMB)
         {
             *success = false;
             return 514;
