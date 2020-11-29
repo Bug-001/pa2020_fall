@@ -13,6 +13,7 @@
 enum
 {
 	NOTYPE = 256,
+	
 	ADD,
 	SUB,
 	MUL,
@@ -21,6 +22,9 @@ enum
 	
 	EQ,
 	NEQ,
+	
+	LPAR,
+	RPAR,
 	
 	AND,
 	OR,
@@ -52,11 +56,17 @@ static struct rule
 	{"\\-", SUB},
 	{"\\*", MUL},
 	{"/", DIV},
+	
     {"==", EQ},
     {"\\!=", NEQ},
+    
+    {"\\(", LPAR},
+    {"\\)", RPAR},
+    
     {"&&", AND},
     {"\\|\\|", OR},
     {"\\!={0}", NOT},
+    
     {"\\$[a-z]{1,31}", REG},
 };
 
@@ -90,8 +100,8 @@ typedef struct token
 	char str[32];
 } Token;
 
-Token tokens[32];
-int nr_token;
+static Token tokens[32];
+static int nr_token;
 
 static bool make_token(char *e)
 {
@@ -123,13 +133,9 @@ static bool make_token(char *e)
 				case NOTYPE:
 				    break;
 				case NUM:
-				    strncat(tokens[nr_token].str, substr_start, substr_len);
-				    goto default;
 				case REG:
-				    strncat(tokens[nr_token].str, substr_start + 1, substr_len - 1);
-				    goto default;
+				    strncat(tokens[nr_token].str, substr_start, substr_len);
 				default:
-				    
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
 				}
@@ -144,8 +150,57 @@ static bool make_token(char *e)
 			return false;
 		}
 	}
+	
+	for(int i = 0; i < nr_token; ++i)
+	{
+	    switch(tokens[i].type)
+	    {
+        case MUL:
+            if(i == 0)
+            {
+                tokens[i].type = DEREF;
+            }
+            else if(tokens[i - 1].type != NUM || tokens[i + 1].type != NUM)
+            {
+                tokens[i].type = DEREF;
+            }
+            break;
+        case SUB:
+        	if(i == 0)
+            {
+                tokens[i].type = NEG;
+            }
+            else if(tokens[i - 1].type != NUM || tokens[i + 1].type != NUM)
+            {
+                tokens[i].type = NEG;
+            }
+            break;
+	    }
+	}
 
 	return true;
+}
+
+static bool check_parentheses
+
+static int eval(int p, int q, bool *success)
+{
+    if(p > q)
+    {
+        
+    }
+    else if(p == q)
+    {
+        
+    }
+    else if(check_parentheses(p, q) == true)
+    {
+        
+    }
+    else
+    {
+        
+    }
 }
 
 uint32_t expr(char *e, bool *success)
@@ -155,9 +210,5 @@ uint32_t expr(char *e, bool *success)
 		*success = false;
 		return 0;
 	}
-
-    
-
-    *success = true;
-	return 0;
+    return eval(0, nr_token - 1, success);
 }
