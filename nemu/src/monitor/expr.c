@@ -160,7 +160,7 @@ static bool make_token(char *e)
             {
                 tokens[i].type = DEREF;
             }
-            else if(tokens[i - 1].type != NUM || tokens[i + 1].type != NUM)
+            else if(tokens[i - 1].type != NUM)
             {
                 tokens[i].type = DEREF;
             }
@@ -170,7 +170,7 @@ static bool make_token(char *e)
             {
                 tokens[i].type = NEG;
             }
-            else if(tokens[i - 1].type != NUM || tokens[i + 1].type != NUM)
+            else if(tokens[i - 1].type != NUM)
             {
                 tokens[i].type = NEG;
             }
@@ -181,29 +181,171 @@ static bool make_token(char *e)
 	return true;
 }
 
-static bool check_parentheses(int p, int q, bool* success)
+static bool parentheses_match(int p, int q)
 {
-    return false;
+    for(int i = p; i <= q; ++i)
+    {
+        if(tokens[i].type == LPAR) ++match;
+        else if(tokens[i].type == RPAR) --match;
+        if(match < 0) return false;
+    }
+    if(match != 0) return false;
+    else return true;
 }
 
-static int eval(int p, int q, bool *success)
+static bool parentheses_probe(int p, int q)
 {
-    return 0;
-    if(p > q)
+    if(tokens[p].type == LPAR && tokens[q].type == RPAR) return true;
+    else return false;
+}
+
+static bool check_parentheses(int p, int q, bool* success)
+{
+    bool ok = parentheses_match(p, q);
+    if(ok)
     {
-        
-    }
-    else if(p == q)
-    {
-        
-    }
-    else if(check_parentheses(p, q, success) == true)
-    {
-        
+        bool strip_ok = parentheses_probe(p, q) && parentheses_match(p + 1, q - 1);
+        if(strip_ok) return true;
+        else return false;
     }
     else
     {
+        *success = false;
+        return false;
+    }
+}
+
+static int pri(int type)
+{
+    switch(type)
+    {
+        case LPAR:
+        case RPAR:
+            return 1;
+            
+        case NOT:
+        case DEREF:
+        case NEG:
+            return 2;
+            
+        case MUL:
+        case DIV:
+            return 3;
+            
+        case ADD:
+        case SUB:
+            return 4;
+            
+        case EQ:
+        case NEQ:
+            return 7;
         
+        case AND:
+            return 11;
+            
+        case OR:
+            return 12;
+        
+        default:
+            return 0;
+    }
+}
+
+static int dominant_operator(int p, int q, bool *success)
+{
+    int res = p;
+    int res_pri = pri(tokens[res].type);
+    int temp;
+    for(int i = p + 1; i <= q; ++i)
+    {
+        temp = pri(tokens[i].type);
+        if(temp > res_pri)
+        {
+            res = i;
+            res_pri = temp;
+        }
+    }
+    return res;
+}
+
+static uint32_t calculate_1op(int op, uint32_t val)
+{
+    switch(op)
+    {
+        case NEG:
+            return -val;
+        case DEREF:
+            // DEBUG: sreg
+            return vaddr_read(val, 0, 4);
+        default:
+            assert(0);
+    }
+}
+
+static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2)
+{
+    switch(op)
+    {
+        case ADD:
+            return val1 + val2;
+        case SUB:
+            return val1 - val2;
+        case MUL:
+            return val1 * val2;
+        case DIV:
+            return val1 / val2;
+        case AND:
+            return val1 && val2;
+        case OR:
+            return val1 || val2;
+        case EQ:
+            return val1 == val2;
+        case NEQ:
+            return val1 != val2;
+        default:
+            assert(0);
+    }
+}
+
+static uint32_t eval(int p, int q, bool *success)
+{
+    if(p > q)
+    {
+        *success = false;
+        return 0;
+    }
+    else if(p == q)
+    {
+        switch(tokens[p].type)
+        {
+            case NUM: return atoi(tokens[p].str);
+            case REG: return get_reg_val(tokens[p].str + 1, success);
+            default: assert(0);
+        }
+    }
+    else if(check_parentheses(p, q, success) == true)
+    {
+        return eval(p + 1, q - 1); 
+    }
+    else
+    {
+        op = dominant_operator(p, q, success);
+        if(tokens[op].type == NEG || tokens[op].type == DEREF)
+        {
+            uint32_t val = eval(op + 1, q);
+            return calculate_1op(tokens[op].type, val);
+        }
+        else if(tokens[op].type == NUM || tokens[op].type == REG)
+        {
+            *success = false;
+            return 0;
+        }
+        else
+        {
+            uint32_t val1 = eval(p, op - 1);
+            uint32_t val2 = eval(op + 1, q);
+            return calculate(val1, tokens[op].type, val2);
+        }
     }
 }
 
@@ -214,7 +356,5 @@ uint32_t expr(char *e, bool *success)
 		*success = false;
 		return 0;
 	}
-	eval(0, nr_token - 1, success);
-	return 0;
-    //return eval(0, nr_token - 1, success);
+    return eval(0, nr_token - 1, success);
 }
