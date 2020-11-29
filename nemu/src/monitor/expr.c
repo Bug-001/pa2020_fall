@@ -257,7 +257,6 @@ static int dominant_operator(int p, int q, bool *success)
 {
     int res = p;
     int res_pri = pri(tokens[res].type);
-    int temp;
     int in_par = 0;
     for(int i = p + 1; i <= q; ++i)
     {
@@ -265,7 +264,7 @@ static int dominant_operator(int p, int q, bool *success)
         else if(tokens[i].type == RPAR) --in_par;
         else if(in_par == 0)
         {
-            temp = pri(tokens[i].type);
+            int temp = pri(tokens[i].type);
             if(temp > res_pri)
             {
                 res = i;
@@ -354,5 +353,7 @@ uint32_t expr(char *e, bool *success)
 		*success = false;
 		return 0;
 	}
+	printf("nr_token == %d\n", nr_token);
+	fflush(stdout);
     return eval(0, nr_token - 1, success);
 }
