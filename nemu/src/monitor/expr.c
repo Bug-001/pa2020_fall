@@ -57,7 +57,7 @@ static struct rule
     {"&&", AND},
     {"\\|\\|", OR},
     {"\\!={0}", NOT},
-    {"\\$[a-z]{1,3}", REG},
+    {"\\$[a-z]{1,31}", REG},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -122,8 +122,14 @@ static bool make_token(char *e)
 				{
 				case NOTYPE:
 				    break;
-				default:
+				case NUM:
 				    strncat(tokens[nr_token].str, substr_start, substr_len);
+				    goto default;
+				case REG:
+				    strncat(tokens[nr_token].str, substr_start + 1, substr_len - 1);
+				    goto default;
+				default:
+				    
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
 				}
