@@ -183,6 +183,7 @@ static bool make_token(char *e)
 
 static bool parentheses_match(int p, int q)
 {
+    int match = 0;
     for(int i = p; i <= q; ++i)
     {
         if(tokens[i].type == LPAR) ++match;
@@ -325,14 +326,14 @@ static uint32_t eval(int p, int q, bool *success)
     }
     else if(check_parentheses(p, q, success) == true)
     {
-        return eval(p + 1, q - 1); 
+        return eval(p + 1, q - 1, success); 
     }
     else
     {
-        op = dominant_operator(p, q, success);
+        int op = dominant_operator(p, q, success);
         if(tokens[op].type == NEG || tokens[op].type == DEREF)
         {
-            uint32_t val = eval(op + 1, q);
+            uint32_t val = eval(op + 1, q, success);
             return calculate_1op(tokens[op].type, val);
         }
         else if(tokens[op].type == NUM || tokens[op].type == REG)
@@ -342,8 +343,8 @@ static uint32_t eval(int p, int q, bool *success)
         }
         else
         {
-            uint32_t val1 = eval(p, op - 1);
-            uint32_t val2 = eval(op + 1, q);
+            uint32_t val1 = eval(p, op - 1, success);
+            uint32_t val2 = eval(op + 1, q, success);
             return calculate_2op(val1, tokens[op].type, val2);
         }
     }
