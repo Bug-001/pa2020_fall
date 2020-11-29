@@ -78,7 +78,7 @@ static struct rule
     
     {"\\$[a-z]{1,31}", REG},
     
-    {"[a-zA-Z_]{1,}[a-zA-Z0-9_]", SYMB},
+    {"[a-zA-Z_]{1,}[a-zA-Z0-9_]*", SYMB},
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
