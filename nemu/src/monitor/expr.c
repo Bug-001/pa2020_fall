@@ -122,6 +122,7 @@ static bool make_token(char *e)
 				int substr_len = pmatch.rm_eo;
 
 				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
+				fflush(stdout);
 				position += substr_len;
 
 				/* TODO: Now a new token is recognized with rules[i]. 
