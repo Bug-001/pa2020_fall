@@ -93,6 +93,7 @@ static bool make_token(char *e)
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
+				
 
 				switch (rules[i].token_type)
 				{
