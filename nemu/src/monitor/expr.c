@@ -278,7 +278,7 @@ static int dominant_operator(int p, int q, bool *success)
         else if(in_par == 0)
         {
             int temp = pri(tokens[i].type);
-            if(temp == 2) // 
+            if(temp == 2) // 左结合的单目运算符
             {
                 if(temp > res_pri)
                 {
@@ -294,7 +294,6 @@ static int dominant_operator(int p, int q, bool *success)
                     res_pri = temp;
                 }
             }
-
         }
     }
     return res;
