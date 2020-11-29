@@ -273,7 +273,6 @@ static int dominant_operator(int p, int q, bool *success)
             }
         }
     }
-    assert(in_par == 0);
     return res;
 }
 
