@@ -33,7 +33,7 @@ static struct rule
 	 */
 
 	{" +", NOTYPE}, // white space
-	{"[0-9]*", NUM},
+	{"[0-9]{1,10}", NUM},
 	{"\\+", '+'},
 };
 
