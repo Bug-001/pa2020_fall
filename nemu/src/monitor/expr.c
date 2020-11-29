@@ -172,13 +172,13 @@ static bool make_token(char *e)
 	    switch(tokens[i].type)
 	    {
         case MUL:
-            if(i == 0 || tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
+            if(i == 0 || (tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR))
             {
                 tokens[i].type = DEREF;
             }
             break;
         case SUB:
-            if(i == 0 || tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR)
+            if(i == 0 || (tokens[i - 1].type != NUM && tokens[i - 1].type != REG && tokens[i - 1].type != RPAR))
             {
                 tokens[i].type = NEG;
             }
