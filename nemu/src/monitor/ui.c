@@ -237,7 +237,7 @@ cmd_handler(cmd_x)
 		return 0;
 	}
 	bool success = true;
-	uint32_t val = expr(expr_str, success);
+	uint32_t val = expr(expr_str, &success);
 	if(!success)
 	{
 	    printf("invalid expression: '%s'\n", expr_str);
