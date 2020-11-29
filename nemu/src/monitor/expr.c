@@ -282,7 +282,7 @@ static uint32_t calculate_1op(int op, uint32_t val, bool *success)
     {
         case NEG: return -val;
         case DEREF: return vaddr_read(val, 0, 4); // DEBUG: sreg
-        default: *success = false; return 0;
+        default: *success = false; return 1919;
     }
 }
 
@@ -293,12 +293,19 @@ static uint32_t calculate_2op(uint32_t val1, int op, uint32_t val2, bool *succes
         case ADD: return val1 + val2;
         case SUB: return val1 - val2;
         case MUL: return val1 * val2;
-        case DIV: return val1 / val2;
+        case DIV: 
+            if(val2 == 0)
+            {
+                printf("div-zero expression\n");
+                fflush(stdout);
+                *success = false;
+                return 114514;
+            }
         case AND: return val1 && val2;
         case OR: return val1 || val2;
         case EQ: return val1 == val2;
         case NEQ: return val1 != val2;
-        default: *success = false; return 0;
+        default: *success = false; return 1919810;
     }
 }
 
@@ -322,7 +329,7 @@ static uint32_t eval(int p, int q, bool *success)
                 sscanf(tokens[p].str, format, &num);
                 return num;
             case REG: return get_reg_val(tokens[p].str + 1, success);
-            default: *success = false; return 0;
+            default: *success = false; return 114;
         }
     }
     else if(check_parentheses(p, q, success) == true)
@@ -342,7 +349,7 @@ static uint32_t eval(int p, int q, bool *success)
         else if(tokens[op].type == NUM || tokens[op].type == REG)
         {
             *success = false;
-            return 0;
+            return 514;
         }
         else
         {
