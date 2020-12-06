@@ -85,6 +85,7 @@ test_pa-2-1: nemu
 	./nemu/nemu --autorun --testcase moon_cake
 	./nemu/nemu --autorun --testcase mul-longlong 
 	./nemu/nemu --autorun --testcase prime
+	./nemu/nemu --autorun --testcase recursion
 	./nemu/nemu --autorun --testcase shuixianhua
 	./nemu/nemu --autorun --testcase sum
 	./nemu/nemu --autorun --testcase wanshu
@@ -200,6 +201,7 @@ test_batch-2-2-mute:
 	./nemu/nemu --autorun --testcase moon_cake  --kernel
 	./nemu/nemu --autorun --testcase mul-longlong  --kernel
 	./nemu/nemu --autorun --testcase prime --kernel
+	./nemu/nemu --autorun --testcase recursion --kernel
 	./nemu/nemu --autorun --testcase shuixianhua --kernel
 	./nemu/nemu --autorun --testcase sum --kernel
 	./nemu/nemu --autorun --testcase wanshu --kernel
@@ -231,6 +233,7 @@ test_batch-3-3-mute:
 	./nemu/nemu --autorun --testcase matrix-mul --kernel
 	./nemu/nemu --autorun --testcase mul-longlong  --kernel
 	./nemu/nemu --autorun --testcase prime --kernel
+	./nemu/nemu --autorun --testcase recursion --kernel
 	./nemu/nemu --autorun --testcase shuixianhua --kernel
 	./nemu/nemu --autorun --testcase sum --kernel
 	./nemu/nemu --autorun --testcase wanshu --kernel
