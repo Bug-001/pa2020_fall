@@ -36,10 +36,9 @@ void init_cache()
 {
     for(int i = 0; i < NR_CACHE_SET; ++i)
     {
-        LineSet ls = cache[i];
         for(int j = 0; j < 8; ++j)
         {
-            ls[j].valid_bit = 0;
+            cache[i][j].valid_bit = 0;
         }
     }
 }
