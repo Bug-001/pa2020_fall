@@ -5,7 +5,7 @@
 
 typedef uint8_t Block[BLOCK_SIZE];
 
-struct CacheLine
+typedef struct CacheLine
 {
     uint8_t valid_bit : 1;
     uint32_t tag : 14;
