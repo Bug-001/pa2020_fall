@@ -1,5 +1,8 @@
 #include "memory/mmu/cache.h"
 
+#include <time.h>
+#include <stdlib.h>
+
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
 
@@ -21,7 +24,7 @@ static inline uint32_t get_tag(uint32_t addr)
     return (addr >> 13) & 0x3FFFF; // 14 bits
 }
 
-static inline uint32_t get_cache_set_index(uint32_t addr)
+static inline uint32_t get_set_index(uint32_t addr)
 {
     return (addr >> 6) & 0x7F; // 7 bits
 }
@@ -43,6 +46,25 @@ void init_cache()
     }
 }
 
+void load_block(paddr_t paddr, Line* line)
+{
+    Block block;
+    paddr_t baddr = paddr & (0xFFFFFFFF << 6);
+    for(int j = 0; j < BLOCK_SIZE; j += 4){
+        uint32_t temp = hw_mem_read(baddr + j, 4);
+        memcpy(block + j, temp, 4);
+    }
+    line->tag = get_tag(paddr);
+    line->valid_bit = 1;
+}
+
+uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
+{
+    uint32_t ret = 0;
+    memcpy(&ret, line->data + inblock_addr, len);
+    return ret;
+}
+
 // write data to cache
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
@@ -55,13 +77,32 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 // read data from cache
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
-    int row = get_cache_set_index(paddr);
-    int tag = get_tag(paddr);
-    Line* ls = cache[row];
+    assert(len == 1 || len == 2 || len == 4);
+    uint32_t set_index = get_set_index(paddr);
+    uint32_t tag = get_tag(paddr);
+    uint32_t inblock_addr = get_inblock_addr(paddr);
+    Line* ls = cache[set_index];
     for(int i = 0; i < 8; ++i)
     {
-        if(ls[i].valid_bit == 1 && ls[i].tag == tag);
+        if(ls[i].valid_bit == 1 && ls[i].tag == tag)
+        {
+            // HIT
+            return read_line(inblock_addr, ls + i, len);
+        }
     }
-	return 0;
+    // MISS
+    for(int i = 0; i < 8; ++i)
+    {
+        if(ls[i].valid_bit == 0)
+        {
+            load_block(paddr, ls + i);
+            return read_line(inblock_addr, ls + i, len);
+        }
+    }
+    // cache set full
+    srand((unsigned)time(NULL));
+    int i = rand() % 8;
+    load_block(paddr, ls + i);
+    return read_line(inblock_addr, ls + i, len);
 }
 
