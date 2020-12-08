@@ -12,7 +12,7 @@ typedef struct CacheLine
     Block data;
 }Line;
 
-typedef struct Line LineSet[8];
+typedef Line LineSet[8];
 
 LineSet cache[NR_CACHE_SET];
 
