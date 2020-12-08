@@ -5,7 +5,7 @@
 
 uint32_t hw_mem_read(paddr_t paddr, size_t len);
 
-uint64_t hw_mem_access_time_cache = 0;
+uint64_t hw_mem_access_time = 0;
 
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
