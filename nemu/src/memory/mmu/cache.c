@@ -3,6 +3,8 @@
 #include <time.h>
 #include <stdlib.h>
 
+uint32_t hw_mem_read(paddr_t paddr, size_t len);
+
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
 
