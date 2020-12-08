@@ -5,6 +5,8 @@
 
 uint32_t hw_mem_read(paddr_t paddr, size_t len);
 
+uint64_t hw_mem_access_time_cache = 0;
+
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
 
@@ -58,12 +60,18 @@ void load_block(paddr_t paddr, Line* line)
     }
     line->tag = get_tag(paddr);
     line->valid_bit = 1;
+#ifdef CACHE_ENABLED
+    hw_mem_access_time += 10;
+#endif
 }
 
 uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 {
     uint32_t ret = 0;
     memcpy(&ret, line->data + inblock_addr, len);
+#ifdef CACHE_ENABLED
+    hw_mem_access_time += 1;
+#endif
     return ret;
 }
 

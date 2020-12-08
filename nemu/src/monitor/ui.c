@@ -364,6 +364,8 @@ void ui_mainloop(bool autorun)
 
 		if (nemu_state == NEMU_STOP)
 		{
+// #ifdef CACHE_ENABLED
+//             printf("")
 			break;
 		}
 	}
