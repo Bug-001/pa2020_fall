@@ -3,7 +3,7 @@
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
 
-typedef Block uint8_t[BLOCK_SIZE];
+typedef uint8_t[BLOCK_SIZE] Block;
 
 struct CacheLine
 {
@@ -12,7 +12,7 @@ struct CacheLine
     Block data;
 }
 
-typedef CacheSet CacheLine[8];
+typedef CacheLine[8] CacheSet;
 
 CacheSet cache[NR_CACHE_SET];
 
