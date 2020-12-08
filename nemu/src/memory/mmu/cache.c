@@ -5,16 +5,16 @@
 
 typedef uint8_t Block[BLOCK_SIZE];
 
-struct CacheLine
+typedef struct CacheLine
 {
     uint8_t valid_bit : 1;
     uint32_t tag : 14;
     Block data;
-};
+}Line;
 
-typedef struct CacheLine CacheSet[8];
+typedef struct Line LineSet[8];
 
-CacheSet cache[NR_CACHE_SET];
+LineSet cache[NR_CACHE_SET];
 
 static inline uint32_t get_tag(uint32_t addr)
 {
@@ -36,9 +36,10 @@ void init_cache()
 {
     for(int i = 0; i < NR_CACHE_SET; ++i)
     {
+        LineSet ls = cache[i];
         for(int j = 0; j < 8; ++j)
         {
-            //cache[i][j].valid_bit = 0;
+            ls[j].valid_bit = 0;
         }
     }
 }
