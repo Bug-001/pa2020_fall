@@ -10,7 +10,7 @@ struct CacheLine
     uint8_t valid_bit : 1;
     uint32_t tag : 14;
     Block data;
-}
+};
 
 typedef CacheLine CacheSet[8];
 
