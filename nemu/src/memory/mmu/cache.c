@@ -57,7 +57,7 @@ uint32_t cache_read(paddr_t paddr, size_t len)
 {
     int row = get_cache_set_index(paddr);
     int tag = get_tag(paddr);
-    LineSet ls = cache[row];
+    Line* ls = cache[row];
     for(int i = 0; i < 8; ++i)
     {
         if(ls[i].valid_bit == 1 && ls[i].tag == tag);
