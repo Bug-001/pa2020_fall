@@ -3,33 +3,33 @@
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
 
-// typedef uint8_t[BLOCK_SIZE] Block;
+typedef uint8_t[BLOCK_SIZE] Block;
 
-// struct CacheLine
-// {
-//     uint8_t valid_bit : 1;
-//     uint32_t tag : 134
-//     Block data;
-// }
+struct CacheLine
+{
+    uint8_t valid_bit : 1;
+    uint32_t tag : 14;
+    Block data;
+}
 
-// typedef CacheLine[8] CacheSet;
+typedef CacheLine[8] CacheSet;
 
-// CacheSet cache[NR_CACHE_SET];
+CacheSet cache[NR_CACHE_SET];
 
-// static inline uint32_t get_tag(uint32_t addr)
-// {
-//     return (addr >> 13) & 0x3FFFF;
-// }
+static inline uint32_t get_tag(uint32_t addr)
+{
+    return (addr >> 13) & 0x3FFFF; // 14 bits
+}
 
-// static inline uint32_t get_cache_set_index(uint32_t addr)
-// {
-//     return (addr >> 6) & 0x7F;
-// }
+static inline uint32_t get_cache_set_index(uint32_t addr)
+{
+    return (addr >> 6) & 0x7F; // 7 bits
+}
 
-// static inline uint32_t get_inblock_addr(uint32_t addr)
-// {
-//     return addr & 0x3F;
-// }
+static inline uint32_t get_inblock_addr(uint32_t addr)
+{
+    return addr & 0x3F; // 6 bits
+}
 
 // init the cache
 void init_cache()
