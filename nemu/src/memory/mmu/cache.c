@@ -101,7 +101,7 @@ static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
     assert(len == 1 || len == 2 || len == 4);
-    paddr_t next_baddr = paddr & (0xFFFFFFFF << 6) + 1 << 7;
+    paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 7);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
     {
@@ -150,13 +150,13 @@ static uint32_t _cache_read(paddr_t paddr, size_t len)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     assert(len == 1 || len == 2 || len == 4);
-    paddr_t next_baddr = paddr & (0xFFFFFFFF << 6) + 1 << 7;
+    paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 7);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
     {
         uint32_t high = _cache_read(next_baddr, line_overflow);
         uint32_t low = _cache_read(paddr, len - line_overflow);
-        return high << ((len - line_overflow) * 8) + low;
+        return (high << ((len - line_overflow) * 8)) + low;
     }
     else
     {
