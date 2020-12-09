@@ -70,16 +70,41 @@ static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 // write data to cache
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
-    printf("cache: implement me in PA 3-1\n");
-    fflush(stdout);
-    assert(0);
-	// implement me in PA 3-1
+    assert(len == 1 || len == 2 || len == 4);
+#ifdef CACHE_ENABLED
+    hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
+#endif
+    uint32_t set_index = get_set_index(paddr);
+    uint32_t tag = get_tag(paddr);
+    uint32_t inblock_addr = get_inblock_addr(paddr);
+    Line* ls = cache[set_index];
+    for(int i = 0; i < 8; ++i)
+    {
+        if(ls[i].valid_bit == 1 && ls[i].tag == tag)
+        {
+            // HIT
+#ifdef CACHE_ENABLED
+            // Write through
+            hw_mem_access_time_cache += MISS_ACCESS_TIME;
+#endif
+            memcpy(ls[i].data + inblock_addr, &data, len);
+            hw_mem_write(paddr, len, data);
+        }
+    }
+    // MISS
+#ifdef CACHE_ENABLED
+    hw_mem_access_time_cache += MISS_ACCESS_TIME;
+#endif
+    hw_mem_write(paddr, len, data);
 }
 
 // read data from cache
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     assert(len == 1 || len == 2 || len == 4);
+#ifdef CACHE_ENABLED
+    hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
+#endif
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
     uint32_t inblock_addr = get_inblock_addr(paddr);
