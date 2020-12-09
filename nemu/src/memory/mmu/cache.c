@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 extern uint32_t hw_mem_read(paddr_t paddr, size_t len);
+extern void paddr_write(paddr_t paddr, size_t len, uint32_t data);
 
 uint64_t hw_mem_access_time_cache = 0;
 uint64_t hw_mem_access_time_no_cache = 0;
