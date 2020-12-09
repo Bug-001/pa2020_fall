@@ -13,6 +13,8 @@
 extern uint8_t hw_mem[];
 extern uint64_t hw_mem_access_time_cache;
 extern uint64_t hw_mem_access_time_no_cache;
+extern uint64_t hit_in_cache;
+extern uint64_t total_visit;
 
 #define hwa_to_va(p) ((void *)(hw_mem + (unsigned)p))
 
