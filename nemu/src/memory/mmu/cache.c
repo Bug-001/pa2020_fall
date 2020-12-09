@@ -65,7 +65,7 @@ static void load_block(paddr_t paddr, Line* line)
 
 static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 {
-    uint32_t ret = 0;
+    uint32_t ret = 0x114514;
     memcpy(&ret, line->data + inblock_addr, len);
     return ret;
 }
@@ -109,15 +109,15 @@ uint32_t cache_read(paddr_t paddr, size_t len)
         if(ls[i].valid_bit == 1 && ls[i].tag == tag)
         {
             // HIT
-            printf("HIT!\n");
-            fflush(stdout);
+            // printf("HIT!\n");
+            // fflush(stdout);
             hw_mem_access_time_cache += HIT_ACCESS_TIME;
             return read_line(inblock_addr, ls + i, len);
         }
     }
     // MISS
-    printf("MISS\n");
-    fflush(stdout);
+    // printf("MISS\n");
+    // fflush(stdout);
     hw_mem_access_time_cache += MISS_ACCESS_TIME;
     for(int i = 0; i < 8; ++i)
     {
