@@ -154,8 +154,6 @@ uint32_t cache_read(paddr_t paddr, size_t len)
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
     {
-        printf("overflow !\n");
-        fflush(stdout);
         uint32_t high = _cache_read(next_baddr, line_overflow);
         uint32_t low = _cache_read(paddr, len - line_overflow);
         return (high << ((len - line_overflow) * 8)) + low;
