@@ -65,7 +65,7 @@ static void load_block(paddr_t paddr, Line* line)
 static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 {
     uint32_t ret = 0;
-    memcpy(&ret, (uint8_t*)line->data + inblock_addr, len);
+    memcpy(&ret, line->data + inblock_addr, len);
     return ret;
 }
 
@@ -87,11 +87,14 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
             hw_mem_access_time_cache += MISS_ACCESS_TIME;
             memcpy(ls[i].data + inblock_addr, &data, len);
             hw_mem_write(paddr, len, data);
+            return;
         }
     }
     // MISS
+    // Write not allocate
     hw_mem_access_time_cache += MISS_ACCESS_TIME;
     hw_mem_write(paddr, len, data);
+    return;
 }
 
 // read data from cache
