@@ -50,6 +50,7 @@ void init_cache()
             cache[i][j].valid_bit = 0;
         }
     }
+    srand((unsigned)time(NULL));
 }
 
 static void load_block(paddr_t paddr, Line* line)
@@ -128,7 +129,6 @@ uint32_t cache_read(paddr_t paddr, size_t len)
         }
     }
     // cache set full
-    srand((unsigned)time(NULL));
     int i = rand() % 8;
     printf("ls[%d]\n", i);
     load_block(paddr, ls + i);
