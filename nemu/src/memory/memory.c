@@ -29,6 +29,7 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 		if(ret != temp)
 		{
 		    printf("ret = %u, temp = %u\n", ret, temp);
+		    fflush(stdout);
 		    assert(0);
 		}
 #else
