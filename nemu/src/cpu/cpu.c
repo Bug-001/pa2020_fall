@@ -110,6 +110,10 @@ void exec(uint32_t n)
 	}
 	if (nemu_state == NEMU_STOP)
 	{
+#ifdef CACHE_ENABLED
+        printf("hw_mem_access_time_cache = %lld, hw_mem_access_time_no_cache = %lld, \e[0;32mSpeedup: %f\e[0m\n", hw_mem_access_time_cache, hw_mem_access_time_no_cache, (double)hw_mem_access_time_no_cache / (double)hw_mem_access_time_cache);
+        fflush(stdout);
+#endif
 		printf("NEMU2 terminated\n");
 #ifdef IA32_INTR
 		i8259_destroy();
