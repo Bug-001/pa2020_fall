@@ -106,7 +106,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
     if(line_overflow > 0)
     {
         _cache_write(next_baddr, line_overflow, data >> ((len - line_overflow) * 8));
-        _cache_write(paddr, len - line_overflow, data & (0xFFFFFFFF >> (len - line_overflow) * 8)));
+        _cache_write(paddr, len - line_overflow, data & (0xFFFFFFFF >> (len - line_overflow) * 8));
     }
     else
     {
