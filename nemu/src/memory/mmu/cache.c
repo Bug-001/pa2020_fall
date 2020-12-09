@@ -150,7 +150,7 @@ static uint32_t _cache_read(paddr_t paddr, size_t len)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     assert(len == 1 || len == 2 || len == 4);
-    paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 7);
+    paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 6);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
     {
