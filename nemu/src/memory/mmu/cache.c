@@ -14,6 +14,8 @@ extern uint8_t *get_mem_addr();
 
 uint64_t hw_mem_access_time_cache = 0;
 uint64_t hw_mem_access_time_no_cache = 0;
+uint64_t hit_in_cache = 0;
+uint64_t total_visit = 0;
 
 typedef uint8_t Block[BLOCK_SIZE];
 
@@ -91,6 +93,7 @@ static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
             hw_mem_access_time_cache += MISS_ACCESS_TIME;
             memcpy(ls[i].data + inblock_addr, &data, len);
             hw_mem_write(paddr, len, data);
+            ++hit_in_cache;
             return;
         }
     }
@@ -104,6 +107,7 @@ static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
     assert(len == 1 || len == 2 || len == 4);
+    ++total_visit;
     paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 6);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
@@ -130,6 +134,7 @@ static uint32_t _cache_read(paddr_t paddr, size_t len)
         {
             // HIT
             hw_mem_access_time_cache += HIT_ACCESS_TIME;
+            ++hit_in_cache;
             return read_line(inblock_addr, ls + i, len);
         }
     }
@@ -153,6 +158,7 @@ static uint32_t _cache_read(paddr_t paddr, size_t len)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     assert(len == 1 || len == 2 || len == 4);
+    ++total_visit;
     paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 6);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)

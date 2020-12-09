@@ -111,7 +111,7 @@ void exec(uint32_t n)
 	if (nemu_state == NEMU_STOP)
 	{
 #ifdef CACHE_ENABLED
-        printf("hw_mem_access_time_cache = %lld, hw_mem_access_time_no_cache = %lld, \e[0;32mSpeedup: %f\e[0m\n", hw_mem_access_time_cache, hw_mem_access_time_no_cache, (double)hw_mem_access_time_no_cache / (double)hw_mem_access_time_cache);
+        printf("hw_mem_access_time_cache = %lld, hw_mem_access_time_no_cache = %lld, \e[0;32mSpeedup: %f\e[0m, hit_rate = %lld\n", hw_mem_access_time_cache, hw_mem_access_time_no_cache, (double)hw_mem_access_time_no_cache / (double)hw_mem_access_time_cache, (double)hit_in_cache / (double)total_visit);
         fflush(stdout);
 #endif
 		printf("NEMU2 terminated\n");
