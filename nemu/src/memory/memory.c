@@ -22,8 +22,11 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t paddr_read(paddr_t paddr, size_t len) 
 {
 	uint32_t ret = 0;
+	uint32_t temp = 0;
 #ifdef CACHE_ENABLED
 		ret = cache_read(paddr, len);     // 通过cache进行读
+		temp = cache_read(paddr, len);
+		assert(ret == temp);
 #else
 		ret = hw_mem_read(paddr, len);
 #endif
