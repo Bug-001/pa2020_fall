@@ -79,6 +79,7 @@ static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 
 static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
+    ++total_visit;
     hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
@@ -107,7 +108,6 @@ static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
     assert(len == 1 || len == 2 || len == 4);
-    ++total_visit;
     paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 6);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
@@ -123,6 +123,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 
 static uint32_t _cache_read(paddr_t paddr, size_t len)
 {
+    ++total_visit;
     hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
@@ -158,7 +159,6 @@ static uint32_t _cache_read(paddr_t paddr, size_t len)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     assert(len == 1 || len == 2 || len == 4);
-    ++total_visit;
     paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 6);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
