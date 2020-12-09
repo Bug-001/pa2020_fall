@@ -108,15 +108,11 @@ uint32_t cache_read(paddr_t paddr, size_t len)
         if(ls[i].valid_bit == 1 && ls[i].tag == tag)
         {
             // HIT
-            // printf("HIT!\n");
-            // fflush(stdout);
             hw_mem_access_time_cache += HIT_ACCESS_TIME;
             return read_line(inblock_addr, ls + i, len);
         }
     }
     // MISS
-    // printf("MISS\n");
-    // fflush(stdout);
     hw_mem_access_time_cache += MISS_ACCESS_TIME;
     for(int i = 0; i < 8; ++i)
     {
