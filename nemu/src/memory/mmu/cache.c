@@ -65,8 +65,8 @@ static void load_block(paddr_t paddr, Line* line)
 
 static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 {
-    uint32_t ret = 0x114514;
-    memcpy(&ret, line->data + inblock_addr, len);
+    uint32_t ret = 0;
+    memcpy(&ret, (uint8_t*)line->data + inblock_addr, len);
     return ret;
 }
 
