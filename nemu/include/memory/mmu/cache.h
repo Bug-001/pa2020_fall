@@ -8,9 +8,6 @@
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
 
-#define HIT_ACCESS_TIME 1
-#define MISS_ACCESS_TIME 100
-
 // init the cache
 void init_cache();
 
