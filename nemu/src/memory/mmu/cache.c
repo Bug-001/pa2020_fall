@@ -8,6 +8,17 @@ extern uint32_t hw_mem_read(paddr_t paddr, size_t len);
 uint64_t hw_mem_access_time_cache = 0;
 uint64_t hw_mem_access_time_no_cache = 0;
 
+typedef uint8_t Block[BLOCK_SIZE];
+
+typedef struct CacheLine
+{
+    uint8_t valid_bit : 1;
+    uint32_t tag : 14;
+    Block data;
+}Line;
+
+typedef Line LineSet[8];
+
 LineSet cache[NR_CACHE_SET];
 
 static inline uint32_t get_tag(uint32_t addr)
