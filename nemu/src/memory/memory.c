@@ -28,7 +28,7 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 		temp = hw_mem_read(paddr, len);
 		if(ret != temp)
 		{
-		    printf("ret = 0x%08x, temp = 0x%08x, paddr = 0x%08x\n", ret, temp, paddr);
+		    printf("ret = 0x%08x, temp = 0x%08x, len = %d, paddr = 0x%08x\n", ret, temp, len, paddr);
 		    fflush(stdout);
 		    assert(0);
 		}
