@@ -5,10 +5,14 @@
 
 uint32_t hw_mem_read(paddr_t paddr, size_t len);
 
-uint64_t hw_mem_access_time = 0;
+uint64_t hw_mem_access_time_cache = 0;
+uint64_t hw_mem_access_time_no_cache = 0;
 
 #define BLOCK_SIZE 0x40
 #define NR_CACHE_SET 0x80
+
+#define HIT_ACCESS_TIME 1
+#define MISS_ACCESS_TIME 10
 
 typedef uint8_t Block[BLOCK_SIZE];
 
@@ -60,18 +64,12 @@ void load_block(paddr_t paddr, Line* line)
     }
     line->tag = get_tag(paddr);
     line->valid_bit = 1;
-#ifdef CACHE_ENABLED
-    hw_mem_access_time += 10;
-#endif
 }
 
 uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 {
     uint32_t ret = 0;
     memcpy(&ret, line->data + inblock_addr, len);
-#ifdef CACHE_ENABLED
-    hw_mem_access_time += 1;
-#endif
     return ret;
 }
 
@@ -97,10 +95,16 @@ uint32_t cache_read(paddr_t paddr, size_t len)
         if(ls[i].valid_bit == 1 && ls[i].tag == tag)
         {
             // HIT
+#ifdef CACHE_ENABLED
+            hw_mem_access_time_cache += HIT_ACCESS_TIME;
+#endif
             return read_line(inblock_addr, ls + i, len);
         }
     }
     // MISS
+#ifdef CACHE_ENABLED
+    hw_mem_access_time_cache += MISS_ACCESS_TIME;
+#endif
     for(int i = 0; i < 8; ++i)
     {
         if(ls[i].valid_bit == 0)
