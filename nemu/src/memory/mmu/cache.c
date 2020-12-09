@@ -54,10 +54,11 @@ void init_cache()
 static void load_block(paddr_t paddr, Line* line)
 {
     paddr_t baddr = paddr & (0xFFFFFFFF << 6);
-    for(int j = 0; j < BLOCK_SIZE; j += 4){
-        uint32_t temp = hw_mem_read(baddr + j, 4);
-        memcpy(line->data + j, &temp, 4);
-    }
+    // for(int j = 0; j < BLOCK_SIZE; j += 4){
+    //     uint32_t temp = hw_mem_read(baddr + j, 4);
+    //     memcpy(line->data + j, &temp, 4);
+    // }
+    memcpy(line->data, get_mem_addr() + baddr, BLOCK_SIZE);
     line->tag = get_tag(paddr);
     line->valid_bit = 1;
 }
