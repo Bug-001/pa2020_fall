@@ -372,7 +372,7 @@ void ui_mainloop(bool autorun)
 		if (nemu_state == NEMU_STOP)
 		{
 #ifdef CACHE_ENABLED
-            printf("hw_mem_access_time_cache = %lld, hw_mem_access_time_no_cache = %lld\n", hw_mem_access_time_cache, hw_mem_access_time_no_cache);
+            printf("hw_mem_access_time_cache = %lld, hw_mem_access_time_no_cache = %lld, \e[0;31mSpeedup: %f\e[0m\n", hw_mem_access_time_cache, hw_mem_access_time_no_cache, (double)hw_mem_access_time_no_cache / (double)hw_mem_access_time_cache);
             fflush(stdout);
 #endif
 			break;
