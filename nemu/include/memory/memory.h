@@ -11,7 +11,8 @@
 #define MEM_SIZE_B 128 * 1024 * 1024
 
 extern uint8_t hw_mem[];
-extern uint64_t hw_mem_access_time;
+extern uint64_t hw_mem_access_time_cache;
+extern uint64_t hw_mem_access_time_no_cache;
 
 #define hwa_to_va(p) ((void *)(hw_mem + (unsigned)p))
 

@@ -3,27 +3,10 @@
 #include <time.h>
 #include <stdlib.h>
 
-uint32_t hw_mem_read(paddr_t paddr, size_t len);
+extern uint32_t hw_mem_read(paddr_t paddr, size_t len);
 
 uint64_t hw_mem_access_time_cache = 0;
 uint64_t hw_mem_access_time_no_cache = 0;
-
-#define BLOCK_SIZE 0x40
-#define NR_CACHE_SET 0x80
-
-#define HIT_ACCESS_TIME 1
-#define MISS_ACCESS_TIME 10
-
-typedef uint8_t Block[BLOCK_SIZE];
-
-typedef struct CacheLine
-{
-    uint8_t valid_bit : 1;
-    uint32_t tag : 14;
-    Block data;
-}Line;
-
-typedef Line LineSet[8];
 
 LineSet cache[NR_CACHE_SET];
 
@@ -54,7 +37,7 @@ void init_cache()
     }
 }
 
-void load_block(paddr_t paddr, Line* line)
+static void load_block(paddr_t paddr, Line* line)
 {
     Block block;
     paddr_t baddr = paddr & (0xFFFFFFFF << 6);
@@ -66,7 +49,7 @@ void load_block(paddr_t paddr, Line* line)
     line->valid_bit = 1;
 }
 
-uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
+static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 {
     uint32_t ret = 0;
     memcpy(&ret, line->data + inblock_addr, len);
