@@ -3,6 +3,8 @@
 #include <time.h>
 #include <stdlib.h>
 
+#ifdef CACHE_ENABLED
+
 extern uint32_t hw_mem_read(paddr_t paddr, size_t len);
 extern void hw_mem_write(paddr_t paddr, size_t len, uint32_t data);
 
@@ -72,9 +74,7 @@ static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
     assert(len == 1 || len == 2 || len == 4);
-#ifdef CACHE_ENABLED
     hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
-#endif
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
     uint32_t inblock_addr = get_inblock_addr(paddr);
@@ -84,18 +84,14 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
         if(ls[i].valid_bit == 1 && ls[i].tag == tag)
         {
             // HIT
-#ifdef CACHE_ENABLED
             // Write through
             hw_mem_access_time_cache += MISS_ACCESS_TIME;
-#endif
             memcpy(ls[i].data + inblock_addr, &data, len);
             hw_mem_write(paddr, len, data);
         }
     }
     // MISS
-#ifdef CACHE_ENABLED
     hw_mem_access_time_cache += MISS_ACCESS_TIME;
-#endif
     hw_mem_write(paddr, len, data);
 }
 
@@ -103,9 +99,7 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t cache_read(paddr_t paddr, size_t len)
 {
     assert(len == 1 || len == 2 || len == 4);
-#ifdef CACHE_ENABLED
     hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
-#endif
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
     uint32_t inblock_addr = get_inblock_addr(paddr);
@@ -115,16 +109,12 @@ uint32_t cache_read(paddr_t paddr, size_t len)
         if(ls[i].valid_bit == 1 && ls[i].tag == tag)
         {
             // HIT
-#ifdef CACHE_ENABLED
             hw_mem_access_time_cache += HIT_ACCESS_TIME;
-#endif
             return read_line(inblock_addr, ls + i, len);
         }
     }
     // MISS
-#ifdef CACHE_ENABLED
     hw_mem_access_time_cache += MISS_ACCESS_TIME;
-#endif
     for(int i = 0; i < 8; ++i)
     {
         if(ls[i].valid_bit == 0)
@@ -140,3 +130,4 @@ uint32_t cache_read(paddr_t paddr, size_t len)
     return read_line(inblock_addr, ls + i, len);
 }
 
+#endif
