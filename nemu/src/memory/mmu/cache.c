@@ -72,10 +72,8 @@ static uint32_t read_line(uint32_t inblock_addr, Line* line, size_t len)
     return ret;
 }
 
-// write data to cache
-void cache_write(paddr_t paddr, size_t len, uint32_t data)
+static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
-    assert(len == 1 || len == 2 || len == 4);
     hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
@@ -97,13 +95,27 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data)
     // Write not allocate
     hw_mem_access_time_cache += MISS_ACCESS_TIME;
     hw_mem_write(paddr, len, data);
-    return;
 }
 
-// read data from cache
-uint32_t cache_read(paddr_t paddr, size_t len)
+// write data to cache
+void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
     assert(len == 1 || len == 2 || len == 4);
+    paddr_t next_baddr = paddr & (0xFFFFFFFF << 6) + 1 << 7;
+    int line_overflow = paddr + len - next_baddr;
+    if(line_overflow > 0)
+    {
+        _cache_write(next_baddr, line_overflow, data >> ((len - line_overflow) * 8));
+        _cache_write(paddr, len - line_overflow, data & (0xFFFFFFFF >> (len - line_overflow) * 8)));
+    }
+    else
+    {
+        _cache_write(paddr, len, data);
+    }
+}
+
+static uint32_t _cache_read(paddr_t paddr, size_t len)
+{
     hw_mem_access_time_no_cache += MISS_ACCESS_TIME;
     uint32_t set_index = get_set_index(paddr);
     uint32_t tag = get_tag(paddr);
@@ -132,6 +144,24 @@ uint32_t cache_read(paddr_t paddr, size_t len)
     int i = rand() % 8;
     load_block(paddr, ls + i);
     return read_line(inblock_addr, ls + i, len);
+}
+
+// read data from cache
+uint32_t cache_read(paddr_t paddr, size_t len)
+{
+    assert(len == 1 || len == 2 || len == 4);
+    paddr_t next_baddr = paddr & (0xFFFFFFFF << 6) + 1 << 7;
+    int line_overflow = paddr + len - next_baddr;
+    if(line_overflow > 0)
+    {
+        uint32_t high = _cache_read(next_baddr, line_overflow);
+        uint32_t low = _cache_read(paddr, len - line_overflow);
+        return high << ((len - line_overflow) * 8) + low;
+    }
+    else
+    {
+        return _cache_read(paddr, len);
+    }
 }
 
 #endif
