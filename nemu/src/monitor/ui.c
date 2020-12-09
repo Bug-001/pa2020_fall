@@ -8,6 +8,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+extern uint64_t hw_mem_access_time_cache;
+extern uint64_t hw_mem_access_time_no_cache;
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char *rl_gets()
 {
@@ -364,8 +367,9 @@ void ui_mainloop(bool autorun)
 
 		if (nemu_state == NEMU_STOP)
 		{
-// #ifdef CACHE_ENABLED
-//             printf("")
+#ifdef CACHE_ENABLED
+            printf("hw_mem_access_time_cache = %lld, hw_mem_access_time_no_cache = %lld\n", hw_mem_access_time_cache, hw_mem_access_time_no_cache);
+#endif
 			break;
 		}
 	}
