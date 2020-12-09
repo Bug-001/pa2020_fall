@@ -101,7 +101,7 @@ static void _cache_write(paddr_t paddr, size_t len, uint32_t data)
 void cache_write(paddr_t paddr, size_t len, uint32_t data)
 {
     assert(len == 1 || len == 2 || len == 4);
-    paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 7);
+    paddr_t next_baddr = (paddr & (0xFFFFFFFF << 6)) + (1 << 6);
     int line_overflow = paddr + len - next_baddr;
     if(line_overflow > 0)
     {
