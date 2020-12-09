@@ -26,7 +26,11 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 #ifdef CACHE_ENABLED
 		ret = cache_read(paddr, len);     // 通过cache进行读
 		temp = hw_mem_read(paddr, len);
-		assert(ret == temp);
+		if(ret != temp)
+		{
+		    printf("ret = %u, temp = %u\n", ret, temp);
+		    assert(0);
+		}
 #else
 		ret = hw_mem_read(paddr, len);
 #endif
