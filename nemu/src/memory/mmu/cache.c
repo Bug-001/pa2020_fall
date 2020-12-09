@@ -6,7 +6,7 @@
 #ifdef CACHE_ENABLED
 
 #define HIT_ACCESS_TIME 1
-#define MISS_ACCESS_TIME 1000
+#define MISS_ACCESS_TIME 10
 
 extern uint32_t hw_mem_read(paddr_t paddr, size_t len);
 extern void hw_mem_write(paddr_t paddr, size_t len, uint32_t data);
