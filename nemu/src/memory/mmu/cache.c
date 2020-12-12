@@ -151,6 +151,7 @@ static uint32_t _cache_read(paddr_t paddr, size_t len)
     }
     // cache set full
     int i = rand() % 8;
+    printf("rand = %d\n", i);
     load_block(paddr, ls + i);
     return read_line(inblock_addr, ls + i, len);
 }
