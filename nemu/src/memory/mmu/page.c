@@ -1,10 +1,11 @@
 #include "cpu/cpu.h"
 #include "memory/memory.h"
 
+#ifdef IA32_PAGE
 // translate from linear address to physical address
 paddr_t page_translate(laddr_t laddr)
 {
-#ifdef IA32_PAGE
+
 #ifndef TLB_ENABLED
 	uint32_t dir = laddr >> 22; // 高10位
 	uint32_t page = (laddr & 0x3FFFFF) >> 12; // 中间10位
@@ -18,5 +19,6 @@ paddr_t page_translate(laddr_t laddr)
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
 #endif
-#endif
+
 }
+#endif
