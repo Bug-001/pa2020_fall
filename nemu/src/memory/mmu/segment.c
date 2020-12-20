@@ -13,8 +13,6 @@ void load_sreg(uint8_t sreg)
 	/* TODO: load the invisibile part of the segment register 'sreg' by reading the GDT.
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
-	 // get_mem_addr()
-	 printf("gdtr.base = %08x\n", cpu.gdtr.base);
 	 uint32_t pdesc = cpu.gdtr.base + sizeof(SegDesc) * cpu.segReg[sreg].index;
 	 SegDesc desc;
 	 desc.val[0] = laddr_read(pdesc, 4);
