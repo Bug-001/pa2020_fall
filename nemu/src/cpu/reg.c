@@ -20,6 +20,12 @@ void print_reg()
 	printf("esi\t0x%08x\n", cpu.esi);
 	printf("edi\t0x%08x\n", cpu.edi);
 	printf("eip\t0x%08x\n", cpu.eip);
+	printf("es\t0x%08x\n", cpu.segReg[0].val);
+	printf("cs\t0x%08x\n", cpu.segReg[1].val);
+	printf("ss\t0x%08x\n", cpu.segReg[2].val);
+	printf("ds\t0x%08x\n", cpu.segReg[3].val);
+	printf("fs\t0x%08x\n", cpu.segReg[4].val);
+	printf("gs\t0x%08x\n", cpu.segReg[5].val);
 }
 
 int get_reg_val(const char *reg, bool *success)
