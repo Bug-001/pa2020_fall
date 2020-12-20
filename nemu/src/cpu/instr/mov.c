@@ -99,7 +99,7 @@ make_instr_func(mov_cr2r_l)
 {
     int len = 1;
     OPERAND cr, r;
-    r.data_size = 32;
+    cr.data_size = r.data_size = 32;
     len += modrm_rm(eip + 1, &r);
     
     MODRM temp;
@@ -118,7 +118,7 @@ make_instr_func(mov_r2cr_l)
 {
     int len = 1;
     OPERAND cr, r;
-    r.data_size = 32;
+    r.data_size = cr.data_size = 32;
     len += modrm_rm(eip + 1, &r);
     operand_read(&r);
     
