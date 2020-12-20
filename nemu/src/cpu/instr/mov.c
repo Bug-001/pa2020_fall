@@ -84,6 +84,10 @@ make_instr_func(mov_rm2s_w)
     rm.data_size = 16;
     len += modrm_rm(eip + 1, &rm);
     operand_read(&rm);
+    
+    MODRM temp;
+    temp.val = instr_fetch(eip + 1, 1);
+    s.addr = temp.rm;
     s.type = OPR_SREG;
     s.val = rm.val;
     operand_write(&s);
