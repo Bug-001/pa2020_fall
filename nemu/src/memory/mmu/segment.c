@@ -17,6 +17,7 @@ void load_sreg(uint8_t sreg)
 	 SegDesc desc;
 	 desc.val[0] = laddr_read(pdesc, 4);
 	 desc.val[1] = laddr_read(pdesc + 4, 4);
+	 printf("0x%08x%08x\n", desc.val[1], desc.val[0]);
 	 
 	 assert(desc.present == 1);
 	 assert(desc.granularity == 1);
