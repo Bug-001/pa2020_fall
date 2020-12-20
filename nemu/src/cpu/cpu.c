@@ -52,6 +52,7 @@ void exec(uint32_t n)
 	verbose = (n <= 100000);
 	int instr_len = 0;
 	bool hit_break_rerun = false;
+	static int count = 2000;
 
 	if (nemu_state == NEMU_BREAK)
 	{
@@ -66,7 +67,7 @@ void exec(uint32_t n)
 			instr_len = exec_inst();
 			cpu.eip += instr_len;
 			n--;
-			static int count = 2000;
+			
 			if(count)
 			{
 			    printf("eip = 0x%08x\n", cpu.eip);
