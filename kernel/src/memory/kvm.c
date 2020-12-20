@@ -2,6 +2,7 @@
 #include "x86.h"
 #include "memory.h"
 #include <string.h>
+#include <stdio.h>
 
 PDE kpdir[NR_PDE] align_to_page;				// kernel page directory
 PTE kptable[PHY_MEM / PAGE_SIZE] align_to_page; // kernel page tables
@@ -31,6 +32,7 @@ void init_page(void)
 			ptable->val = make_pte(pframe_idx << 12);
 			pframe_idx++;
 			ptable++;
+			printf("%d\n", ptable_idx);
 		}
 	}
 
