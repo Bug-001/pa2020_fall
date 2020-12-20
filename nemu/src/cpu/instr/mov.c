@@ -79,7 +79,6 @@ make_instr_func(mov_srm162r_l) {
 
 make_instr_func(mov_rm2s_w)
 {
-    int len = 1;
     OPERAND rm, s;
     rm.data_size = 16;
     len += modrm_rm(eip + 1, &rm);
@@ -90,5 +89,5 @@ make_instr_func(mov_rm2s_w)
     operand_write(&s);
     printf("oprtype=%d\n", rm.type);
     print_asm_2("mov", "", len, &rm, &s);
-    return len;
+    return 2;
 }
