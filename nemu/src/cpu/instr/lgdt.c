@@ -3,7 +3,7 @@
 static void instr_execute_1op()
 {
     operand_read(&opr_src);
-    printf("opr_src.val = %08x\n", opr_src.val);
+    printf("opr_src.addr = %08x\n", opr_src.addr);
     cpu.gdtr.limit = paddr_read(opr_src.val, 2);
     cpu.gdtr.base = paddr_read(opr_src.val + 2, 4);
     printf("limit = %08x\n", cpu.gdtr.limit);
