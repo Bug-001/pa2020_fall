@@ -48,7 +48,6 @@ void init_cpu(const uint32_t init_eip)
 void exec(uint32_t n)
 {
 	static BP *bp = NULL;
- 	static int count = 2000;
 	verbose = (n <= 100000);
 	int instr_len = 0;
 	bool hit_break_rerun = false;
