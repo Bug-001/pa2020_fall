@@ -91,6 +91,6 @@ make_instr_func(mov_rm2s_w)
     s.type = OPR_SREG;
     s.val = rm.val;
     operand_write(&s);
-    // print_asm_2("mov", "", len, &rm, &s);
+    print_asm_2("mov", "", len, &rm, &s);
     return len;
 }
