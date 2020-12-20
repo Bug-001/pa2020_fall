@@ -84,12 +84,9 @@ make_instr_func(mov_rm2s_w)
     rm.data_size = 16;
     len += modrm_rm(eip + 1, &rm);
     operand_read(&rm);
-    printf("oprtype=%d\n", rm.type);
     s.type = OPR_SREG;
     s.val = rm.val;
     operand_write(&s);
-    printf("oprtype=%d\n", rm.type);
-    print_asm_2("mov", "", len, &rm, &s);
-    printf("oprtype=%d\n", rm.type);
-    return 2;
+    // print_asm_2("mov", "", len, &rm, &s);
+    return len;
 }
