@@ -2,9 +2,8 @@
 
 make_instr_func(lgdt)
 {
-    int base = paddr_read(eip + 1, 4);
-    int limit = paddr_read(eip + 5, 2);
-    cpu.gdtr.base = base;
-    cpu.gdtr.limit = limit;
-    return 7;
+    int pa = paddr_read(eip + 2, 4);
+    cpu.gdtr.base = paddr_read(pa, 4);
+    cpu.gdtr.limit = paddr_read(pa + 4, 2);
+    return 6;
 }
