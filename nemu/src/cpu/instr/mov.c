@@ -79,6 +79,7 @@ make_instr_func(mov_srm162r_l) {
 
 make_instr_func(mov_rm2s_w)
 {
+    int len = 1;
     OPERAND rm, s;
     rm.data_size = 16;
     len += modrm_rm(eip + 1, &rm);
