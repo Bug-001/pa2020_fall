@@ -29,7 +29,7 @@ static int call_near_(bool indirect, uint32_t eip)
 
     // push(eIP);
     cpu.esp -= data_size / 8;
-    opr_push.sreg = SREG_CS;
+    opr_push.sreg = SREG_DS;
     opr_push.type = OPR_MEM;
     opr_push.addr = cpu.esp;
     opr_push.val = eip + len;
