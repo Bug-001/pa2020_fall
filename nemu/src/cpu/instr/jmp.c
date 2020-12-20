@@ -58,7 +58,15 @@ make_instr_func(jmp_far)
     opr_src.type = OPR_IMM;
     opr_src.addr = eip + 1;
     operand_read(&opr_src);
-    print_asm_1("jmp", "", 5, &opr_src);
+    
+    OPERAND cs;
+    cs.data_size = 16;
+    cs.type = OPR_SREG;
+    cs.addr = 1; // CS
+    cs.val = paddr_read(eip + 5, 2);
+    operand_write(&cs);
+    
+    print_asm_1("jmp", "", 7, &opr_src);
     cpu.eip = opr_src.val;
     return 0;
 }
