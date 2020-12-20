@@ -87,7 +87,7 @@ make_instr_func(mov_rm2s_w)
     
     MODRM temp;
     temp.val = instr_fetch(eip + 1, 1);
-    s.addr = temp.rm;
+    s.addr = temp.reg_opcode;
     s.type = OPR_SREG;
     s.val = rm.val;
     operand_write(&s);
