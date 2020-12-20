@@ -92,7 +92,7 @@ make_instr_func(mov_rm2s_w)
     s.val = rm.val;
     operand_write(&s);
     
-    load_sreg(s.val);
+    load_sreg(temp.reg_opcode);
     
     print_asm_2("mov", "", len, &rm, &s);
     return len;
