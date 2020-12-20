@@ -20,6 +20,9 @@ make_instr_func(mov_srm162r_l);
 
 make_instr_func(mov_rm2s_w);    // 0x8E
 
+make_instr_func(mov_cr2r_l);    // 0x0f 20
+make_instr_func(mov_r2cr_l);    // 0x0f 22
+
 make_instr_func(movs_v);
 make_instr_func(movs_b);
 
