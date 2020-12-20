@@ -60,5 +60,5 @@ make_instr_func(jmp_far)
     operand_read(&opr_src);
     print_asm_1("jmp", "", 5, &opr_src);
     cpu.eip = opr_src.val;
-    return 5;
+    return 0;
 }
