@@ -13,4 +13,18 @@ void load_sreg(uint8_t sreg)
 	/* TODO: load the invisibile part of the segment register 'sreg' by reading the GDT.
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
+	 uint32_t pdesc = cpu.gdtr.base + sizeof(SegDesc) * cpu.segReg[sreg].index;
+	 SegDesc desc;
+	 desc.val[0] = laddr_read(pdesc, 4);
+	 desc.val[1] = laddr_read(pdesc + 4, 4);
+	 
+	 assert(desc.present == 1);
+	 assert(desc.granularity == 1);
+	 cpu.segReg[sreg].base = desc.base_15_0 + (desc.base_23_16 << 16) + (desc.base_31_24 << 24);
+	 assert(cpu.segReg[sreg].base == 0);
+	 cpu.segReg[sreg].limit = desc.limit_15_0 + (desc.limit_19_16 << 16);
+	 assert(cpu.segReg[sreg].limit == 0xFFFFF);
+	 cpu.segReg[sreg].type = desc.type + (desc.segment_type << 4);
+	 cpu.segReg[sreg].privilege_level = desc.privilege_level;
+	 cpu.segReg[sreg].soft_use = desc.soft_use;
 }
