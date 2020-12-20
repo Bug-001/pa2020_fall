@@ -89,5 +89,6 @@ make_instr_func(mov_rm2s_w)
     operand_write(&s);
     printf("oprtype=%d\n", rm.type);
     print_asm_2("mov", "", len, &rm, &s);
+    printf("oprtype=%d\n", rm.type);
     return 2;
 }
