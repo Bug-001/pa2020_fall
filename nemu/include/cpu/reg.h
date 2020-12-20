@@ -21,6 +21,14 @@ typedef union {
 	uint32_t val; 	
 }CR0;
 
+typedef union {
+    struct {
+        uint32_t reserve :12;
+        uint32_t base :20;
+    }
+    uint32_t val;
+}CR3;
+
 typedef struct {
 	// the 16-bit visible part, i.e., the selector
 	union {
@@ -107,7 +115,6 @@ typedef struct
 	uint8_t dummy_seg[142]; // make __ref_ instructions safe to use
 #endif
 #ifdef IA32_PAGE
-	// control registers, todo: define type CR3
 	CR3 cr3;
 #else
 	uint8_t dummy_page[4];
