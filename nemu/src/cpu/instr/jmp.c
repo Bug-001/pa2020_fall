@@ -50,3 +50,15 @@ make_instr_func(jmp_near_indirect)
     
     return 0;
 }
+
+make_instr_func(jmp_far)
+{
+    assert(cpu.cr0.pe == 0);
+    opr_src.data_size = 32;
+    opr_src.type = OPR_IMM;
+    opr_src.addr = eip + 1;
+    operand_read(&opr_src);
+    print_asm_1("jmp", "", 5, &opr_src);
+    cpu.eip = opr_src.val;
+    return 5;
+}
