@@ -36,7 +36,6 @@ void init()
 /* Jump to init_cond() to continue initialization. */
 // need to plus the offset 0xc0000000 if using gcc-6, strange
 #ifdef IA32_PAGE
-    nemu_assert(0);
 	asm volatile("jmp *%0"
 				 :
 				 : "r"(init_cond + 0xc0000000));
