@@ -58,7 +58,7 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 	return laddr_read(vaddr, len);
 #else
 	uint32_t laddr = vaddr;
-	if( cpu.CR0.pe == 1 ) {
+	if( cpu.cr0.pe == 1 ) {
 		laddr = segment_translate(vaddr, sreg);
 	}
 	return laddr_read(laddr, len);
