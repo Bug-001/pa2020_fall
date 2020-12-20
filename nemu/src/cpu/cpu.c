@@ -48,7 +48,7 @@ void init_cpu(const uint32_t init_eip)
 void exec(uint32_t n)
 {
 	static BP *bp = NULL;
-// 	static int count = 2000;
+ 	static int count = 2000;
 	verbose = (n <= 100000);
 	int instr_len = 0;
 	bool hit_break_rerun = false;
@@ -66,11 +66,12 @@ void exec(uint32_t n)
 			instr_len = exec_inst();
 			cpu.eip += instr_len;
 			n--;
-// 			if(count)
-// 			{
-// 			    printf("eip = 0x%08x\n", cpu.eip);
-// 			    --count;
-// 			}
+			static int count = 2000;
+			if(count)
+			{
+			    printf("eip = 0x%08x\n", cpu.eip);
+			    --count;
+			}
 
 			if (hit_break_rerun)
 			{
