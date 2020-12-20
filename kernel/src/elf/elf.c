@@ -61,7 +61,7 @@ uint32_t loader()
 	uint32_t temp = mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 	char s[20];
 	sprintf(s, "%08x", temp);
-	Log(s);
+	// Log(s);
 #ifdef HAS_DEVICE_VGA
 	create_video_mapping();
 #endif
