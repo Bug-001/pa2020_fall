@@ -47,11 +47,16 @@ void init_cpu(const uint32_t init_eip)
 
 void exec(uint32_t n)
 {
+    
+    assert(0);
 	static BP *bp = NULL;
 	verbose = (n <= 100000);
 	int instr_len = 0;
 	bool hit_break_rerun = false;
 	
+	
+	printf("OK\n");
+    fflush(stdout);
 
 	if (nemu_state == NEMU_BREAK)
 	{
@@ -63,15 +68,21 @@ void exec(uint32_t n)
 	{
 		if(!is_nemu_hlt)
 		{
-			instr_len = exec_inst();
-			cpu.eip += instr_len;
+			//instr_len = exec_inst();
+			//cpu.eip += instr_len;
 			n--;
-// 			static int count = 2000;
-// 			if(count)
-// 			{
-// 			    printf("eip = 0x%08x\n", cpu.eip);
-// 			    --count;
-// 			}
+			
+			if(verbose) {
+			    printf(""eip = 0x%08x\n", cpu.eip");
+			    fflush(stdout);
+			}
+			static int count = 2000;
+			if(count)
+			{
+			    printf("eip = 0x%08x\n", cpu.eip);
+			    fflush(stdout);
+			    --count;
+			}
 
 			if (hit_break_rerun)
 			{
