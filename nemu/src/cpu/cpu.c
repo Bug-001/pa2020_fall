@@ -62,14 +62,17 @@ void exec(uint32_t n)
 	{
 		if(!is_nemu_hlt)
 		{
+		    
+			
+			if(verbose) {
+			    printf("eip = 0x%08x, READY\n", cpu.eip);
+			    fflush(stdout);
+			}
+			
 			instr_len = exec_inst();
 			cpu.eip += instr_len;
 			n--;
-			
-			if(verbose) {
-			    printf("eip = 0x%08x\n", cpu.eip);
-			    fflush(stdout);
-			}
+
 // 			static int count = 2000;
 // 			if(count)
 // 			{
@@ -143,7 +146,7 @@ int exec_inst()
 	// get the opcode
 	
 				if(verbose) {
-			    printf("eip = 0x%08x\n", cpu.eip);
+			    printf("eip = 0x%08x, GO!\n", cpu.eip);
 			    fflush(stdout);
 			}
 			
