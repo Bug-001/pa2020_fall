@@ -67,7 +67,6 @@ cmd_handler(cmd_si)
 			printf("Bad number: \e[0;31m%s\e[0m\n", steps);
 		}
 	}
-	assert(0);
 	return 0;
 }
 
