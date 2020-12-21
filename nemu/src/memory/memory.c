@@ -5,6 +5,8 @@
 #include <memory.h>
 #include <stdio.h>
 
+extern bool verbose;
+
 uint8_t hw_mem[MEM_SIZE_B];
 
 uint32_t hw_mem_read(paddr_t paddr, size_t len)
@@ -43,12 +45,37 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data)
 
 uint32_t laddr_read(laddr_t laddr, size_t len)
 {
-	return paddr_read(laddr, len);
+    assert(len == 1 || len == 2 || len == 4);
+#ifndef IA32_PAGE
+    return paddr_read(laddr, len);
+#else
+    paddr_t paddr = laddr;
+    if(cpu.cr0.pe == 1 && cpu.cr0.pg == 1)
+    {
+        // TODO: 数据跨页
+        paddr = page_translate(laddr);
+    }
+    if(verbose) {
+	    printf("paddr = 0x%08x\n", paddr);
+	    fflush(stdout);
+	}
+    return paddr_read(paddr, len);
+#endif
 }
 
 void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 {
+    assert(len == 1 || len == 2 || len == 4);
+#ifndef IA32_PAGE
 	paddr_write(laddr, len, data);
+#else
+    paddr_t paddr = laddr;
+    if(cpu.cr0.pe == 1 && cpu.cr0.pg == 1)
+    {
+        paddr = page_translate(laddr);
+    }
+    paddr_write(paddr, len, data);
+#endif
 }
 
 uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
@@ -60,6 +87,10 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 	uint32_t laddr = vaddr;
 	if( cpu.cr0.pe == 1 ) {
 		laddr = segment_translate(vaddr, sreg);
+	}
+	if(verbose) {
+	    printf("laddr = 0x%08x\n", laddr);
+	    fflush(stdout);
 	}
 	return laddr_read(laddr, len);
 #endif
