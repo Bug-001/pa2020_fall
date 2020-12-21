@@ -67,7 +67,7 @@ void exec(uint32_t n)
 			n--;
 			
 			if(verbose) {
-			    printf("eip = 0x%08x\n", cpu.eip");
+			    printf("eip = 0x%08x\n", cpu.eip);
 			    fflush(stdout);
 			}
 			static int count = 2000;
