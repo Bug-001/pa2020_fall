@@ -45,8 +45,6 @@ cmd_handler(cmd_q)
 
 cmd_handler(cmd_si)
 {
-    printf("OK\n");
-    fflush(stdout);
 	if (args == NULL)
 	{
 		exec(1);
