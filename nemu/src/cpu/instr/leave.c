@@ -17,7 +17,7 @@ make_instr_func(leave_v)
     s.type = OPR_MEM;
     s.addr = cpu.esp;
     s.data_size = data_size;
-    s.sreg = SREG_CS;
+    s.sreg = SREG_SS;
     
     // eBP <- Pop()
     operand_read(&s);

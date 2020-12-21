@@ -11,7 +11,7 @@ static void instr_execute_1op()
     s.addr = cpu.esp;
     s.val = opr_src.val;
     s.data_size = data_size;
-    s.sreg = SREG_DS;
+    s.sreg = SREG_SS;
     
     operand_write(&s);
 }

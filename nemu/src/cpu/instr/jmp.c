@@ -56,6 +56,7 @@ make_instr_func(jmp_far)
     assert(cpu.cr0.pe == 0);
     opr_src.data_size = 32;
     opr_src.type = OPR_IMM;
+    opr_src.sreg = SREG_CS;
     opr_src.addr = eip + 1;
     operand_read(&opr_src);
     

@@ -4,7 +4,7 @@ static int ret_near_(bool imm16)
 {
     OPERAND s;
     s.type = OPR_MEM;
-    s.sreg = SREG_CS;
+    s.sreg = SREG_SS;
     s.addr = cpu.esp;
     s.data_size = data_size;
     
