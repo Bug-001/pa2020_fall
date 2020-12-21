@@ -14,7 +14,7 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t offset = laddr & 0xFFF;
 	PDE* page_dir = (void*)(get_mem_addr() + cpu.cr3.base);
 	page_dir += dir;
-	assert(page_dir->present == 1);
+	//assert(page_dir->present == 1);
 	PTE* page_table = (void*)(get_mem_addr() + (page_dir->page_frame << 12));
 	page_table += page;
 	printf("Page Translate OK!\n");
