@@ -67,8 +67,6 @@ cmd_handler(cmd_si)
 			printf("Bad number: \e[0;31m%s\e[0m\n", steps);
 		}
 	}
-		printf("OK\n");
-    fflush(stdout);
 	return 0;
 }
 
@@ -351,6 +349,8 @@ void ui_mainloop(bool autorun)
 		{
 			if (strcmp(cmd, cmd_table[i].name) == 0)
 			{
+			    	printf("OK\n");
+    fflush(stdout);
 				if (cmd_table[i].handler(args) < 0)
 				{
 					// quit the ui mainloop
