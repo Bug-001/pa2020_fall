@@ -151,6 +151,10 @@ int exec_inst()
 			}
 			
 	opcode = instr_fetch(cpu.eip, 1);
+					if(verbose) {
+			    printf("opcode = 0x%02x, OK!\n", opcode);
+			    fflush(stdout);
+			}
 //printf("opcode = %x, eip = %x\n", opcode, cpu.eip);
 // instruction decode and execution
 #ifdef NEMU_REF_INSTR
