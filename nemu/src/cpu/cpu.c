@@ -69,6 +69,12 @@ void exec(uint32_t n)
 			}
 			
 			instr_len = exec_inst();
+			
+			if(verbose) {
+			    printf("READY!\n");
+			    fflush(stdout);
+			}
+			
 			cpu.eip += instr_len;
 			n--;
 			
