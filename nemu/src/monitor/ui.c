@@ -349,13 +349,13 @@ void ui_mainloop(bool autorun)
 		{
 			if (strcmp(cmd, cmd_table[i].name) == 0)
 			{
-			    	printf("OK\n");
-    fflush(stdout);
 				if (cmd_table[i].handler(args) < 0)
 				{
 					// quit the ui mainloop
 					return;
 				}
+							    	printf("OK\n");
+    fflush(stdout);
 				// stop searching for cmd and wait for the next user_cmd
 				break;
 			}
