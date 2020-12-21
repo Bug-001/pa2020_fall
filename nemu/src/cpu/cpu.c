@@ -62,6 +62,12 @@ void exec(uint32_t n)
 	{
 		if(!is_nemu_hlt)
 		{
+		    
+		    if(verbose) {
+			    printf("READY!\n");
+			    fflush(stdout);
+			}
+			
 			instr_len = exec_inst();
 			cpu.eip += instr_len;
 			n--;
@@ -70,13 +76,13 @@ void exec(uint32_t n)
 			    printf("eip = 0x%08x\n", cpu.eip);
 			    fflush(stdout);
 			}
-			static int count = 2000;
-			if(count)
-			{
-			    printf("eip = 0x%08x\n", cpu.eip);
-			    fflush(stdout);
-			    --count;
-			}
+// 			static int count = 2000;
+// 			if(count)
+// 			{
+// 			    printf("eip = 0x%08x\n", cpu.eip);
+// 			    fflush(stdout);
+// 			    --count;
+// 			}
 
 			if (hit_break_rerun)
 			{
