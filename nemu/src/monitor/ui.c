@@ -45,6 +45,8 @@ cmd_handler(cmd_q)
 
 cmd_handler(cmd_si)
 {
+    printf("OK\n");
+    fflush(stdout);
 	if (args == NULL)
 	{
 		exec(1);
@@ -312,8 +314,6 @@ cmd_handler(cmd_help)
 // the main loop of accepting user commands
 void ui_mainloop(bool autorun)
 {
-    printf("OK\n");
-    fflush(stdout);
 	if (autorun)
 	{
 		cmd_c("");
