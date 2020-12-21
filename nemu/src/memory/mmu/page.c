@@ -8,6 +8,7 @@ paddr_t page_translate(laddr_t laddr)
 
 #ifndef TLB_ENABLED
     printf("Page Translate!\n");
+    fflush(stdout);
 	uint32_t dir = laddr >> 22; // 高10位
 	uint32_t page = (laddr & 0x3FFFFF) >> 12; // 中间10位
 	uint32_t offset = laddr & 0xFFF;
@@ -17,6 +18,7 @@ paddr_t page_translate(laddr_t laddr)
 	PTE* page_table = (void*)(get_mem_addr() + (page_dir->page_frame << 12));
 	page_table += page;
 	printf("Page Translate OK!\n");
+	fflush(stdout);
 	return (page_table->page_frame << 12) + offset;
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
