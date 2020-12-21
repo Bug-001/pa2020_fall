@@ -7,7 +7,7 @@ paddr_t page_translate(laddr_t laddr)
 {
 
 #ifndef TLB_ENABLED
-    printf("Page Translate!\n");
+    printf("laddr = 0x%08x, Page Translate!\n", laddr);
     fflush(stdout);
 	uint32_t dir = laddr >> 22; // 高10位
 	uint32_t page = (laddr & 0x3FFFFF) >> 12; // 中间10位
