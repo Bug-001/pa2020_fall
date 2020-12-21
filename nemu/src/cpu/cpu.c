@@ -62,19 +62,7 @@ void exec(uint32_t n)
 	{
 		if(!is_nemu_hlt)
 		{
-		    
-		    if(verbose) {
-			    printf("READY!\n");
-			    fflush(stdout);
-			}
-			
 			instr_len = exec_inst();
-			
-			if(verbose) {
-			    printf("READY!\n");
-			    fflush(stdout);
-			}
-			
 			cpu.eip += instr_len;
 			n--;
 			
@@ -153,6 +141,12 @@ int exec_inst()
 {
 	uint8_t opcode = 0;
 	// get the opcode
+	
+				if(verbose) {
+			    printf("eip = 0x%08x\n", cpu.eip);
+			    fflush(stdout);
+			}
+			
 	opcode = instr_fetch(cpu.eip, 1);
 //printf("opcode = %x, eip = %x\n", opcode, cpu.eip);
 // instruction decode and execution
