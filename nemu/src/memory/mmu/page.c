@@ -12,6 +12,8 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t dir = laddr >> 22; // 高10位
 	uint32_t page = (laddr & 0x3FFFFF) >> 12; // 中间10位
 	uint32_t offset = laddr & 0xFFF;
+	printf("cpu.cr3.base = 0x%08x\n", cpu.cr3.base);
+	fflush(stdout);
 	PDE* page_dir = (void*)(get_mem_addr() + cpu.cr3.base);
 	page_dir += dir;
 	assert(page_dir->present == 1);
