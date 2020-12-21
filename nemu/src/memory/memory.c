@@ -55,10 +55,10 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
         // TODO: 数据跨页
         paddr = page_translate(laddr);
     }
-    if(verbose) {
-	    printf("paddr = 0x%08x\n", paddr);
-	    fflush(stdout);
-	}
+//     if(verbose) {
+// 	    printf("paddr = 0x%08x\n", paddr);
+// 	    fflush(stdout);
+// 	}
     return paddr_read(paddr, len);
 #endif
 }
@@ -88,10 +88,10 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 	if( cpu.cr0.pe == 1 ) {
 		laddr = segment_translate(vaddr, sreg);
 	}
-	if(verbose) {
-	    printf("laddr = 0x%08x\n", laddr);
-	    fflush(stdout);
-	}
+// 	if(verbose) {
+// 	    printf("laddr = 0x%08x\n", laddr);
+// 	    fflush(stdout);
+// 	}
 	return laddr_read(laddr, len);
 #endif
 
