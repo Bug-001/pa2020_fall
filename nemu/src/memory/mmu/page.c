@@ -17,7 +17,7 @@ paddr_t page_translate(laddr_t laddr)
 	printf("cpu.cr3.base = 0x%05x\n", cpu.cr3.base);
 	fflush(stdout);
 	
-	PDE* page_dir = (void*)(get_mem_addr() + cpu.cr3.base);
+	PDE* page_dir = (void*)(get_mem_addr() + (cpu.cr3.base << 22));
 	page_dir += dir;
 	
 	printf("page_dir = 0x%08x\n", page_dir->val);
