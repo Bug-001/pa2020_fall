@@ -354,8 +354,6 @@ void ui_mainloop(bool autorun)
 					// quit the ui mainloop
 					return;
 				}
-							    	printf("OK\n");
-    fflush(stdout);
 				// stop searching for cmd and wait for the next user_cmd
 				break;
 			}
