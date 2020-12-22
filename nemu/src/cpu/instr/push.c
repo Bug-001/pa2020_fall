@@ -46,6 +46,6 @@ make_instr_func(pusha)
         s.val = temp[i];
         operand_write(&s);
     }
-    print_asm_0("pusha", "", 1);
+    print_asm_0("pusha", data_size == 32 ? "d" : "", 1);
     return 1;
 }

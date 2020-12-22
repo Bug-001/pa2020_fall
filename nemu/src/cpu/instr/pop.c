@@ -42,6 +42,6 @@ make_instr_func(popa)
         }
         cpu.esp += data_size / 8;
     }
-    print_asm_0("popa", "", 1);
+    print_asm_0("popa", data_size == 32 ? "d" : "", 1);
     return 1;
 }
