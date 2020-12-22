@@ -37,11 +37,18 @@ uint32_t loader()
 	{
 		if (ph->p_type == PT_LOAD)
 		{
+		    // MODIFIED IN PA 3-3
+		    uint32_t paddr;
+#ifdef IA32_PAGE
+            paddr = mm_malloc((void *)ph->p_vaddr);
+#else
+            paddr = (void *)ph->p_vaddr;
+#endif
 /* TODO: copy the segment from the ELF file to its proper memory area */
-            memcpy((void *)ph->p_vaddr, (void *)elf + ph->p_offset, ph->p_filesz);
+            memcpy(paddr, (void *)elf + ph->p_offset, ph->p_filesz);
 
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
-            memset((void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+            memset(paddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
@@ -58,10 +65,7 @@ uint32_t loader()
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
-	uint32_t temp = mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
-	char s[20];
-	sprintf(s, "%08x", temp);
-	// Log(s);
+	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 #ifdef HAS_DEVICE_VGA
 	create_video_mapping();
 #endif
