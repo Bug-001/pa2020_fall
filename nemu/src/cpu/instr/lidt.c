@@ -1,8 +1,9 @@
 #include "cpu/instr.h"
 
-#ifdef IA32_INTR
+
 make_instr_func(lidt)
 {
+#ifdef IA32_INTR
 	int len = 1;
 	opr_src.data_size = data_size;
 	len += modrm_rm(eip + 1, &opr_src);
@@ -10,5 +11,5 @@ make_instr_func(lidt)
 	cpu.idtr.limit = paddr_read(opr_src.addr, 2);
     cpu.idtr.base = paddr_read(opr_src.addr + 2, 4);
     return len;
-}
 #endif
+}
