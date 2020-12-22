@@ -19,7 +19,7 @@ static void instr_execute_1op()
 make_instr_impl_1op(pop, r, v)
 make_instr_impl_1op(pop, rm, v)
 
-make_instr_func(pusha)
+make_instr_func(popa)
 {
     OPERAND s, r;
     
@@ -43,5 +43,5 @@ make_instr_func(pusha)
         cpu.esp += data_size / 8;
     }
     print_asm_0("popa", "", 1);
-
+    return 1;
 }

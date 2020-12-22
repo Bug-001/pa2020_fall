@@ -47,4 +47,5 @@ make_instr_func(pusha)
         operand_write(&s);
     }
     print_asm_0("pusha", "", 1);
+    return 1;
 }
