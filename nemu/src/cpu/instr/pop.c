@@ -18,3 +18,30 @@ static void instr_execute_1op()
 
 make_instr_impl_1op(pop, r, v)
 make_instr_impl_1op(pop, rm, v)
+
+make_instr_func(pusha)
+{
+    OPERAND s, r;
+    
+    s.type = OPR_MEM;
+    s.data_size = data_size;
+    s.sreg = SREG_SS;
+    
+    r.type = OPR_REG;
+    r.data_size = data_size;
+    
+    for(int i = 7; i >= 0; --i)
+    {
+        if(i != REG_ESP)
+        {
+            s.addr = cpu.esp;
+            operand_read(&s);
+            r.val = s.val;
+            r.addr = i;
+            operand_write(&r);
+        }
+        cpu.esp += data_size / 8;
+    }
+    print_asm_0("popa", "", 1);
+
+}

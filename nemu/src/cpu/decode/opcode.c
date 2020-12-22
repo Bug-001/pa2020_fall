@@ -25,7 +25,7 @@ instr_func opcode_entry[256] = {
     /* 0x54 - 0x57*/ push_r_v, push_r_v, push_r_v, push_r_v,
     /* 0x58 - 0x5b*/ pop_r_v, pop_r_v, pop_r_v, pop_r_v, 
     /* 0x5c - 0x5f*/ pop_r_v, pop_r_v, pop_r_v, pop_r_v, 
-    /* 0x60 - 0x63*/ inv, inv, inv, inv,
+    /* 0x60 - 0x63*/ pusha, popa inv, inv,
     /* 0x64 - 0x67*/ inv, inv, data_size_16, inv,
     /* 0x68 - 0x6b*/ push_i_v, imul_irm2r_v, push_i_b, imul_i8rm2r_v,
     /* 0x6c - 0x6f*/ inv, inv, inv, inv,
@@ -116,7 +116,7 @@ instr_func group_5_indirect_entry[8] =
     {inc_rm_v, dec_rm_v, call_near_indirect, inv, jmp_near_indirect, inv, push_rm_v, inv};
 
 instr_func group_7_entry[8] =
-    {inv, inv, lgdt, inv, inv, inv, inv, inv};
+    {inv, inv, lgdt, lidt, inv, inv, inv, inv};
 
 /* 0xd8 */
 instr_func group_x87_d8_entry[8] =
