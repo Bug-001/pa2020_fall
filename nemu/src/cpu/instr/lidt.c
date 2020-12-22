@@ -1,5 +1,6 @@
 #include "cpu/instr.h"
 
+#ifdef IA32_INTR
 make_instr_func(lidt)
 {
 	int len = 1;
@@ -10,3 +11,4 @@ make_instr_func(lidt)
     cpu.idtr.base = paddr_read(opr_src.addr + 2, 4);
     return len;
 }
+#endif
