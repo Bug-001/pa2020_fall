@@ -40,7 +40,7 @@ uint32_t loader()
 		    // MODIFIED IN PA 3-3
 		    uint32_t paddr;
 #ifdef IA32_PAGE
-            paddr = mm_malloc((void *)ph->p_vaddr, ph->p_memsz);
+            paddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 #else
             paddr = ph->p_vaddr;
 #endif
