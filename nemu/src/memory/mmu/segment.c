@@ -9,6 +9,7 @@ uint32_t segment_translate(uint32_t offset, uint8_t sreg)
     if(cpu.segReg[sreg].limit != 0xFFFFF)
     {
         printf("0x%08x\n", cpu.segReg[sreg].limit == 0xFFFFF);
+        fflush(stdout);
         assert(0);
     }
 	return cpu.segReg[sreg].base + offset;
