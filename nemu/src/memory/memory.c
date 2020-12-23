@@ -24,7 +24,6 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t paddr_read(paddr_t paddr, size_t len) 
 {
 	uint32_t ret = 0;
-// 	uint32_t temp = 0;
 #ifdef CACHE_ENABLED
 		ret = cache_read(paddr, len);     // 通过cache进行读
 #else
@@ -49,17 +48,25 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 #ifndef IA32_PAGE
     return paddr_read(laddr, len);
 #else
-    paddr_t paddr = laddr;
     if(cpu.cr0.pe == 1 && cpu.cr0.pg == 1)
     {
-        // TODO: 数据跨页
-        paddr = page_translate(laddr);
+        uint32_t nextpage_addr = (laddr & (0xFFFFFFFF << 12)) + (1 << 12);
+        int page_overflow = laddr + len - nextpage_addr;
+        if(page_overflow > 0)
+        {
+            uint32_t high = paddr_read(page_translate(nextpage_addr), page_overflow);
+            uint32_t low = paddr_read(page_translate(laddr), len - page_overflow);
+            return (high << ((len - page_overflow) * 8)) + low;
+        }
+        else
+        {
+            return paddr_read(page_translate(laddr), len);
+        }
     }
-//     if(verbose) {
-// 	    printf("paddr = 0x%08x\n", paddr);
-// 	    fflush(stdout);
-// 	}
-    return paddr_read(paddr, len);
+    else
+    {
+        return paddr_read(laddr, len);
+    }
 #endif
 }
 
@@ -75,6 +82,25 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
         paddr = page_translate(laddr);
     }
     paddr_write(paddr, len, data);
+    
+    if(cpu.cr0.pe == 1 && cpu.cr0.pg == 1)
+    {
+        uint32_t nextpage_addr = (laddr & (0xFFFFFFFF << 12)) + (1 << 12);
+        int page_overflow = laddr + len - nextpage_addr;
+        if(page_overflow > 0)
+        {
+            paddr_write(page_translate(nextpage_addr), page_overflow, data >> ((len - line_overflow) * 8));
+            paddr_write(page_translate(laddr), len - page_overflow, data & (0xFFFFFFFF >> (len - line_overflow) * 8));
+        }
+        else
+        {
+            paddr_write(page_translate(laddr), len, data);
+        }
+    }
+    else
+    {
+        paddr_write(laddr, len, data);
+    }
 #endif
 }
 
@@ -88,10 +114,6 @@ uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
 	if( cpu.cr0.pe == 1 ) {
 		laddr = segment_translate(vaddr, sreg);
 	}
-// 	if(verbose) {
-// 	    printf("laddr = 0x%08x\n", laddr);
-// 	    fflush(stdout);
-// 	}
 	return laddr_read(laddr, len);
 #endif
 
