@@ -67,6 +67,8 @@ make_instr_func(jmp_far)
     cs.val = paddr_read(eip + 5, 2);
     operand_write(&cs);
     
+    load_sreg(cs.addr);
+    
     print_asm_1("jmp", "", 7, &opr_src);
     cpu.eip = opr_src.val;
     return 0;
