@@ -89,8 +89,8 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
         int page_overflow = laddr + len - nextpage_addr;
         if(page_overflow > 0)
         {
-            paddr_write(page_translate(nextpage_addr), page_overflow, data >> ((len - line_overflow) * 8));
-            paddr_write(page_translate(laddr), len - page_overflow, data & (0xFFFFFFFF >> (len - line_overflow) * 8));
+            paddr_write(page_translate(nextpage_addr), page_overflow, data >> ((len - page_overflow) * 8));
+            paddr_write(page_translate(laddr), len - page_overflow, data & (0xFFFFFFFF >> (len - page_overflow) * 8));
         }
         else
         {
