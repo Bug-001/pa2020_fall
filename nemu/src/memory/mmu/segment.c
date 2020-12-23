@@ -5,7 +5,7 @@
 uint32_t segment_translate(uint32_t offset, uint8_t sreg)
 {
     assert(cpu.segReg[sreg].base == 0);
-    assert(cpu.segReg[sreg].limit == 0xFFFFF);
+    // assert(cpu.segReg[sreg].limit == 0xFFFFF);
 	return cpu.segReg[sreg].base + offset;
 }
 
