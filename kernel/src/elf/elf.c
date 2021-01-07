@@ -41,7 +41,7 @@ uint32_t loader()
 		    uint32_t paddr;
 #ifdef IA32_PAGE
             paddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-            Log("A program segment starting from vaddr 0x%08x was mapped to paddr 0x%08x.\n", ph->p_vaddr, paddr);
+            Log("Loading program segment from vaddr 0x%08x to paddr 0x%08x, which size is 0x%x bytes.", ph->p_vaddr, paddr, ph->p_memsz);
 #else
             paddr = ph->p_vaddr;
 #endif
