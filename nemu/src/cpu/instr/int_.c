@@ -14,7 +14,7 @@ make_instr_func(int_)
     OPERAND temp;
     temp.type = OPR_IMM;
     temp.addr = eip + 1;
-    temp.size = 8;
+    temp.data_size = 8;
     temp.sreg = SREG_CS;
     operand_read(&temp);
     raise_sw_intr(temp.val);
