@@ -66,7 +66,8 @@ uint32_t loader()
 	volatile uint32_t entry = elf->e_entry;
 
 #ifdef IA32_PAGE
-	uint32_t stack_paddr = mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
+    mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
+	// uint32_t stack_paddr = mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 	// Log("Stack generated at paddr 0x%08x, which takes up 0x%x B.", stack_paddr, STACK_SIZE);
 #ifdef HAS_DEVICE_VGA
 	create_video_mapping();
