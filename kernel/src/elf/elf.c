@@ -41,7 +41,7 @@ uint32_t loader()
 		    uint32_t paddr;
 #ifdef IA32_PAGE
             paddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-            Log("Segment loaded from vaddr 0x%08x to paddr 0x%08x, which takes up 0x%x B.", ph->p_vaddr, paddr, ph->p_memsz);
+            // Log("Segment loaded from vaddr 0x%08x to paddr 0x%08x, which takes up 0x%x B.", ph->p_vaddr, paddr, ph->p_memsz);
 #else
             paddr = ph->p_vaddr;
 #endif
@@ -67,7 +67,7 @@ uint32_t loader()
 
 #ifdef IA32_PAGE
 	uint32_t stack_paddr = mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
-	Log("Stack generated at paddr 0x%08x, which takes up 0x%x B.", stack_paddr, STACK_SIZE);
+	// Log("Stack generated at paddr 0x%08x, which takes up 0x%x B.", stack_paddr, STACK_SIZE);
 #ifdef HAS_DEVICE_VGA
 	create_video_mapping();
 #endif
