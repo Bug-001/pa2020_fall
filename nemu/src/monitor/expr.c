@@ -304,7 +304,7 @@ static uint32_t calculate_1op(int op, uint32_t val, bool *success)
     switch(op)
     {
         case NEG: return -val;
-        case DEREF: return vaddr_read(val, 0, 4); // DEBUG: sreg
+        case DEREF: return vaddr_read(val, SREG_DS, 4);
         case NOT: return !val;
         default: *success = false; return 1919;
     }

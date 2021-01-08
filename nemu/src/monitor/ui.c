@@ -248,7 +248,7 @@ cmd_handler(cmd_x)
 	}
 	while(N--)
 	{
-	    printf("0x%08x, ", paddr_read(val, 4));
+	    printf("0x%08x, ", vaddr_read(val, SREG_DS, 4));
 	    val += 4;
 	}
 	printf("\n");
