@@ -4,6 +4,10 @@
 #include "nemu.h"
 #include "device/i8259_pic.h"
 
+#define INTR_GATE 14
+#define TRAP_GATE 15
+#define TASK_GATE 5
+
 typedef union GateDescriptor {
 	struct
 	{

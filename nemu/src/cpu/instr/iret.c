@@ -2,31 +2,14 @@
 
 make_instr_func(iret)
 {
-    if(cpu.cr0.pe == 0)
-    {
-        // OPERAND 
-        if(data_size == 32)
-        {
-            // EIP <- Pop()
-        }
-        else
-        {
-            // IP <- Pop()
-        }
-        // CS <- Pop()
-        if(data_size == 32)
-        {
-            // EFLAGS <- Pop()
-        }
-        else
-        {
-            
-        }
-    }
-    else
-    {
-        
-    }
+    assert(cpu.cr0.pe == 1);
+    cpu.eip = vaddr_read(cpu.esp, SREG_SS, 4);
+    cpu.esp += 4;
+    cpu.cs = vaddr_read(cpu.esp, SREG_SS, 4);
+    cpu.esp += 4;
+    load_sreg(SREG_CS);
+    cpu.eflags.val = vaddr_read(cpu.esp, SREG_SS, 4);
+    cpu.esp += 4;
     print_asm_0("iret", data_size == 32 ? "d" : "", 1);
     return 1;
 }
