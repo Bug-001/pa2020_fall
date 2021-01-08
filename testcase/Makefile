@@ -6,7 +6,7 @@ CFLAGS := -ggdb3 -MMD -MP -Wall -m32 -march=i386 -fno-builtin -fno-stack-protect
 
 #LDFLAGS := -m elf_i386 -e start -Ttext=0x30000
 #LDFLAGS := -m elf_i386 -e start -Ttext=0x100000
-LDFLAGS := -m elf_i386 -e start -Ttext=0x8048000
+LDFLAGS := -m elf_i386 -e start -Ttext=0x9048000
 #LDFLAGS := -m elf_i386 -e start
 
 SFILES := $(shell find src/ -name "*.S")
