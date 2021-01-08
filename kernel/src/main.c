@@ -53,6 +53,7 @@ void init()
 void init_cond()
 {
 #ifdef IA32_INTR
+    BREAK_POINT;
 	/* Reset the GDT, since the old GDT in start.S cannot be used in the future. */
 	init_segment();
 
