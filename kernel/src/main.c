@@ -55,12 +55,12 @@ void init_cond()
 #ifdef IA32_INTR
 	/* Reset the GDT, since the old GDT in start.S cannot be used in the future. */
 	init_segment();
-
+	
 	/* Set the IDT by setting up interrupt and exception handlers.
 	 * Note that system call is the only exception implemented in NEMU.
 	 */
 	init_idt();
-
+    
 	/* Enable interrupts. */
 	sti();
 #endif
@@ -107,6 +107,6 @@ void init_cond()
 
 	// asm volatile(".byte 0x82" : : "a"(2));
 	/* Here we go! */
-	BREAK_POINT;
+	// BREAK_POINT;
 	((void (*)(void))eip)();
 }
