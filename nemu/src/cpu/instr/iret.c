@@ -5,7 +5,7 @@ make_instr_func(iret)
     assert(cpu.cr0.pe == 1);
     cpu.eip = vaddr_read(cpu.esp, SREG_SS, 4);
     cpu.esp += 4;
-    cpu.cs = vaddr_read(cpu.esp, SREG_SS, 4);
+    cpu.cs.val = vaddr_read(cpu.esp, SREG_SS, 4);
     cpu.esp += 4;
     load_sreg(SREG_CS);
     cpu.eflags.val = vaddr_read(cpu.esp, SREG_SS, 4);
