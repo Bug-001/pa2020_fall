@@ -17,8 +17,9 @@ make_instr_func(int_)
     temp.data_size = 8;
     temp.sreg = SREG_CS;
     operand_read(&temp);
-    raise_sw_intr(temp.val);
     print_asm_1("int", "", 2, &temp);
+    raise_sw_intr(temp.val);
+    
     
     return 0;
 }
