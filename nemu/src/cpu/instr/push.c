@@ -28,6 +28,7 @@ make_instr_func(pusha)
     s.type = OPR_MEM;
     s.data_size = data_size;
     s.sreg = SREG_SS;
+    s.addr = cpu.esp;
     
     r.type = OPR_REG;
     r.data_size = data_size;
@@ -42,10 +43,11 @@ make_instr_func(pusha)
     temp[REG_ESP] = cpu.esp;
     for(int i = 0; i < 8; ++i)
     {
-        cpu.esp -= data_size / 8;
+        s.addr -= data_size / 8;
         s.val = temp[i];
         operand_write(&s);
     }
+    cpu.esp = s.addr;
     print_asm_0("pusha", data_size == 32 ? "d" : "", 1);
     return 1;
 }

@@ -20,6 +20,5 @@ make_instr_func(int_)
     print_asm_1("int", "", 2, &temp);
     raise_sw_intr(temp.val);
     
-    
     return 0;
 }
