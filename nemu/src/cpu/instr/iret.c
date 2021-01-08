@@ -2,6 +2,7 @@
 
 make_instr_func(iret)
 {
+    print_asm_0("iret", data_size == 32 ? "d" : "", 1);
     assert(cpu.cr0.pe == 1);
     cpu.eip = vaddr_read(cpu.esp, SREG_SS, 4);
     cpu.esp += 4;
@@ -10,6 +11,5 @@ make_instr_func(iret)
     load_sreg(SREG_CS);
     cpu.eflags.val = vaddr_read(cpu.esp, SREG_SS, 4);
     cpu.esp += 4;
-    print_asm_0("iret", data_size == 32 ? "d" : "", 1);
-    return 1;
+    return 0;
 }
