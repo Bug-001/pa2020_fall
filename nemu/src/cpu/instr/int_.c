@@ -15,6 +15,8 @@ make_instr_func(int_)
     
     OPERAND temp;
     temp.val = intr_no;
+    temp.type = OPR_IMM;
+    
     print_asm_1("int", "", 2, &temp);
     
     return 0;
