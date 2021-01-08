@@ -21,6 +21,7 @@ void init_cond();
  */
 void init()
 {
+    BREAK_POINT;
 #ifdef IA32_PAGE
 	/* We must set up kernel virtual memory first because our kernel thinks it 
 	 * is located at 0xc0030000, which is set by the linking options in Makefile.
@@ -53,6 +54,7 @@ void init()
 void init_cond()
 {
 #ifdef IA32_INTR
+BREAK_POINT;
 	/* Reset the GDT, since the old GDT in start.S cannot be used in the future. */
 	init_segment();
 
@@ -60,7 +62,7 @@ void init_cond()
 	 * Note that system call is the only exception implemented in NEMU.
 	 */
 	init_idt();
-
+    
 	/* Enable interrupts. */
 	sti();
 #endif
