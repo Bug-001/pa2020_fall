@@ -312,6 +312,7 @@ cmd_handler(cmd_help)
 // the main loop of accepting user commands
 void ui_mainloop(bool autorun)
 {
+    ref_use = 1;
 	if (autorun)
 	{
 		cmd_c("");
