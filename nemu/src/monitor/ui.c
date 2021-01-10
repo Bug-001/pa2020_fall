@@ -309,6 +309,8 @@ cmd_handler(cmd_help)
 	return 0;
 }
 
+extern int ref_use;
+
 // the main loop of accepting user commands
 void ui_mainloop(bool autorun)
 {
