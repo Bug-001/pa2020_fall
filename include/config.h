@@ -1,7 +1,7 @@
 #ifndef __PA_CONFIG_H__
 #define __PA_CONFIG_H__
 
-//#define DEBUG
+#define DEBUG
 //#define NEMU_REF_INSTR
 
 // PA 3
