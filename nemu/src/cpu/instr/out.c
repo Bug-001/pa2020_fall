@@ -11,7 +11,7 @@ static int out(int size)
     A.addr = REG_EAX;
     A.data_size = size;
     
-    print_asm_2("out", "", &DX, &A);
+    print_asm_2("out", "", 1, &DX, &A);
     
     operand_read(&A);
     operand_read(&DX);

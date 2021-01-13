@@ -11,7 +11,7 @@ static int in(int size)
     A.addr = REG_EAX;
     A.data_size = size;
     
-    print_asm_2("in", "", &DX, &A);
+    print_asm_2("in", "", 1, &DX, &A);
     
     operand_read(&DX);
     A.val = pio_read(DX.val, size);
