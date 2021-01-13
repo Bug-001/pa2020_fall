@@ -25,7 +25,6 @@ uint32_t loader()
 	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
 	elf = (void *)buf;
 	Log("ELF loading from hard disk.");
-	BREAK_POINT;
 #else
 	elf = (void *)0x0;
 	Log("ELF loading from ram disk.");
@@ -46,11 +45,16 @@ uint32_t loader()
 #else
             paddr = ph->p_vaddr;
 #endif
+
+#ifdef HAS_DEVICE_IDE
+            ide_read((void*)paddr, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz);
+#else
 /* TODO: copy the segment from the ELF file to its proper memory area */
             memcpy((void*)paddr, (void *)elf + ph->p_offset, ph->p_filesz);
-
+#endif
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
             memset((void*)paddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
