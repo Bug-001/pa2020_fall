@@ -33,7 +33,7 @@
 asm_do_irq:
 	pushal
 
-	pushl %esp		# ???
+	# pushl %esp		# ???
 	call irq_handle
 	
 	addl $4, %esp
