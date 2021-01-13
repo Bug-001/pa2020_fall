@@ -14,7 +14,7 @@ static int in(int size)
     print_asm_2("in", "", 1, &DX, &A);
     
     operand_read(&DX);
-    A.val = pio_read(DX.val, size);
+    A.val = pio_read(DX.val, size / 8);
     operand_write(&A);
     
     return 1;

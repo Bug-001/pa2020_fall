@@ -15,7 +15,7 @@ static int out(int size)
     
     operand_read(&A);
     operand_read(&DX);
-    pio_write(DX.val, size, A.val);
+    pio_write(DX.val, size / 8, A.val);
     
     return 1;
 }
