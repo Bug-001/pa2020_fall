@@ -10,14 +10,13 @@ PDE *get_updir();
 
 void create_video_mapping()
 {
-
-	/* TODO: create an identical mapping from virtual memory area
+	/* create an identical mapping from virtual memory area
 	 * [0xa0000, 0xa0000 + SCR_SIZE) to physical memeory area
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
-
-	panic("please implement me");
+    PDE* p = get_updir();
+    
 }
 
 void video_mapping_write_test()
