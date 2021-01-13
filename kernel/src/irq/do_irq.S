@@ -32,7 +32,7 @@
 
 asm_do_irq:
 	pushal
-
+    BREAK_POINT
 	# pushl %esp		# ???
 	call irq_handle
 	
