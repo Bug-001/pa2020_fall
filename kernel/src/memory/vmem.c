@@ -19,13 +19,10 @@ void create_video_mapping()
 	 */
 	 Log("vmem = 0x%x", (int)vmem_table);
     PDE* pdir = get_updir();
-    // memcpy(vmem_table, (void *)(pdir[VMEM_ADDR / PT_SIZE].page_frame << 12), sizeof(vmem_table));
-    // assert(pdir[VMEM_ADDR / PT_SIZE].present == 1);
     pdir[VMEM_ADDR / PT_SIZE].val = make_pde(va_to_pa(vmem_table));
-    // PTE* ptable = (PTE *)(pdir[VMEM_ADDR / PT_SIZE].page_frame << 12);
     uint32_t pframe_idx = VMEM_ADDR >> 12;
     PTE* ptable = vmem_table + (pframe_idx & 0x3ff);
-    Log("ptable = 0x%p", ptable);
+    Log("ptable = %p", ptable);
     for(int cnt = 0; cnt < NR_VPT; ++cnt)
     {
         ptable->val = make_pte(va_to_pa(pframe_idx << 12));
