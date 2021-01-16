@@ -17,7 +17,7 @@ void create_video_mapping()
 	 */
     PDE* pdir = get_updir();
     assert(pdir[VMEM_ADDR / PT_SIZE].present == 1);
-    PTE* ptable = pdir[VMEM_ADDR / PT_SIZE].pframe_idx << 12;
+    PTE* ptable = pdir[VMEM_ADDR / PT_SIZE].page_frame << 12;
     uint32_t pframe_idx = VMEM_ADDR >> 12;
     for(int cnt = 0; cnt < NR_PT; ++cnt){
         ptable->val = make_pte(pframe_idx << 12);
