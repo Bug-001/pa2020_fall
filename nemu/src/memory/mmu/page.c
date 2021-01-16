@@ -21,7 +21,6 @@ paddr_t page_translate(laddr_t laddr)
 	}
 	PTE* page_table = (void*)(get_mem_addr() + (page_dir->page_frame << 12));
 	page_table += page;
-	assert(page_table->present == 1);
 	if(page_table->present != 1)
 	{
 	    printf("page_table->present != 1, laddr = 0x%08x\n", laddr);
