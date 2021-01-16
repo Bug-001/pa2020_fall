@@ -36,6 +36,7 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 	else
 	{
 	    ret = mmio_read(paddr, len, map_NO);
+	    printf("MMIO_READ!\n");
 	}
 	return ret;
 }
