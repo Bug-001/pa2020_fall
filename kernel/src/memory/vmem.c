@@ -16,7 +16,7 @@ void create_video_mapping()
 	 * [0xa0000, 0xa0000 + SCR_SIZE) for user program. You may define
 	 * some page tables to create this mapping.
 	 */
-    PDE* pdir = get_updir();
+    PDE* pdir = va_to_pa(get_updir());
     memcpy(vmem_table, (void *)(pdir[VMEM_ADDR / PT_SIZE].page_frame << 12), sizeof(vmem_table));
     // assert(pdir[VMEM_ADDR / PT_SIZE].present == 1);
     pdir[VMEM_ADDR / PT_SIZE].val = make_pde(va_to_pa(vmem_table));
