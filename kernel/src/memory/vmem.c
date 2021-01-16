@@ -22,7 +22,7 @@ void create_video_mapping()
     // PTE* ptable = (PTE *)(pdir[VMEM_ADDR / PT_SIZE].page_frame << 12);
     uint32_t pframe_idx = VMEM_ADDR >> 12;
     for(int cnt = 0; cnt < SCR_SIZE / PAGE_SIZE; ++cnt){
-        vmem_table[cnt] = make_pte(pframe_idx << 12);
+        vmem_table[cnt].val = make_pte(pframe_idx << 12);
         ++pframe_idx;
         // ++ptable;
     }
