@@ -35,6 +35,7 @@ int get_fps()
  * */
 void main_loop(void)
 {
+    BREAK_POINT;
 	int now = 0, target;
 	int num_draw = 0;
 	bool redraw;
