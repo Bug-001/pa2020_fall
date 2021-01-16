@@ -25,6 +25,10 @@ paddr_t page_translate(laddr_t laddr)
 	}
 	PTE* page_table = (void*)(get_mem_addr() + (page_dir->page_frame << 12));
 	page_table += page;
+	if(verbose){
+	    printf("page_table = 0x%x\n", page_table - get_mem_addr());
+	    fflush(stdout);
+	}
 	assert(page_table->present == 1);
 	if(page_table->present != 1)
 	{
