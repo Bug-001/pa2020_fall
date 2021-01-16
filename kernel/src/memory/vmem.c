@@ -17,7 +17,7 @@ void create_video_mapping()
 	 * some page tables to create this mapping.
 	 */
     PDE* pdir = get_updir();
-    memcpy(vmem_table, (void *)pdir->page_frame << 12, sizeof(PTE) * NR_PTE);
+    memcpy(vmem_table, (void *)(pdir->page_frame << 12), sizeof(PTE) * NR_PTE);
     // assert(pdir[VMEM_ADDR / PT_SIZE].present == 1);
     pdir[VMEM_ADDR / PT_SIZE].val = make_pde(vmem_table);
     // PTE* ptable = (PTE *)(pdir[VMEM_ADDR / PT_SIZE].page_frame << 12);
