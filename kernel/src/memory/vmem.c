@@ -26,7 +26,7 @@ void create_video_mapping()
     uint32_t pframe_idx = VMEM_ADDR >> 12;
     PTE* ptable = vmem_table + (pframe_idx & 0x3ff) / 4;
     Log("ptable = 0x%x", (int)ptable);
-    for(int cnt = 0; cnt < NR_VPT; ++cnt)
+    for(int cnt = 0; cnt < 16; ++cnt)
     {
         ptable->val = make_pte(va_to_pa(pframe_idx << 12));
         ++pframe_idx;
