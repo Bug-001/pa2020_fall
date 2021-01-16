@@ -18,7 +18,7 @@ void create_video_mapping()
 	 */
     PDE* pdir = get_updir();
     uint32_t pframe_idx = VMEM_ADDR >> 12;
-    pdir[VMEM_ADDR / PAGE_SIZE].val = make_pde(vmem_table);
+    pdir[VMEM_ADDR / PT_SIZE].val = make_pde(vmem_table);
     for(int cnt = 0; cnt < NR_PT; ++cnt){
         vmem_table[cnt].val = make_pte(pframe_idx << 12);
         ++pframe_idx;
