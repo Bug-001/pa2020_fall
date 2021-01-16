@@ -40,7 +40,6 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 	return ret;
 }
 
-
 void paddr_write(paddr_t paddr, size_t len, uint32_t data) 
 {
     int map_NO = is_mmio(paddr);
