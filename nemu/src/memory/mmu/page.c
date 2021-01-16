@@ -29,7 +29,11 @@ paddr_t page_translate(laddr_t laddr)
 	    printf("page_table = 0x%x\n", (void *)page_table - (void *)get_mem_addr());
 	    fflush(stdout);
 	}
-	assert(page_table->present == 1);
+	// assert(page_table->present == 1);
+	int sls = page_table->present;
+	if(verbose){
+	    printf("page_table->present = %d\n", sls);
+	}
 	if(page_table->present != 1)
 	{
 	    printf("page_table->present != 1, laddr = 0x%08x\n", laddr);
