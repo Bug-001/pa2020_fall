@@ -19,32 +19,14 @@ paddr_t page_translate(laddr_t laddr)
 	    fflush(stdout);
 	    assert(page_dir->present == 1);
 	}
-	if(verbose){
-	    printf("page_frame = 0x%x\n", page_dir->page_frame);
-	    fflush(stdout);
-	}
 	PTE* page_table = (void*)(get_mem_addr() + (page_dir->page_frame << 12));
 	page_table += page;
-	if(verbose){
-	    printf("page_table = 0x%x\n", (void *)page_table - (void *)get_mem_addr());
-	    fflush(stdout);
-	}
-	// assert(page_table->present == 1);
-	assert(page_table);
-	int sls = page_table->present;
-	if(verbose){
-	    printf("page_table->present = %d\n", sls);
-	    fflush(stdout);
-	}
+	assert(page_table->present == 1);
 	if(page_table->present != 1)
 	{
 	    printf("page_table->present != 1, laddr = 0x%08x\n", laddr);
 	    fflush(stdout);
 	    assert(page_table->present == 1);
-	}
-	if(verbose){
-	    printf("laddr 0x%08x to paddr 0x%08x\n", laddr, (page_table->page_frame << 12) + offset);
-	    fflush(stdout);
 	}
 	return (page_table->page_frame << 12) + offset;
 #else
