@@ -43,7 +43,7 @@ paddr_t page_translate(laddr_t laddr)
 	    assert(page_table->present == 1);
 	}
 	if(verbose){
-	    printf("paddr = 0x%08x\n", (page_table->page_frame << 12) + offset);
+	    printf("laddr 0x%08x to paddr 0x%08x\n", laddr, (page_table->page_frame << 12) + offset);
 	    fflush(stdout);
 	}
 	return (page_table->page_frame << 12) + offset;
