@@ -42,11 +42,11 @@ paddr_t page_translate(laddr_t laddr)
 	    fflush(stdout);
 	    assert(page_table->present == 1);
 	}
-	return (page_table->page_frame << 12) + offset;
-		if(verbose){
-	    printf("++++++++++++\n");
+	if(verbose){
+	    printf("paddr = 0x%08x\n", (page_table->page_frame << 12) + offset);
 	    fflush(stdout);
 	}
+	return (page_table->page_frame << 12) + offset;
 #else
 	return tlb_read(laddr) | (laddr & PAGE_MASK);
 #endif
