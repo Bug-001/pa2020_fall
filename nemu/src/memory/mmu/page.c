@@ -30,9 +30,14 @@ paddr_t page_translate(laddr_t laddr)
 	    fflush(stdout);
 	}
 	// assert(page_table->present == 1);
+	if(verbose){
+	    printf("++++++++++++\n");
+	    fflush(stdout);
+	}
 	int sls = page_table->present;
 	if(verbose){
 	    printf("page_table->present = %d\n", sls);
+	    fflush(stdout);
 	}
 	if(page_table->present != 1)
 	{
