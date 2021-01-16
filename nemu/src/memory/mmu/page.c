@@ -1,6 +1,8 @@
 #include "cpu/cpu.h"
 #include "memory/memory.h"
 
+extern bool verbose;
+
 #ifdef IA32_PAGE
 // translate from linear address to physical address
 paddr_t page_translate(laddr_t laddr)
@@ -16,6 +18,9 @@ paddr_t page_translate(laddr_t laddr)
 	    printf("page_dir->present != 1, laddr = 0x%08x\n", laddr);
 	    fflush(stdout);
 	    assert(page_dir->present == 1);
+	}
+	if(verbose){
+	    printf("page_frame = %d\n", page_dir->page_frame);
 	}
 	PTE* page_table = (void*)(get_mem_addr() + (page_dir->page_frame << 12));
 	page_table += page;
