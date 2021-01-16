@@ -3,7 +3,7 @@ NEWLIBC_DIR = $(LIB_COMMON_DIR)/newlib
 
 #GAME = typing
 #GAME = nemu-pal
-GAME = credits
+#GAME = credits
 
 CC = gcc
 CFLAGS = -m32 -MMD -Wall -Werror \
