@@ -25,7 +25,7 @@ void create_video_mapping()
     Log("pframe_idx = 0x%x", pframe_idx);
     for(int cnt = 0; cnt < NR_VPT; ++cnt)
     {
-        Log("%p to %p", (void*)va_to_pa(pframe_idx << 12), )
+        // Log("%p to %p", (void*)va_to_pa(pframe_idx << 12),
         ptable->val = make_pte(va_to_pa(pframe_idx << 12));
         ++pframe_idx;
         ++ptable;
