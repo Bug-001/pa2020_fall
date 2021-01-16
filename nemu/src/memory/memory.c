@@ -24,22 +24,39 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t paddr_read(paddr_t paddr, size_t len) 
 {
 	uint32_t ret = 0;
+	int map_NO = is_mmio(paddr);
+	if(map_NO == -1)
+	{
 #ifdef CACHE_ENABLED
 		ret = cache_read(paddr, len);     // 通过cache进行读
 #else
 		ret = hw_mem_read(paddr, len);
 #endif
+	}
+	else
+	{
+	    ret = mmio_read(paddr, len, map_NO);
+	}
 	return ret;
 }
 
 
 void paddr_write(paddr_t paddr, size_t len, uint32_t data) 
 {
+    int map_NO = is_mmio(paddr);
+    if(map_NO == -1)
+    {
 #ifdef CACHE_ENABLED
 		cache_write(paddr, len, data);    // 通过cache进行写
 #else
 		hw_mem_write(paddr, len, data);
 #endif
+    }
+    else
+    {
+        mmio_write(paddr, len, data, map_NO);
+    }
+
 }
 
 uint32_t laddr_read(laddr_t laddr, size_t len)
