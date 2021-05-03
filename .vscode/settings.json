@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "cmath": "c",
-        "functional": "c"
+        "functional": "c",
+        "sdl.h": "c",
+        "elf.h": "c"
     }
 }
